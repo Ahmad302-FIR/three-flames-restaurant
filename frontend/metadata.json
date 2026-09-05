@@ -1,0 +1,6 @@
+{
+  "name": "Three Flames Restaurant",
+  "description": "Premium Pakistani BBQ, Sajji, Karahi & Traditional Flavors dining and online ordering platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

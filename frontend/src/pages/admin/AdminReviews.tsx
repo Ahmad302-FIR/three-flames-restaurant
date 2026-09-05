@@ -1,0 +1,228 @@
+import React, { useState, useEffect } from 'react';
+import { adminService } from '../../services/adminService';
+import { Review } from '../../types';
+import { Button } from '../../components/common/Button';
+import { useAppDispatch } from '../../store/store';
+import { addToast } from '../../store/slices/uiSlice';
+import { Star, MessageSquare, CheckCircle, EyeOff, Trash2, Search, Filter } from 'lucide-react';
+
+export const AdminReviewsPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const fetchReviews = async () => {
+    setLoading(true);
+    try {
+      const data = await adminService.getReviews();
+      setReviews(data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const handleStatusUpdate = async (id: string, status: 'approved' | 'pending' | 'hidden') => {
+    try {
+      await adminService.updateReviewStatus(id, status);
+      setReviews((prev) => prev.map((r) => ((r.id === id || (r as any)._id === id) ? { ...r, status } : r)));
+      dispatch(
+        addToast({
+          type: 'success',
+          title: 'Review Updated',
+          message: `Review is now marked as "${status}".`,
+        })
+      );
+    } catch (err: any) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Update Failed',
+          message: err.message || 'Could not update review status.',
+        })
+      );
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to permanently delete this customer review?')) return;
+    try {
+      await adminService.deleteReview(id);
+      setReviews((prev) => prev.filter((r) => r.id !== id && (r as any)._id !== id));
+      dispatch(
+        addToast({
+          type: 'info',
+          title: 'Review Deleted',
+          message: 'Review was removed from the database.',
+        })
+      );
+    } catch (err: any) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Delete Failed',
+          message: err.message || 'Could not delete review.',
+        })
+      );
+    }
+  };
+
+  const filtered = reviews.filter((r) => {
+    if (selectedStatus !== 'all' && r.status !== selectedStatus) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return (
+        r.customerName.toLowerCase().includes(q) ||
+        r.comment.toLowerCase().includes(q) ||
+        (r.dishesMentioned && r.dishesMentioned.some((d) => d.toLowerCase().includes(q)))
+      );
+    }
+    return true;
+  });
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
+            <MessageSquare size={24} className="text-[#FF8A1F]" />
+            Customer Reviews Moderation
+          </h1>
+          <p className="text-xs text-[#B8AAA0] mt-1">
+            Approve verified dining experiences, monitor star ratings, and manage public testimonials.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-[#B8AAA0]">Filter:</span>
+          <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            className="px-3 py-1.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none"
+          >
+            <option value="all">All Reviews ({reviews.length})</option>
+            <option value="approved">Approved</option>
+            <option value="pending">Pending</option>
+            <option value="hidden">Hidden / Archived</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="p-4 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 flex items-center justify-between gap-4">
+        <div className="relative flex-1 max-w-md">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B8AAA0]" />
+          <input
+            type="text"
+            placeholder="Search by diner name, dish, or keywords..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white placeholder-[#B8AAA0]/60 focus:outline-none"
+          />
+        </div>
+        <span className="text-xs text-[#B8AAA0]">Showing <strong className="text-white">{filtered.length}</strong> reviews</span>
+      </div>
+
+      {loading ? (
+        <div className="py-20 text-center text-xs text-[#B8AAA0]">Loading customer reviews...</div>
+      ) : filtered.length === 0 ? (
+        <div className="py-20 text-center bg-[#120B08] rounded-2xl border border-white/5 space-y-2">
+          <p className="text-sm font-bold text-white">No reviews found matching criteria</p>
+          <p className="text-xs text-[#B8AAA0]">Try clearing your search or status filter</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filtered.map((rev) => {
+            const revId = (rev as any)._id || rev.id;
+            return (
+              <div
+                key={revId}
+                className="p-5 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 shadow-lg flex flex-col justify-between space-y-4 hover:border-[#FF8A1F]/40 transition-colors"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="font-bold text-sm text-white">{rev.customerName}</h4>
+                      <span className="text-[10px] text-[#B8AAA0]">{rev.date || 'Recent Guest'}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1 text-[#D99A32]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={13}
+                          fill={i < rev.rating ? '#D99A32' : 'none'}
+                          className={i < rev.rating ? 'text-[#D99A32]' : 'text-zinc-700'}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-[#E5D7CC] italic leading-relaxed">
+                    "{rev.comment}"
+                  </p>
+
+                  {rev.dishesMentioned && rev.dishesMentioned.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-1">
+                      {rev.dishesMentioned.map((d, i) => (
+                        <span key={i} className="px-2 py-0.5 rounded-full bg-[#1A100C] text-[10px] text-[#FF8A1F] border border-[#FF8A1F]/20">
+                          {d}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+                  <span
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                      rev.status === 'approved'
+                        ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
+                        : rev.status === 'pending'
+                        ? 'bg-amber-950 text-amber-400 border border-amber-500/30'
+                        : 'bg-zinc-900 text-zinc-400 border border-white/10'
+                    }`}
+                  >
+                    {rev.status || 'approved'}
+                  </span>
+
+                  <div className="flex items-center gap-1.5">
+                    {rev.status !== 'approved' && (
+                      <button
+                        onClick={() => handleStatusUpdate(revId, 'approved')}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-900/50"
+                        title="Approve for public showcase"
+                      >
+                        Approve
+                      </button>
+                    )}
+                    {rev.status !== 'hidden' && (
+                      <button
+                        onClick={() => handleStatusUpdate(revId, 'hidden')}
+                        className="px-2.5 py-1 rounded-lg bg-[#1A100C] text-[#B8AAA0] border border-white/10 text-[11px] hover:text-white"
+                        title="Hide from public page"
+                      >
+                        Hide
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleDelete(revId)}
+                      className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-500/20 hover:bg-rose-900/50"
+                      title="Permanently delete"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};

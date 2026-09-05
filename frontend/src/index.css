@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #080604;
+    color: #FFF7ED;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+    letter-spacing: 0.03em;
+  }
+
+  .font-serif-luxury {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-sans-modern {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Custom glow and flame accents */
+.flame-glow-sm {
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.25);
+}
+
+.flame-glow {
+  box-shadow: 0 0 25px rgba(249, 115, 22, 0.35);
+}
+
+.flame-glow-lg {
+  box-shadow: 0 0 45px rgba(249, 115, 22, 0.45), 0 0 90px rgba(217, 154, 50, 0.2);
+}
+
+.flame-text-glow {
+  text-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(217, 154, 50, 0.3);
+}
+
+.border-flame-subtle {
+  border-color: rgba(255, 140, 50, 0.18);
+}
+
+.bg-dark-card {
+  background-color: #1A100C;
+}
+
+.bg-dark-surface {
+  background-color: #120B08;
+}
+
+.bg-dark-base {
+  background-color: #080604;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080604;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A1A12;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 140, 50, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F97316;
+}
+
