@@ -4,7 +4,20 @@ import { logger } from '../utils/logger.js';
 
 dotenv.config();
 
+let cachedConn = null;
+let cachedPromise = null;
+
 export const connectDB = async () => {
+  // If already connected, reuse connection (prevents multiple connections in serverless environments)
+  if (cachedConn && mongoose.connection.readyState === 1) {
+    return cachedConn;
+  }
+
+  if (mongoose.connection.readyState === 1) {
+    cachedConn = mongoose.connection;
+    return cachedConn;
+  }
+
   try {
     const connUri = process.env.MONGO_URI || process.env.MONGODB_URI;
 
@@ -21,20 +34,30 @@ export const connectDB = async () => {
 
     logger.info(`Connecting to MongoDB at: ${maskedUri}`);
 
-    const conn = await mongoose.connect(connUri, {
-      serverSelectionTimeoutMS: 5000,
-      autoIndex: true,
-    });
+    if (!cachedPromise) {
+      cachedPromise = mongoose.connect(connUri, {
+        serverSelectionTimeoutMS: 8000,
+        autoIndex: process.env.NODE_ENV !== 'production',
+      });
+    }
 
+    cachedConn = await cachedPromise;
     logger.info(
-      `MongoDB Connected: ${conn.connection.host}/${conn.connection.name}`
+      `MongoDB Connected: ${cachedConn.connection.host}/${cachedConn.connection.name}`
     );
 
-    return conn;
+    return cachedConn;
   } catch (error) {
-    logger.error(`MongoDB connection error: ${error.message}`);
+    cachedPromise = null;
+    cachedConn = null;
 
-    if (process.env.NODE_ENV === 'production') {
+    if (error.message && error.message.includes('whitelist')) {
+      logger.error('MongoDB Atlas IP Whitelist error detected. Ensure 0.0.0.0/0 is added in MongoDB Atlas -> Network Access for cloud deployments.');
+    } else {
+      logger.error(`MongoDB connection error: ${error.message}`);
+    }
+
+    if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
       process.exit(1);
     }
 

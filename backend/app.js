@@ -30,21 +30,40 @@ app.use(helmet({
 }));
 
 // CORS Configuration
-const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:3000',
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'http://127.0.0.1:3000',
-  'http://127.0.0.1:5173'
-];
+const parseAllowedOrigins = () => {
+  const defaults = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173'
+  ];
+
+  const clientUrls = process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(',').map((url) => url.trim().replace(/\/+$/, '')).filter(Boolean)
+    : [];
+
+  return Array.from(new Set([...clientUrls, ...defaults]));
+};
+
+const allowedOrigins = parseAllowedOrigins();
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+
+    const normalizedOrigin = origin.replace(/\/+$/, '');
+
+    // Allow in non-production, if origin matches configured list, or matches Vercel deployment preview domain
+    const isAllowed =
+      process.env.NODE_ENV !== 'production' ||
+      allowedOrigins.includes(normalizedOrigin) ||
+      (normalizedOrigin.endsWith('.vercel.app') && allowedOrigins.some((u) => u.includes('vercel.app')));
+
+    if (isAllowed) {
       callback(null, true);
     } else {
+      logger.warn(`Blocked by CORS policy: ${origin}`);
       callback(new Error('CORS policy violation: Origin not allowed.'));
     }
   },
@@ -87,6 +106,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use((req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
   next();
+});
+
+// Root Health Endpoint (Requirement 4)
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Three Flames Restaurant API is running'
+  });
 });
 
 // API Routes Mounting

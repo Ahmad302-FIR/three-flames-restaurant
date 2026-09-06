@@ -3,10 +3,39 @@ import { logger } from '../utils/logger.js';
 
 let io = null;
 
+const getSocketAllowedOrigins = () => {
+  const defaults = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173'
+  ];
+
+  const clientUrls = process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(',').map((url) => url.trim().replace(/\/+$/, '')).filter(Boolean)
+    : [];
+
+  return Array.from(new Set([...clientUrls, ...defaults]));
+};
+
 export const initializeSocket = (server) => {
+  const allowedOrigins = getSocketAllowedOrigins();
+
   io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || 'http://localhost:3000',
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const normalized = origin.replace(/\/+$/, '');
+        if (
+          process.env.NODE_ENV !== 'production' ||
+          allowedOrigins.includes(normalized) ||
+          (normalized.endsWith('.vercel.app') && allowedOrigins.some((u) => u.includes('vercel.app')))
+        ) {
+          callback(null, true);
+        } else {
+          callback(new Error('Blocked by Socket CORS policy'));
+        }
+      },
       methods: ['GET', 'POST', 'PATCH'],
       credentials: true
     }
