@@ -1,7 +1,10 @@
 import { io, Socket } from 'socket.io-client';
 
 const getSocketUrl = (): string => {
-  const rawUrl = (import.meta.env.VITE_SOCKET_URL as string) || 'http://localhost:5000';
+  const defaultUrl = import.meta.env.PROD
+    ? 'https://backend-six-tau-kva66m6smt.vercel.app'
+    : 'http://localhost:5000';
+  const rawUrl = (import.meta.env.VITE_SOCKET_URL as string) || defaultUrl;
   return rawUrl.trim().replace(/\/+$/, '');
 };
 
@@ -14,8 +17,14 @@ export const getSocket = (): Socket => {
     socket = io(SOCKET_URL, {
       autoConnect: true,
       reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000
+      reconnectionAttempts: 3,
+      reconnectionDelay: 2000,
+      timeout: 5000
+    });
+
+    socket.on('connect_error', (err) => {
+      // Gracefully handle serverless environments where persistent WebSockets may not be supported
+      console.warn('Realtime Socket.IO connection unavailable (falling back to REST API):', err.message);
     });
   }
   return socket;

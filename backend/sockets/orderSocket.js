@@ -5,6 +5,7 @@ let io = null;
 
 const getSocketAllowedOrigins = () => {
   const defaults = [
+    'https://frontend-sepia-eight-58.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173',
     'http://127.0.0.1:3000',
@@ -29,7 +30,7 @@ export const initializeSocket = (server) => {
         if (
           process.env.NODE_ENV !== 'production' ||
           allowedOrigins.includes(normalized) ||
-          (normalized.endsWith('.vercel.app') && allowedOrigins.some((u) => u.includes('vercel.app')))
+          normalized.endsWith('.vercel.app')
         ) {
           callback(null, true);
         } else {

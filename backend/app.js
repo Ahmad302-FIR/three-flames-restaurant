@@ -21,6 +21,7 @@ import contactRoutes from './routes/contact.js';
 import settingsRoutes from './routes/settings.js';
 import dashboardRoutes from './routes/dashboard.js';
 import healthRoutes from './routes/health.js';
+import { connectDB } from './config/db.js';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(helmet({
 // CORS Configuration
 const parseAllowedOrigins = () => {
   const defaults = [
+    'https://frontend-sepia-eight-58.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173',
     'http://127.0.0.1:3000',
@@ -54,17 +56,17 @@ app.use(cors({
 
     const normalizedOrigin = origin.replace(/\/+$/, '');
 
-    // Allow in non-production, if origin matches configured list, or matches Vercel deployment preview domain
+    // Allow in non-production, if origin matches configured list, or matches any Vercel deployment preview domain
     const isAllowed =
       process.env.NODE_ENV !== 'production' ||
       allowedOrigins.includes(normalizedOrigin) ||
-      (normalizedOrigin.endsWith('.vercel.app') && allowedOrigins.some((u) => u.includes('vercel.app')));
+      normalizedOrigin.endsWith('.vercel.app');
 
     if (isAllowed) {
       callback(null, true);
     } else {
       logger.warn(`Blocked by CORS policy: ${origin}`);
-      callback(new Error('CORS policy violation: Origin not allowed.'));
+      callback(null, false);
     }
   },
   credentials: true,
@@ -114,6 +116,16 @@ app.get('/', (req, res) => {
     success: true,
     message: 'Three Flames Restaurant API is running'
   });
+});
+
+// Database auto-connection middleware for serverless execution & warm instances
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (err) {
+    logger.error(`Database auto-connect error: ${err.message}`);
+  }
+  next();
 });
 
 // API Routes Mounting

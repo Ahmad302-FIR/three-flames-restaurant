@@ -1,7 +1,10 @@
 import axios, { AxiosError } from 'axios';
 
 const getApiBaseUrl = (): string => {
-  const rawUrl = (import.meta.env.VITE_API_URL as string) || 'http://localhost:5000/api';
+  const defaultUrl = import.meta.env.PROD
+    ? 'https://backend-six-tau-kva66m6smt.vercel.app/api'
+    : 'http://localhost:5000/api';
+  const rawUrl = (import.meta.env.VITE_API_URL as string) || defaultUrl;
   const cleanUrl = rawUrl.trim().replace(/\/+$/, '');
   return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
 };
