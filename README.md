@@ -360,35 +360,70 @@ Order updates are transmitted via isolated rooms to avoid leaking customer data:
 
 ---
 
-## 🚢 Production Deployment Guide
+## 🚢 Production Deployment & Recovery Guide
 
 ### 1. Database (MongoDB Atlas)
-1. Create a free M0 or production cluster at [mongodb.com/atlas](https://www.mongodb.com/atlas).
-2. Under **Network Access**, allow access from your deployment IP addresses (or `0.0.0.0/0` with strong password authentication).
-3. Under **Database Access**, create a user with read/write privileges.
-4. Copy the connection string to `MONGODB_URI` in `backend/.env`.
+1. Log into your MongoDB cluster at [mongodb.com/atlas](https://www.mongodb.com/atlas).
+2. **Network Access**: Add IP Address -> Select **Allow Access From Anywhere (`0.0.0.0/0`)** (mandatory for cloud dynamic IPs like Vercel and Render).
+3. **Database Access**: Verify your database user exists with read/write permissions.
+4. Copy your connection URI to `MONGO_URI` in `backend/.env`.
 
 ### 2. Image CDN (Cloudinary)
-1. Create a free account at [cloudinary.com](https://cloudinary.com).
-2. Copy `Cloud Name`, `API Key`, and `API Secret` from the dashboard.
-3. Populate `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` in `backend/.env`.
+1. Log into [cloudinary.com](https://cloudinary.com).
+2. Copy `Cloud Name`, `API Key`, and `API Secret`.
+3. Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`.
+4. Dishes added via Admin (`Admin -> Add New Dish`) will automatically upload images from your computer to Cloudinary and store the secure URL in MongoDB.
 
-### 3. Backend Deployment (Render / Railway)
-1. Push your code to GitHub.
-2. Create a new **Web Service** pointing to the `backend/` directory.
-3. Configure:
+### 3. GitHub Repository Setup (Fresh Deployment)
+Since the previous GitHub repository was deleted, the local repository remote origin was cleared and is ready to connect to your new repo:
+```bash
+# 1. Create a new repository on GitHub (e.g. named three-flames-restaurant)
+# 2. Stage and commit all audited changes:
+git add .
+git commit -m "feat: production readiness audit, multer 2.x, health checks, and vercel deployment config"
+
+# 3. Link your new GitHub repository:
+git remote add origin <YOUR_NEW_GITHUB_REPOSITORY_URL>
+git branch -M main
+git push -u origin main
+```
+
+### 4. Backend Deployment (Render / Railway / Persistent Container)
+> 💡 **Why a persistent host for backend?** The Three Flames platform includes **real-time kitchen alerts and customer live order tracking via Socket.IO WebSockets**. Persistent Node hosts (like Render or Railway) keep WebSocket connections alive 24/7.
+
+1. Create a new **Web Service** on [Render](https://render.com) or [Railway](https://railway.app) connected to your new GitHub repository.
+2. Settings:
+   - **Root Directory**: `backend`
+   - **Environment**: `Node`
    - **Build Command**: `npm install`
-   - **Start Command**: `node server.js`
-   - **Environment Variables**: Add all variables from `backend/.env.example`.
-4. Run `node seed.js` via the deployment console to populate initial items and settings.
+   - **Start Command**: `npm start` (runs `node server.js`)
+3. Add Backend Environment Variables:
+   - `PORT=5000`
+   - `NODE_ENV=production`
+   - `CLIENT_URL=https://your-frontend-project.vercel.app` *(update once frontend is deployed)*
+   - `MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/three-flames?retryWrites=true&w=majority`
+   - `JWT_SECRET=your_strong_jwt_secret_min_32_characters`
+   - `JWT_EXPIRES_IN=7d`
+   - `CLOUDINARY_CLOUD_NAME=your_cloud_name`
+   - `CLOUDINARY_API_KEY=your_api_key`
+   - `CLOUDINARY_API_SECRET=your_api_secret`
+   - `EMAIL_FROM=Three Flames Restaurant <noreply@threeflames.pk>`
+4. Note your deployed backend URL (e.g. `https://three-flames-api.onrender.com`).
+5. Run `npm run seed` via the service shell/one-off command if you need to initialize database records.
 
-### 4. Frontend Deployment (Vercel)
-1. Import the repository into [Vercel](https://vercel.com).
-2. Set root directory to `.`.
-3. Add Environment Variables:
-   - `VITE_API_URL=https://your-backend-service.onrender.com/api`
-   - `VITE_SOCKET_URL=https://your-backend-service.onrender.com`
-4. Deploy!
+### 5. Frontend Deployment (Vercel)
+1. Go to [Vercel Dashboard](https://vercel.com) -> **Add New...** -> **Project**.
+2. Import your new GitHub repository.
+3. In **Project Configuration**:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: Click *Edit* and select `frontend` (⚠️ **CRITICAL STEP**)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. In **Environment Variables**, add:
+   - `VITE_API_URL` = `https://your-backend-service.onrender.com/api` *(or your deployed backend URL)*
+   - `VITE_SOCKET_URL` = `https://your-backend-service.onrender.com`
+5. Click **Deploy**.
+6. Once deployed, copy your production Vercel domain (e.g., `https://three-flames.vercel.app`) and update `CLIENT_URL` in your backend deployment settings.
 
 ---
 
@@ -399,6 +434,5 @@ Order updates are transmitted via isolated rooms to avoid leaking customer data:
 - **Address**: Bilour Chowk, Rehman Baba Road, Abdara Road, University Town, Peshawar, Pakistan
 - **Hotline**: `0334-4226655`
 - **WhatsApp**: `+92-334-4226655`
-- **Email**: `info@threeflames.pk`
-#   t h r e e - f l a m e s - r e s t a u r a n t  
+- **Email**: `info@threeflames.pk`#   t h r e e - f l a m e s - r e s t a u r a n t  
  
