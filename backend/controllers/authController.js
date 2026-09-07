@@ -1,4 +1,8 @@
+import bcrypt from 'bcryptjs';
 import { User } from '../models/User.js';
+import { PendingRegistration } from '../models/PendingRegistration.js';
+import { generateOtp, hashOtp, verifyOtpHash } from '../utils/otpHelper.js';
+import { sendOtpVerificationEmail } from '../services/emailService.js';
 import { generateToken } from '../utils/generateToken.js';
 import { sendSuccess, sendError } from '../utils/apiResponse.js';
 
@@ -7,20 +11,169 @@ export const register = async (req, res, next) => {
     const { name, email, phone, password } = req.body;
     const normalizedEmail = (email || '').trim().toLowerCase();
 
+    // 1. Check whether email is already registered and verified in User collection
     const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return sendError(res, 400, 'An account with this email address already exists.');
     }
 
-    await User.create({
+    // 2. Hash user password with bcrypt before storing in PendingRegistration
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    // 3. Generate secure 6-digit OTP and store its hash
+    const otp = generateOtp();
+    const otpHash = hashOtp(otp, normalizedEmail);
+    const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    // 4. Upsert pending registration record (replaces any previous unverified attempt for this email)
+    await PendingRegistration.findOneAndUpdate(
+      { email: normalizedEmail },
+      {
+        name: (name || '').trim(),
+        email: normalizedEmail,
+        phone: (phone || '').trim(),
+        passwordHash,
+        otpHash,
+        otpExpiresAt,
+        otpAttempts: 0,
+        lastResendAt: new Date()
+      },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
+    // 5. Send OTP to the user's email address
+    const emailResult = await sendOtpVerificationEmail({
       name: (name || '').trim(),
       email: normalizedEmail,
-      phone: (phone || '').trim(),
-      password,
-      role: 'customer'
+      otp
     });
 
-    return sendSuccess(res, 201, 'Account created successfully. Please login with your email and password.');
+    if (!emailResult) {
+      // Clean up pending record if email failed to send
+      await PendingRegistration.deleteOne({ email: normalizedEmail });
+      return sendError(res, 500, 'Failed to deliver verification email. Please check your email address or try again later.');
+    }
+
+    return sendSuccess(res, 200, 'An OTP has been sent to your email address. Please enter it to verify your account.', {
+      email: normalizedEmail
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const verifyEmailOtp = async (req, res, next) => {
+  try {
+    const { email, otp } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
+    const cleanOtp = (otp || '').trim();
+
+    const pending = await PendingRegistration.findOne({ email: normalizedEmail });
+    if (!pending) {
+      return sendError(res, 400, 'No pending registration found or your session has expired. Please register again.');
+    }
+
+    // Check expiration
+    if (new Date() > pending.otpExpiresAt) {
+      return sendError(res, 400, 'Your verification code has expired. Please request a new OTP.');
+    }
+
+    // Check maximum attempts (5 attempts limit)
+    if (pending.otpAttempts >= 5) {
+      return sendError(res, 429, 'Too many incorrect attempts. Please request a new verification code.');
+    }
+
+    // Verify OTP hash
+    const isOtpValid = verifyOtpHash(cleanOtp, normalizedEmail, pending.otpHash);
+    if (!isOtpValid) {
+      pending.otpAttempts += 1;
+      await pending.save();
+      const remaining = 5 - pending.otpAttempts;
+      return sendError(
+        res,
+        400,
+        remaining > 0
+          ? `Invalid verification code. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`
+          : 'Too many incorrect attempts. Please request a new verification code.'
+      );
+    }
+
+    // Check if account was created concurrently
+    const existingUser = await User.findOne({ email: normalizedEmail });
+    if (existingUser) {
+      await PendingRegistration.deleteOne({ _id: pending._id });
+      return sendError(res, 400, 'An account with this email address is already verified. Please log in.');
+    }
+
+    // Create permanent customer account in MongoDB
+    await User.create({
+      name: pending.name,
+      email: pending.email,
+      phone: pending.phone,
+      password: pending.passwordHash,
+      role: 'customer',
+      emailVerified: true,
+      isActive: true
+    });
+
+    // Delete pending registration record
+    await PendingRegistration.deleteOne({ _id: pending._id });
+
+    // Return success without JWT token (forces manual login)
+    return sendSuccess(
+      res,
+      200,
+      'Email verified successfully. Your account has been created. Please log in with your email and password.'
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resendEmailOtp = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
+
+    // Check if already registered
+    const existingUser = await User.findOne({ email: normalizedEmail });
+    if (existingUser) {
+      return sendError(res, 400, 'An account with this email address is already registered. Please log in.');
+    }
+
+    const pending = await PendingRegistration.findOne({ email: normalizedEmail });
+    if (!pending) {
+      return sendError(res, 404, 'No pending registration found for this email. Please register again.');
+    }
+
+    // Enforce 45-second cooldown
+    const COOLDOWN_MS = 45 * 1000;
+    const elapsed = Date.now() - new Date(pending.lastResendAt).getTime();
+    if (elapsed < COOLDOWN_MS) {
+      const waitSeconds = Math.ceil((COOLDOWN_MS - elapsed) / 1000);
+      return sendError(res, 429, `Please wait ${waitSeconds}s before requesting a new verification code.`);
+    }
+
+    // Generate fresh OTP and update expiration
+    const newOtp = generateOtp();
+    pending.otpHash = hashOtp(newOtp, normalizedEmail);
+    pending.otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
+    pending.otpAttempts = 0;
+    pending.lastResendAt = new Date();
+    await pending.save();
+
+    // Dispatch fresh email
+    const emailResult = await sendOtpVerificationEmail({
+      name: pending.name,
+      email: pending.email,
+      otp: newOtp
+    });
+
+    if (!emailResult) {
+      return sendError(res, 500, 'Failed to send new verification email. Please try again later.');
+    }
+
+    return sendSuccess(res, 200, 'A new verification code has been sent to your email.');
   } catch (error) {
     next(error);
   }
@@ -34,6 +187,11 @@ export const login = async (req, res, next) => {
     // Must explicitly select password as schema sets select: false
     const user = await User.findOne({ email: normalizedEmail }).select('+password');
     if (!user) {
+      // Check if registration is still pending verification
+      const pending = await PendingRegistration.findOne({ email: normalizedEmail });
+      if (pending) {
+        return sendError(res, 403, 'Your email has not been verified yet. Please complete email OTP verification.');
+      }
       return sendError(res, 401, 'Invalid email or password.');
     }
 

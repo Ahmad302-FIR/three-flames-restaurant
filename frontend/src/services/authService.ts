@@ -35,10 +35,25 @@ export const authService = {
     }
   },
 
-  register: async (data: { name: string; email: string; phone: string; password: string }): Promise<{ message: string }> => {
+  register: async (data: { name: string; email: string; phone: string; password: string }): Promise<{ message: string; email: string }> => {
     const res = await api.post('/auth/register', data);
     return {
-      message: res.data?.message || 'Account created successfully. Please login with your email and password.'
+      message: res.data?.message || 'An OTP has been sent to your email address.',
+      email: res.data?.data?.email || data.email
+    };
+  },
+
+  verifyEmailOtp: async (email: string, otp: string): Promise<{ message: string }> => {
+    const res = await api.post('/auth/verify-email-otp', { email, otp });
+    return {
+      message: res.data?.message || 'Email verified successfully. Your account has been created. Please log in with your email and password.'
+    };
+  },
+
+  resendEmailOtp: async (email: string): Promise<{ message: string }> => {
+    const res = await api.post('/auth/resend-email-otp', { email });
+    return {
+      message: res.data?.message || 'A new verification code has been sent to your email.'
     };
   },
 
