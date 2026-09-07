@@ -27,12 +27,18 @@ export const ContactPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !message) {
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+    const cleanPhone = phone.trim();
+    const cleanSubject = subject.trim();
+    const cleanMessage = message.trim();
+
+    if (!cleanName || !cleanEmail || !cleanMessage) {
       dispatch(
         addToast({
           type: 'error',
           title: 'Required Fields Missing',
-          message: 'Please provide your name and message.',
+          message: 'Please provide your name, email, and message.',
         })
       );
       return;
@@ -40,7 +46,13 @@ export const ContactPage: React.FC = () => {
 
     setIsSending(true);
     try {
-      await api.post('/contact', { name, email, phone, subject, message });
+      await api.post('/contact', {
+        name: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        subject: cleanSubject || 'Customer Inquiry',
+        message: cleanMessage
+      });
       dispatch(addToast({ type: 'success', title: 'Message Sent! 🔥', message: 'We\'ll get back to you soon.' }));
       setName('');
       setEmail('');
@@ -117,14 +129,25 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#D99A32] shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#D99A32] shrink-0 mt-0.5">
                     <Clock size={20} />
                   </div>
-                  <div>
+                  <div className="flex-1 space-y-1.5">
                     <span className="font-bold text-white block">Service Hours</span>
-                    <span className="text-[#B8AAA0] block mt-0.5">
-                      Monday – Sunday: {restaurantInfo.openingHours}
-                    </span>
+                    <div className="text-xs text-[#B8AAA0] space-y-1">
+                      <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-1">
+                        <span>Monday – Thursday:</span>
+                        <span className="text-white font-medium">{restaurantInfo.openingHours.monday_thursday}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-1">
+                        <span>Friday:</span>
+                        <span className="text-white font-medium">{restaurantInfo.openingHours.friday}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span>Saturday – Sunday:</span>
+                        <span className="text-white font-medium">{restaurantInfo.openingHours.saturday_sunday}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -176,6 +199,8 @@ export const ContactPage: React.FC = () => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    required
+                    autoComplete="name"
                     placeholder="e.g. Asadullah Durrani"
                     className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
                   />
@@ -183,12 +208,14 @@ export const ContactPage: React.FC = () => {
 
                 <div>
                   <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
-                    Email Address
+                    Email Address *
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                    autoComplete="email"
                     placeholder="name@example.com"
                     className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
                   />
@@ -204,6 +231,7 @@ export const ContactPage: React.FC = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    autoComplete="tel"
                     placeholder="03xx-xxxxxxx"
                     className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
                   />
@@ -231,6 +259,7 @@ export const ContactPage: React.FC = () => {
                   rows={5}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
+                  required
                   placeholder="Share your experience, catering requirements, or any question..."
                   className="w-full p-3 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
                 />

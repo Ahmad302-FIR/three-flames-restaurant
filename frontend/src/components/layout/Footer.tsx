@@ -83,6 +83,7 @@ export const Footer: React.FC = () => {
                 { name: 'About Our Heritage', path: '/about' },
                 { name: 'Photo Gallery', path: '/gallery' },
                 { name: 'Customer Reviews', path: '/#reviews' },
+                { name: 'Contact & Location', path: '/contact' },
               ].map((item) => (
                 <li key={item.name}>
                   <Link

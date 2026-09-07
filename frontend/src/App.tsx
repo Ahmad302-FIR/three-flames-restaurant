@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
@@ -43,6 +43,8 @@ import { AdminCustomersPage } from './pages/admin/AdminCustomers';
 import { AdminSettingsPage } from './pages/admin/AdminSettings';
 import { AdminProfilePage } from './pages/admin/AdminProfile';
 
+import { FlameIcon } from './components/common/FlameIcon';
+
 // Scroll to top helper on navigation
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -53,6 +55,66 @@ const ScrollToTop: React.FC = () => {
 
   return null;
 };
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-[60vh] flex items-center justify-center px-4 py-16 text-center">
+          <div className="max-w-md w-full p-8 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/30 shadow-2xl space-y-5">
+            <div className="w-14 h-14 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center mx-auto">
+              <FlameIcon size={28} />
+            </div>
+            <h2 className="text-xl font-extrabold font-heading text-white">
+              Something Went Wrong
+            </h2>
+            <p className="text-xs text-[#B8AAA0] leading-relaxed">
+              An unexpected error occurred while loading this view.
+            </p>
+            <div className="flex gap-3 justify-center pt-2">
+              <button
+                type="button"
+                onClick={() => { this.setState({ hasError: false }); window.location.reload(); }}
+                className="px-4 py-2.5 rounded-xl bg-[#FF8A1F] text-black text-xs font-bold hover:bg-[#FF8A1F]/90 transition-colors"
+              >
+                Refresh Page
+              </button>
+              <button
+                type="button"
+                onClick={() => { this.setState({ hasError: false }); window.location.href = '/'; }}
+                className="px-4 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs font-semibold text-white hover:bg-[#FF8A1F]/10 transition-colors"
+              >
+                Go to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 // Main App Router Layout Handler
 const AppContent: React.FC = () => {
@@ -69,7 +131,8 @@ const AppContent: React.FC = () => {
       {!isAdminRoute && <Navbar />}
 
       <div className="flex-1">
-        <Routes>
+        <ErrorBoundary>
+          <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={<MenuPage />} />
@@ -109,6 +172,7 @@ const AppContent: React.FC = () => {
           {/* 404 Fallback */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+      </ErrorBoundary>
       </div>
 
       {/* Show public footer & mobile bottom nav on non-admin routes */}

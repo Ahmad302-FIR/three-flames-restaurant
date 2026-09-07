@@ -126,7 +126,7 @@ export interface Reservation {
   date: string;
   time: string;
   guests: number;
-  seatingArea: 'Indoor Family Hall' | 'Rooftop Flame Lounge' | 'Traditional Dastarkhwan' | 'Executive Dining';
+  seatingArea: string;
   specialRequest?: string;
   status: ReservationStatus;
   createdAt: string;
