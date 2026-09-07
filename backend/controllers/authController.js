@@ -165,12 +165,21 @@ export const changePassword = async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
     const user = await User.findById(req.user._id).select('+password');
 
-    const isMatch = await user.comparePassword(currentPassword);
+    if (!user) {
+      return sendError(res, 404, 'User account could not be found.');
+    }
+
+    let isMatch = await user.comparePassword(currentPassword);
+    // If exact match fails, check trimmed currentPassword in case of accidental copy-paste whitespace
+    if (!isMatch && typeof currentPassword === 'string' && currentPassword.trim() !== currentPassword) {
+      isMatch = await user.comparePassword(currentPassword.trim());
+    }
+
     if (!isMatch) {
       return sendError(res, 400, 'Incorrect current password provided.');
     }
 
-    user.password = newPassword;
+    user.password = typeof newPassword === 'string' ? newPassword.trim() : newPassword;
     await user.save();
 
     return sendSuccess(res, 200, 'Password updated successfully.');

@@ -40,14 +40,28 @@ export const CheckoutPage: React.FC = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Form Fields
-  const [fullName, setFullName] = useState(currentUser?.name || 'Asfandyar Khan');
-  const [phone, setPhone] = useState(currentUser?.phone || '0333-9123456');
-  const [email, setEmail] = useState(currentUser?.email || 'asfandyar@example.com');
+  const [fullName, setFullName] = useState(currentUser?.name || '');
+  const [phone, setPhone] = useState(currentUser?.phone || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
 
   // Delivery Specific
-  const [address, setAddress] = useState('House #42, Street 3, Sector B-2, Phase 5');
-  const [landmark, setLandmark] = useState('Near Tatara Park Gate 2');
+  const [address, setAddress] = useState(currentUser?.savedAddresses?.[0]?.address || '');
+  const [landmark, setLandmark] = useState(currentUser?.savedAddresses?.[0]?.landmark || '');
   const [deliveryNote, setDeliveryNote] = useState(cartInstructions || '');
+
+  useEffect(() => {
+    if (currentUser) {
+      if (!fullName && currentUser.name) setFullName(currentUser.name);
+      if (!phone && currentUser.phone) setPhone(currentUser.phone);
+      if (!email && currentUser.email) setEmail(currentUser.email);
+      if (!address && currentUser.savedAddresses?.[0]?.address) {
+        setAddress(currentUser.savedAddresses[0].address);
+      }
+      if (!landmark && currentUser.savedAddresses?.[0]?.landmark) {
+        setLandmark(currentUser.savedAddresses[0].landmark);
+      }
+    }
+  }, [currentUser]);
 
   // Pickup Specific
   const [pickupTime, setPickupTime] = useState('Within 30-40 minutes');

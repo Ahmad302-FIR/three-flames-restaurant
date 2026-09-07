@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import { authService } from '../../services/authService';
 import { updateUserProfile } from '../../store/slices/authSlice';
 import { addToast } from '../../store/slices/uiSlice';
 import { Button } from '../../components/common/Button';
-import { User, Lock, Shield, Mail, Phone, KeyRound, CheckCircle2 } from 'lucide-react';
+import { User, Lock, Shield, Mail, Phone, KeyRound, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 
 export const AdminProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
-  const [name, setName] = useState(user?.name || 'Chef Tariq Afridi');
-  const [phone, setPhone] = useState(user?.phone || '0334-4226655');
+  const [name, setName] = useState(user?.name || '');
+  const [phone, setPhone] = useState(user?.phone || '');
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+
+  // Sync state when user profile is loaded
+  useEffect(() => {
+    if (user) {
+      if (user.name) setName(user.name);
+      if (user.phone) setPhone(user.phone);
+    }
+  }, [user]);
 
   // Password fields
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
@@ -48,7 +59,22 @@ export const AdminProfilePage: React.FC = () => {
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newPassword !== confirmPassword) {
+    const cleanCurrent = currentPassword.trim();
+    const cleanNew = newPassword.trim();
+    const cleanConfirm = confirmPassword.trim();
+
+    if (!cleanCurrent) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Required Field',
+          message: 'Please provide your current password.',
+        })
+      );
+      return;
+    }
+
+    if (cleanNew !== cleanConfirm) {
       dispatch(
         addToast({
           type: 'error',
@@ -59,7 +85,7 @@ export const AdminProfilePage: React.FC = () => {
       return;
     }
 
-    if (newPassword.length < 6) {
+    if (cleanNew.length < 6) {
       dispatch(
         addToast({
           type: 'error',
@@ -72,7 +98,7 @@ export const AdminProfilePage: React.FC = () => {
 
     setIsChangingPassword(true);
     try {
-      await authService.changePassword(currentPassword, newPassword);
+      await authService.changePassword(cleanCurrent, cleanNew);
       dispatch(
         addToast({
           type: 'success',
@@ -139,8 +165,9 @@ export const AdminProfilePage: React.FC = () => {
               <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Email Address (Read-only)</label>
               <input
                 type="email"
-                value={user?.email || 'admin@threeflames.pk'}
+                value={user?.email || ''}
                 disabled
+                placeholder="Admin Email"
                 className="w-full px-3 py-2.5 rounded-xl bg-[#080604] border border-white/10 text-zinc-400 cursor-not-allowed"
               />
             </div>
@@ -172,38 +199,68 @@ export const AdminProfilePage: React.FC = () => {
           <form onSubmit={handleChangePassword} className="space-y-4 text-xs">
             <div>
               <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Current Password *</label>
-              <input
-                type="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                required
-                placeholder="Enter current password"
-                className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  type={showCurrentPassword ? 'text' : 'password'}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  placeholder="Enter current password"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                >
+                  {showCurrentPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="font-bold uppercase text-[#B8AAA0] block mb-1">New Password *</label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-                placeholder="Minimum 6 characters"
-                className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  autoComplete="new-password"
+                  placeholder="Minimum 6 characters"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                >
+                  {showNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Confirm New Password *</label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                placeholder="Confirm password match"
-                className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  autoComplete="new-password"
+                  placeholder="Confirm password match"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
             </div>
 
             <Button variant="secondary" size="sm" type="submit" disabled={isChangingPassword}>

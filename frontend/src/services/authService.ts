@@ -72,7 +72,7 @@ export const authService = {
         if (email.toLowerCase().includes('admin') || password.length >= 4) {
           return {
             name: 'Head Chef & GM Tariq',
-            email: email || 'admin@threeflames.pk',
+            email: email.trim(),
             role: 'superadmin'
           };
         }
