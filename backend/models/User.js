@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema(
     emailVerified: {
       type: Boolean,
       default: true
+    },
+    isVerified: {
+      type: Boolean,
+      default: true
     }
   },
   {
