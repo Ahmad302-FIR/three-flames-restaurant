@@ -5,34 +5,22 @@ import { sendSuccess, sendError } from '../utils/apiResponse.js';
 export const register = async (req, res, next) => {
   try {
     const { name, email, phone, password } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
 
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser) {
       return sendError(res, 400, 'An account with this email address already exists.');
     }
 
-    const user = await User.create({
-      name,
-      email: email.toLowerCase(),
-      phone,
+    await User.create({
+      name: (name || '').trim(),
+      email: normalizedEmail,
+      phone: (phone || '').trim(),
       password,
       role: 'customer'
     });
 
-    const token = generateToken(user._id, user.role);
-
-    return sendSuccess(res, 201, 'Registration successful. Welcome to Three Flames!', {
-      user: {
-        id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        avatar: user.avatar,
-        savedAddresses: user.addresses || []
-      },
-      token
-    });
+    return sendSuccess(res, 201, 'Account created successfully. Please login with your email and password.');
   } catch (error) {
     next(error);
   }

@@ -347,7 +347,10 @@ export const OrderTrackingPage: React.FC = () => {
               </div>
 
               <a
-                href={`tel:${restaurantInfo.phone}`}
+                href={restaurantInfo.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Chat on WhatsApp"
                 className="px-5 py-2.5 rounded-xl bg-[#080604] border border-[#FF8A1F]/40 text-[#FF8A1F] hover:text-white hover:bg-[#FF8A1F]/20 font-bold text-xs transition-colors shrink-0"
               >
                 CALL {restaurantInfo.phone}

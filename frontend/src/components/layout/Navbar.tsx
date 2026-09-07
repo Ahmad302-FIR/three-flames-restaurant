@@ -94,9 +94,12 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Icons & Buttons */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Quick Call Button (Desktop) */}
+            {/* Quick WhatsApp / Call Button (Desktop) */}
             <a
-              href={`tel:${restaurantInfo.phone}`}
+              href={restaurantInfo.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Chat on WhatsApp"
               className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-[#D99A32] bg-[#1A100C] border border-[#D99A32]/30 hover:border-[#D99A32] transition-colors"
             >
               <Phone size={14} className="text-[#FF8A1F]" />
@@ -241,7 +244,15 @@ export const Navbar: React.FC = () => {
             <div className="pt-6 border-t border-[#FF8A1F]/20 text-xs text-[#B8AAA0] space-y-2">
               <div className="flex items-center gap-2 text-[#D99A32]">
                 <Phone size={14} />
-                <a href={`tel:${restaurantInfo.phone}`}>{restaurantInfo.phone}</a>
+                <a
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                  title="Chat on WhatsApp"
+                >
+                  {restaurantInfo.phone}
+                </a>
               </div>
               <p className="text-[11px] leading-relaxed text-[#B8AAA0]/80">
                 {restaurantInfo.address}

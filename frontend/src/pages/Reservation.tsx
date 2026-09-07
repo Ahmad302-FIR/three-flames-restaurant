@@ -365,8 +365,11 @@ export const ReservationPage: React.FC = () => {
                   For large banquets (20+ guests) or custom catering arrangements, please call:
                 </p>
                 <a
-                  href={`tel:${restaurantInfo.phone}`}
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-base font-extrabold text-[#FF8A1F] block hover:underline"
+                  title="Chat on WhatsApp"
                 >
                   {restaurantInfo.phone}
                 </a>

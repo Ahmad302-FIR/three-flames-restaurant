@@ -112,10 +112,22 @@ export const Footer: React.FC = () => {
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={18} className="text-[#FF8A1F] shrink-0" />
                 <a
-                  href={`tel:${restaurantInfo.phone}`}
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF8A1F] hover:scale-110 transition-transform shrink-0"
+                  title="Chat on WhatsApp"
+                  aria-label="Chat on WhatsApp"
+                >
+                  <Phone size={18} />
+                </a>
+                <a
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-bold text-[#FFF7ED] hover:text-[#FF8A1F] transition-colors"
+                  title="Chat on WhatsApp"
                 >
                   {restaurantInfo.phone}
                 </a>

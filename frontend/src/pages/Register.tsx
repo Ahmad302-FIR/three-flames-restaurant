@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAppDispatch } from '../store/store';
-import { loginSuccess } from '../store/slices/authSlice';
 import { authService } from '../services/authService';
 import { addToast } from '../store/slices/uiSlice';
 import { FlameIcon } from '../components/common/FlameIcon';
 import { Button } from '../components/common/Button';
-import { Lock, Mail, User, Phone, ArrowRight } from 'lucide-react';
+import { Lock, Mail, User, Phone, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,11 +15,16 @@ export const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone || !password) {
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+    const cleanPhone = phone.trim();
+
+    if (!cleanName || !cleanEmail || !cleanPhone || !password) {
       dispatch(
         addToast({
           type: 'error',
@@ -31,23 +35,42 @@ export const RegisterPage: React.FC = () => {
       return;
     }
 
+    if (password.length < 6) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Password Too Short',
+          message: 'Password must be at least 6 characters.',
+        })
+      );
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const user = await authService.register({
-        name,
-        email,
-        phone,
+      const res = await authService.register({
+        name: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
         password,
       });
-      dispatch(loginSuccess(user));
+
       dispatch(
         addToast({
           type: 'success',
           title: 'Account Created! 🔥',
-          message: `Welcome to Three Flames, ${user.name}!`,
+          message: res.message || 'Account created successfully. Please login with your email and password.',
         })
       );
-      navigate('/');
+
+      // Clear form inputs
+      setName('');
+      setEmail('');
+      setPhone('');
+      setPassword('');
+
+      // Redirect user directly to Login page without authenticating
+      navigate('/login');
     } catch (err: any) {
       dispatch(
         addToast({
@@ -89,6 +112,7 @@ export const RegisterPage: React.FC = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Asadullah Khan"
                 required
+                autoComplete="name"
                 className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
             </div>
@@ -106,6 +130,7 @@ export const RegisterPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
                 required
+                autoComplete="email"
                 className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
             </div>
@@ -123,6 +148,7 @@ export const RegisterPage: React.FC = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="03xx-xxxxxxx"
                 required
+                autoComplete="tel"
                 className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
             </div>
@@ -135,13 +161,22 @@ export const RegisterPage: React.FC = () => {
             <div className="relative">
               <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#B8AAA0]" />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                autoComplete="new-password"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
             </div>
           </div>
 

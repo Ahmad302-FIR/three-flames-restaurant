@@ -156,8 +156,11 @@ export const OrderSuccessPage: React.FC = () => {
           <div className="pt-4 border-t border-white/5 text-xs text-[#B8AAA0] flex items-center justify-center gap-4">
             <span>Questions? Call our front desk:</span>
             <a
-              href={`tel:${restaurantInfo.phone}`}
+              href={restaurantInfo.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#FF8A1F] font-bold hover:underline flex items-center gap-1"
+              title="Chat on WhatsApp"
             >
               <Phone size={13} />
               {restaurantInfo.phone}

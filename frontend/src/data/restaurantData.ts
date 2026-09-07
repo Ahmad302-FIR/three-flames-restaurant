@@ -4,6 +4,7 @@ export const restaurantInfo = {
   subTagline: "Authentic Pakistani BBQ, Sajji, Karahi & Traditional Flavors",
   phone: "0334-4226655",
   whatsapp: "923344226655",
+  whatsappUrl: "https://wa.me/923344226655",
   email: "info@threeflamesrestaurant.com",
   address: "Bilour Chowk, Rehman Baba Road, Abdara Road, University Town, Peshawar",
   city: "Peshawar",

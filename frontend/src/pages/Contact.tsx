@@ -99,13 +99,22 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#FF8A1F] shrink-0">
+                  <a
+                    href={restaurantInfo.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#FF8A1F] hover:bg-[#FF8A1F]/20 hover:border-[#FF8A1F] transition-all shrink-0"
+                    title="Chat on WhatsApp"
+                    aria-label="Chat on WhatsApp"
+                  >
                     <Phone size={20} />
-                  </div>
+                  </a>
                   <div>
-                    <span className="font-bold text-white block">Helpline & Hotline</span>
+                    <span className="font-bold text-white block">Helpline & WhatsApp</span>
                     <a
-                      href={`tel:${restaurantInfo.phone}`}
+                      href={restaurantInfo.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-[#FF8A1F] font-bold hover:underline block mt-0.5"
                     >
                       {restaurantInfo.phone}

@@ -35,28 +35,11 @@ export const authService = {
     }
   },
 
-  register: async (data: { name: string; email: string; phone: string; password: string }): Promise<UserProfile> => {
-    try {
-      const res = await api.post('/auth/register', data);
-      const { user, token } = res.data.data;
-      if (token) {
-        localStorage.setItem('tf_token_v1', token);
-      }
-      return user;
-    } catch (error: any) {
-      if (error.message?.includes('Unable to connect to the server')) {
-        const fallbackUser: UserProfile = {
-          id: `cust-${Date.now()}`,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          role: 'customer',
-          savedAddresses: []
-        };
-        return fallbackUser;
-      }
-      throw error;
-    }
+  register: async (data: { name: string; email: string; phone: string; password: string }): Promise<{ message: string }> => {
+    const res = await api.post('/auth/register', data);
+    return {
+      message: res.data?.message || 'Account created successfully. Please login with your email and password.'
+    };
   },
 
   adminLogin: async (email: string, password: string): Promise<{ name: string; email: string; role: string }> => {

@@ -54,8 +54,23 @@ export const CTASection: React.FC = () => {
 
             <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-sm text-[#B8AAA0]">
               <span className="flex items-center gap-2">
-                <Phone size={16} className="text-[#FF8A1F]" />
-                <a href={`tel:${restaurantInfo.phone}`} className="hover:text-white font-semibold">
+                <a
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF8A1F] hover:scale-110 transition-transform"
+                  title="Chat on WhatsApp"
+                  aria-label="Chat on WhatsApp"
+                >
+                  <Phone size={16} />
+                </a>
+                <a
+                  href={restaurantInfo.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white font-semibold"
+                  title="Chat on WhatsApp"
+                >
                   Call: {restaurantInfo.phone}
                 </a>
               </span>
