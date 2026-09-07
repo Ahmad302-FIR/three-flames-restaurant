@@ -41,9 +41,10 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
 
     // Must explicitly select password as schema sets select: false
-    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    const user = await User.findOne({ email: normalizedEmail }).select('+password');
     if (!user) {
       return sendError(res, 401, 'Invalid email or password.');
     }
@@ -79,8 +80,9 @@ export const login = async (req, res, next) => {
 export const adminLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const normalizedEmail = (email || '').trim().toLowerCase();
 
-    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    const user = await User.findOne({ email: normalizedEmail }).select('+password');
     if (!user) {
       return sendError(res, 401, 'Invalid administrator credentials.');
     }

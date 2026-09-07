@@ -40,6 +40,7 @@ export const connectDB = async () => {
 
     if (!cachedPromise) {
       cachedPromise = mongoose.connect(connUri, {
+        dbName: 'three-flames',
         serverSelectionTimeoutMS: 8000,
         autoIndex: process.env.NODE_ENV !== 'production',
       });

@@ -14,12 +14,14 @@ router.get('/', async (req, res) => {
   }
 
   const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  const dbName = mongoose.connection.name || 'none';
 
   res.status(200).json({
     success: true,
     message: 'Three Flames API is running',
     timestamp: new Date().toISOString(),
     database: dbStatus,
+    databaseName: dbName,
     environment: process.env.NODE_ENV || 'development',
     diagnostics: {
       hasMongoUri: Boolean(process.env.MONGO_URI || process.env.MONGODB_URI),
