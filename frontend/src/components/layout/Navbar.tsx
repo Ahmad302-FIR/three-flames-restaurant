@@ -60,23 +60,23 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1A100C] to-[#080604] border border-[#FF8A1F]/40 flex items-center justify-center p-2 group-hover:border-[#FF8A1F] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.4)]">
-              <FlameIcon size={24} />
-            </div>
-            <div>
-              <span className="block text-lg sm:text-xl font-black font-heading tracking-widest text-[#FFF7ED] group-hover:text-[#FF8A1F] transition-colors">
-                THREE FLAMES
-              </span>
-              <span className="block text-[9px] sm:text-[10px] tracking-[0.25em] text-[#D99A32] font-semibold -mt-1 uppercase">
-                Where Taste Meets Flame
-              </span>
-            </div>
-          </Link>
+          {/* Mobile Left: Menu Toggle Button */}
+          <div className="flex lg:hidden items-center">
+            <button
+              onClick={() => dispatch(toggleMobileMenu())}
+              aria-label="Toggle Menu"
+              className="p-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-[#FFF7ED] hover:text-[#FF8A1F] hover:border-[#FF8A1F] transition-all active:scale-95 flex items-center gap-2"
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <MenuIcon size={20} />}
+              <span className="text-xs font-bold uppercase tracking-wider text-[#FFF7ED]">Menu</span>
+            </button>
+          </div>
+
+          {/* Desktop Left Spacer: Balances right-side actions to keep center navigation perfectly aligned */}
+          <div className="hidden lg:block lg:flex-1" />
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -93,7 +93,7 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right Action Icons & Buttons */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center justify-end gap-2.5 sm:gap-3 lg:flex-1">
             {/* Quick WhatsApp / Call Button (Desktop) */}
             <a
               href={restaurantInfo.whatsappUrl}
@@ -142,15 +142,6 @@ export const Navbar: React.FC = () => {
             >
               Order Now
             </Button>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => dispatch(toggleMobileMenu())}
-              aria-label="Toggle Menu"
-              className="lg:hidden p-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-[#FFF7ED] hover:text-[#FF8A1F]"
-            >
-              {isMobileMenuOpen ? <X size={22} /> : <MenuIcon size={22} />}
-            </button>
           </div>
         </div>
       </header>
@@ -169,10 +160,9 @@ export const Navbar: React.FC = () => {
             <div>
               {/* Header */}
               <div className="flex items-center justify-between pb-6 border-b border-[#FF8A1F]/20 mb-6">
-                <div className="flex items-center gap-2.5">
-                  <FlameIcon size={24} />
-                  <span className="font-heading font-bold text-lg text-white">THREE FLAMES</span>
-                </div>
+                <span className="font-heading font-bold text-base text-white tracking-wider uppercase">
+                  Navigation Menu
+                </span>
                 <button
                   onClick={() => dispatch(toggleMobileMenu())}
                   className="p-2 rounded-lg bg-[#1A100C] text-[#B8AAA0] hover:text-white"
