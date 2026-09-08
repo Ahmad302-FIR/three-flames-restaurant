@@ -104,9 +104,6 @@ export const createOrder = async (req, res, next) => {
         });
 
         if (zone) {
-          if (calculatedSubtotal < zone.minOrder) {
-            return sendError(res, 400, `Minimum order amount for delivery to ${zone.name} is Rs. ${zone.minOrder}. Current subtotal is Rs. ${calculatedSubtotal}.`);
-          }
           deliveryFee = zone.fee;
           estimatedTime = zone.estimatedMinutes || '35-50 mins';
         } else {
