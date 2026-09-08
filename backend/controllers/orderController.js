@@ -260,11 +260,22 @@ export const getOrderById = async (req, res, next) => {
 
 export const trackOrderByNumber = async (req, res, next) => {
   try {
-    const { orderNumber } = req.params;
-    const order = await Order.findOne({ orderNumber: orderNumber.toUpperCase() });
+    const rawNumber = (req.params.orderNumber || '').trim().toUpperCase();
+    if (!rawNumber) {
+      return sendError(res, 400, 'Please provide a valid Order ID to track.');
+    }
+
+    const prefixedNumber = rawNumber.startsWith('TF-') ? rawNumber : `TF-${rawNumber}`;
+
+    const order = await Order.findOne({
+      $or: [
+        { orderNumber: rawNumber },
+        { orderNumber: prefixedNumber }
+      ]
+    }).select('-user -__v');
 
     if (!order) {
-      return sendError(res, 404, `No order found with tracking number #${orderNumber}. Please verify the code.`);
+      return sendError(res, 404, `No order found with tracking number #${rawNumber}. Please verify your Order ID.`);
     }
 
     return sendSuccess(res, 200, 'Order tracking retrieved', order);

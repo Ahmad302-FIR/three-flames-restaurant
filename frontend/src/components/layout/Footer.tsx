@@ -77,6 +77,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm">
               {[
                 { name: 'Full Food Menu', path: '/menu' },
+                { name: 'Track Your Order', path: '/track-order' },
                 { name: 'Our Signature Sajji', path: '/menu?cat=sajji' },
                 { name: 'Desi Wok Karahi', path: '/menu?cat=karahi' },
                 { name: 'Book A Table', path: '/reservation' },
@@ -188,6 +189,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-6">
             <Link to="/about" className="hover:text-white transition-colors">Our Story</Link>
             <Link to="/menu" className="hover:text-white transition-colors">Order Online</Link>
+            <Link to="/track-order" className="hover:text-[#FF8A1F] transition-colors">Track Order</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Get Directions</Link>
             <Link to="/login" className="hover:text-[#FF8A1F] transition-colors text-white/40">
               Staff / Admin Login

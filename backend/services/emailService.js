@@ -47,6 +47,9 @@ export const sendOrderConfirmationEmail = async (order) => {
     .map(i => `<li>${i.quantity}x ${i.name} — Rs. ${i.itemTotal}</li>`)
     .join('');
 
+  const clientUrl = (process.env.CLIENT_URL || 'https://frontend-sepia-eight-58.vercel.app').split(',')[0].trim().replace(/\/+$/, '');
+  const trackingUrl = `${clientUrl}/track-order/${order.orderNumber}`;
+
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0c0806; color: #FFF7ED; padding: 24px; border-radius: 12px; border: 1px solid #F97316;">
       <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">THREE FLAMES RESTAURANT</h1>
@@ -55,6 +58,15 @@ export const sendOrderConfirmationEmail = async (order) => {
       <h2 style="color: #FFF7ED;">Order Confirmed! #${order.orderNumber}</h2>
       <p>Dear ${order.customer?.name || 'Valued Diner'},</p>
       <p>Thank you for choosing Three Flames. Your order has been received and our pitmasters are firing up the charcoal!</p>
+      
+      <div style="background: #1A100C; border: 1px solid rgba(255, 138, 31, 0.4); padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+        <p style="margin: 0; font-size: 12px; color: #B8AAA0; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;">Your Order ID</p>
+        <p style="margin: 8px 0; font-size: 28px; font-weight: 900; color: #FF8A1F; letter-spacing: 2px;">#${order.orderNumber}</p>
+        <p style="margin: 0 0 16px; font-size: 12px; color: #B8AAA0;">Save your Order ID to track your order later anytime.</p>
+        <a href="${trackingUrl}" style="display: inline-block; background: #FF8A1F; color: #080604; font-weight: bold; font-size: 13px; padding: 12px 26px; border-radius: 8px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;">TRACK LIVE ORDER</a>
+        <p style="margin: 12px 0 0; font-size: 11px; color: #888;">Direct link: <a href="${trackingUrl}" style="color: #D99A32; word-break: break-all;">${trackingUrl}</a></p>
+      </div>
+
       <div style="background: #1A100C; padding: 16px; border-radius: 8px; margin: 20px 0;">
         <h3 style="margin-top: 0; color: #FF8A1F;">Order Details</h3>
         <p><strong>Fulfillment:</strong> ${order.orderType?.toUpperCase()}</p>
