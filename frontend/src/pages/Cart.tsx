@@ -389,7 +389,7 @@ export const CartPage: React.FC = () => {
                 onClick={() => navigate('/checkout')}
                 rightIcon={<ArrowRight size={18} />}
               >
-                PROCEED TO CHECKOUT
+                PROCEED TO WHATSAPP ORDER
               </Button>
 
               <div className="pt-2 flex items-center justify-center gap-2 text-xs text-[#B8AAA0]">

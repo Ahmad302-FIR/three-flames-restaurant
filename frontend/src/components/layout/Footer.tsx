@@ -189,6 +189,9 @@ export const Footer: React.FC = () => {
             <Link to="/about" className="hover:text-white transition-colors">Our Story</Link>
             <Link to="/menu" className="hover:text-white transition-colors">Order Online</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Get Directions</Link>
+            <Link to="/login" className="hover:text-[#FF8A1F] transition-colors text-white/40">
+              Staff / Admin Login
+            </Link>
           </div>
         </div>
       </div>

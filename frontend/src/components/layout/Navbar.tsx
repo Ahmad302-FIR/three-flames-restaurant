@@ -10,7 +10,6 @@ import {
   X,
   Phone,
   CalendarCheck,
-  User,
   ShieldCheck,
   ChevronRight,
 } from 'lucide-react';
@@ -120,21 +119,11 @@ export const Navbar: React.FC = () => {
               )}
             </button>
 
-            {/* Account Profile link */}
-            <Link
-              to={user ? '/account' : '/login'}
-              aria-label="User Account"
-              className="hidden sm:flex p-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-[#FFF7ED] hover:border-[#FF8A1F] hover:text-[#FF8A1F] transition-all"
-              title={user ? `Signed in as ${user.name}` : 'Login / Register'}
-            >
-              <User size={20} />
-            </Link>
-
             {/* Admin portal link (only visible if logged-in user is admin/superadmin) */}
             {user && (user.role === 'admin' || user.role === 'superadmin') && (
               <Link
                 to="/admin"
-                className="hidden xl:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#120B08] border border-[#FF8A1F]/30 text-xs text-[#FF8A1F] hover:text-white hover:bg-[#FF8A1F]/10 transition-colors font-bold"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#120B08] border border-[#FF8A1F]/30 text-xs text-[#FF8A1F] hover:text-white hover:bg-[#FF8A1F]/10 transition-colors font-bold"
                 title="Admin Portal"
               >
                 <ShieldCheck size={15} className="text-[#FF8A1F]" />
@@ -258,20 +247,22 @@ export const Navbar: React.FC = () => {
                 {restaurantInfo.address}
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px]">
-                <Link
-                  to={user ? '/account' : '/login'}
-                  onClick={() => dispatch(toggleMobileMenu())}
-                  className="text-[#FF8A1F] hover:underline"
-                >
-                  {user ? 'My Account' : 'Customer Sign In'}
-                </Link>
-                {user && (user.role === 'admin' || user.role === 'superadmin') && (
+                {user && (user.role === 'admin' || user.role === 'superadmin') ? (
                   <Link
                     to="/admin"
                     onClick={() => dispatch(toggleMobileMenu())}
-                    className="text-[#FF8A1F] font-semibold hover:text-white"
+                    className="text-[#FF8A1F] font-semibold hover:text-white flex items-center gap-1.5"
                   >
-                    Admin Portal
+                    <ShieldCheck size={14} />
+                    <span>Admin Portal</span>
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => dispatch(toggleMobileMenu())}
+                    className="text-[#B8AAA0] hover:text-[#FF8A1F]"
+                  >
+                    Staff Login
                   </Link>
                 )}
               </div>

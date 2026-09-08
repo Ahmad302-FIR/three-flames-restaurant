@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Utensils, ShoppingBag, Calendar, User } from 'lucide-react';
+import { Home, Utensils, ShoppingBag, Calendar, Phone, ShieldCheck } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { setCartDrawerOpen } from '../../store/slices/uiSlice';
 
@@ -9,6 +9,7 @@ export const MobileBottomNav: React.FC = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const user = useAppSelector((state) => state.auth.user);
+  const isAdmin = user && (user.role === 'admin' || user.role === 'superadmin');
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -35,7 +36,9 @@ export const MobileBottomNav: React.FC = () => {
       ),
     },
     { label: 'Reserve', path: '/reservation', icon: <Calendar size={20} /> },
-    { label: 'Profile', path: user ? '/account' : '/login', icon: <User size={20} /> },
+    isAdmin
+      ? { label: 'Admin', path: '/admin', icon: <ShieldCheck size={20} /> }
+      : { label: 'Contact', path: '/contact', icon: <Phone size={20} /> },
   ];
 
   return (

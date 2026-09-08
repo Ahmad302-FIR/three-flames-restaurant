@@ -4,9 +4,8 @@ import { useAppDispatch } from '../store/store';
 import { loginSuccess } from '../store/slices/authSlice';
 import { authService } from '../services/authService';
 import { addToast } from '../store/slices/uiSlice';
-import { FlameIcon } from '../components/common/FlameIcon';
 import { Button } from '../components/common/Button';
-import { Lock, Mail, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Lock, Mail, ArrowRight, Eye, EyeOff, ShieldCheck, ArrowLeft } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ export const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const from = (location.state as any)?.from?.pathname || '/';
+  const from = (location.state as any)?.from?.pathname || '/admin';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,21 +41,17 @@ export const LoginPage: React.FC = () => {
       dispatch(
         addToast({
           type: 'success',
-          title: `Welcome back, ${user.name}! 🔥`,
-          message: 'Logged in successfully.',
+          title: `Welcome, ${user.name}! 🔥`,
+          message: 'Administrator session authenticated.',
         })
       );
-      if (user.role === 'admin' || user.role === 'superadmin') {
-        navigate('/admin');
-      } else {
-        navigate(from);
-      }
+      navigate(from.startsWith('/admin') ? from : '/admin');
     } catch (err: any) {
       dispatch(
         addToast({
           type: 'error',
-          title: 'Login Failed',
-          message: err.message || 'Invalid credentials.',
+          title: 'Authentication Denied',
+          message: err.message || 'Invalid administrator credentials.',
         })
       );
     } finally {
@@ -68,14 +63,14 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-[#080604] pt-28 pb-20 text-[#FFF7ED] flex items-center justify-center px-4">
       <div className="max-w-md w-full p-8 sm:p-10 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/30 shadow-2xl space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center mx-auto mb-2">
-            <FlameIcon size={30} />
+          <div className="w-14 h-14 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center mx-auto mb-2 text-[#FF8A1F]">
+            <ShieldCheck size={30} />
           </div>
           <h2 className="text-2xl font-extrabold font-heading text-white">
-            SIGN IN TO THREE FLAMES
+            RESTAURANT ADMIN PORTAL
           </h2>
           <p className="text-xs text-[#B8AAA0]">
-            Access your order history, saved addresses, and account portal.
+            Sign in with authorized administrator credentials to manage dishes, menu catalog, and restaurant operations.
           </p>
         </div>
 
@@ -83,7 +78,7 @@ export const LoginPage: React.FC = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
-              Email Address
+              Admin Email Address
             </label>
             <div className="relative">
               <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#B8AAA0]" />
@@ -93,7 +88,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="username"
-                placeholder="Enter your email address"
+                placeholder="admin@threeflames.pk"
                 className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
             </div>
@@ -111,7 +106,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                placeholder="Enter your password"
+                placeholder="••••••••"
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
               />
               <button
@@ -133,14 +128,13 @@ export const LoginPage: React.FC = () => {
             isLoading={isLoading}
             rightIcon={<ArrowRight size={16} />}
           >
-            SIGN IN
+            SIGN IN TO ADMIN PORTAL
           </Button>
         </form>
 
         <div className="text-center text-xs text-[#B8AAA0] pt-2">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-[#FF8A1F] font-bold hover:underline">
-            Register Here
+          <Link to="/" className="text-[#FF8A1F] hover:underline inline-flex items-center gap-1">
+            <ArrowLeft size={13} /> Return to Public Website
           </Link>
         </div>
       </div>
