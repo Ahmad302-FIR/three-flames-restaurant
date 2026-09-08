@@ -18,7 +18,7 @@ export const ProfilePage: React.FC = () => {
       addToast({
         type: 'info',
         title: 'Instant Guest Ordering',
-        message: 'No account needed! Three Flames Restaurant orders are placed directly via WhatsApp.',
+        message: 'No account needed! Three Flames Restaurant orders can be placed directly on our website as a guest.',
       })
     );
     navigate('/menu', { replace: true });

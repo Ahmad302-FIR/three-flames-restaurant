@@ -13,8 +13,8 @@ export const RegisterPage: React.FC = () => {
     dispatch(
       addToast({
         type: 'info',
-        title: 'Instant WhatsApp Ordering 🔥',
-        message: 'No account registration required! You can order directly via WhatsApp.',
+        title: 'Instant Guest Ordering 🔥',
+        message: 'No account registration required! You can order directly on our website as a guest.',
       })
     );
     const timer = setTimeout(() => {
@@ -30,10 +30,10 @@ export const RegisterPage: React.FC = () => {
           <FlameIcon size={30} />
         </div>
         <h2 className="text-xl font-extrabold font-heading text-white">
-          INSTANT WHATSAPP ORDERING
+          INSTANT GUEST ORDERING
         </h2>
         <p className="text-xs text-[#B8AAA0] leading-relaxed">
-          Customer registration is not needed. You can select dishes and order directly through WhatsApp without creating an account!
+          Customer registration is not needed. You can select your favorite dishes and checkout directly through our website without creating an account!
         </p>
         <div className="pt-2">
           <Button variant="primary" size="md" fullWidth onClick={() => navigate('/menu')}>

@@ -8,7 +8,6 @@ import { adminService } from '../services/adminService';
 import { DeliveryZone, OrderType, PaymentMethod } from '../types';
 import { Button } from '../components/common/Button';
 import { FlameIcon } from '../components/common/FlameIcon';
-import { openWhatsAppOrder, WhatsAppOrderDetails } from '../utils/whatsappOrder';
 import confetti from 'canvas-confetti';
 import {
   Bike,
@@ -23,8 +22,6 @@ import {
   ShieldCheck,
   ArrowRight,
   AlertCircle,
-  CheckCircle2,
-  ShoppingBag,
 } from 'lucide-react';
 
 export const CheckoutPage: React.FC = () => {
@@ -41,18 +38,6 @@ export const CheckoutPage: React.FC = () => {
   const [selectedZone, setSelectedZone] = useState<DeliveryZone | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [placedOrder, setPlacedOrder] = useState<{
-    whatsappUrl: string;
-    customerName: string;
-    phone: string;
-    orderType: OrderType;
-    items: Array<{ name: string; quantity: number; price: number }>;
-    subtotal: number;
-    deliveryCharges: number;
-    total: number;
-    address?: string;
-    specialInstructions?: string;
-  } | null>(null);
 
   // Form Fields
   const [fullName, setFullName] = useState(currentUser?.name || '');
@@ -137,8 +122,8 @@ export const CheckoutPage: React.FC = () => {
     if (!phone.trim() || phone.replace(/\D/g, '').length < 10) {
       newErrors.phone = 'Valid phone number is required';
     }
-    if (email.trim() && !email.includes('@')) {
-      newErrors.email = 'Please enter a valid email address';
+    if (!email.trim() || !email.includes('@')) {
+      newErrors.email = 'Valid email address is required';
     }
 
     if (orderType === 'delivery') {
@@ -150,7 +135,7 @@ export const CheckoutPage: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (cartItems.length === 0) {
@@ -172,183 +157,97 @@ export const CheckoutPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const details: WhatsAppOrderDetails = {
-        customerName: fullName.trim() || 'Guest',
-        phone: phone.trim(),
+      const order = await orderService.createOrder({
+        customer: {
+          name: fullName.trim(),
+          phone: phone.trim(),
+          email: email.trim().toLowerCase(),
+        },
         orderType,
-        deliveryAddress: orderType === 'delivery' ? address.trim() : undefined,
-        deliveryArea: orderType === 'delivery' ? (selectedZone?.name || 'Peshawar') : undefined,
-        landmark: orderType === 'delivery' && landmark.trim() ? landmark.trim() : undefined,
-        items: [...cartItems],
+        deliveryDetails:
+          orderType === 'delivery'
+            ? {
+                fullName: fullName.trim(),
+                phone: phone.trim(),
+                email: email.trim().toLowerCase(),
+                address: address.trim(),
+                area: selectedZone?.name || 'Peshawar',
+                landmark: landmark.trim(),
+                instructions: deliveryNote.trim(),
+              }
+            : undefined,
+        pickupDetails:
+          orderType === 'pickup'
+            ? {
+                fullName: fullName.trim(),
+                phone: phone.trim(),
+                pickupTime,
+                instructions: deliveryNote.trim(),
+              }
+            : undefined,
+        dineInDetails:
+          orderType === 'dine-in'
+            ? {
+                fullName: fullName.trim(),
+                phone: phone.trim(),
+                guests: dineInGuests,
+                preferredTime: dineInTime,
+                tableNumber,
+                specialRequests: dineInNotes.trim(),
+              }
+            : undefined,
+        items: cartItems,
         subtotal,
-        deliveryCharges: deliveryFee,
+        deliveryFee,
         discount: discountAmount,
         couponCode: appliedCoupon?.code,
+        tax: 0,
         total: grandTotal,
-        specialInstructions:
+        paymentMethod,
+        paymentStatus: 'unpaid',
+        estimatedTime:
           orderType === 'delivery'
-            ? deliveryNote
-            : orderType === 'pickup'
-            ? deliveryNote
-            : dineInNotes,
-      };
-
-      // Open WhatsApp Web/App
-      const whatsappUrl = openWhatsAppOrder(details);
-
-      // Save confirmed state
-      setPlacedOrder({
-        whatsappUrl,
-        customerName: details.customerName || 'Guest',
-        phone: details.phone || 'N/A',
-        orderType,
-        items: cartItems.map((item) => ({
-          name: item.name,
-          quantity: item.quantity,
-          price: item.itemTotal,
-        })),
-        subtotal,
-        deliveryCharges: deliveryFee,
-        total: grandTotal,
-        address:
-          orderType === 'delivery'
-            ? [address.trim(), landmark.trim() ? `Near: ${landmark.trim()}` : null, selectedZone?.name]
-                .filter(Boolean)
-                .join(', ')
-            : undefined,
-        specialInstructions: details.specialInstructions,
+            ? selectedZone?.estimatedMinutes || '35-45 mins'
+            : '25-35 mins',
       });
 
       // Clear cart
       dispatch(clearCart());
 
-      // Trigger Celebration Confetti
+      // Trigger Confetti
       try {
         confetti({
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#F97316', '#25D366', '#EA580C', '#FFF7ED'],
+          colors: ['#F97316', '#D99A32', '#EA580C', '#FFF7ED'],
         });
       } catch (err) {
-        // Safe fallback
+        // Safe fallback if confetti canvas fails
       }
 
       dispatch(
         addToast({
           type: 'success',
-          title: 'Order Forwarded to WhatsApp! 🔥',
-          message: 'Your order details have been forwarded to Three Flames Restaurant WhatsApp.',
+          title: 'Order Placed Successfully! 🔥',
+          message: `Order #${order.id} is confirmed. Estimated time: ${order.estimatedTime}`,
         })
       );
-    } catch (err) {
-      console.error('Failed to forward order to WhatsApp', err);
+
+      navigate(`/order-success/${order.id}`);
+    } catch (err: any) {
+      console.error('Failed to place order', err);
       dispatch(
         addToast({
           type: 'error',
           title: 'Order Failed',
-          message: 'Unable to forward order to WhatsApp. Please try again.',
+          message: err.message || 'Unable to process order. Please try again.',
         })
       );
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  if (placedOrder) {
-    return (
-      <div className="min-h-screen bg-[#080604] pt-28 pb-20 text-[#FFF7ED]">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-[#120B08] border border-[#FF8A1F]/30 p-6 sm:p-10 text-center space-y-6 shadow-2xl overflow-hidden">
-            {/* Ambient glow */}
-            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#25D366]/15 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col items-center">
-              <div className="w-20 h-20 rounded-full bg-[#1A100C] border-2 border-[#25D366] flex items-center justify-center mb-4 shadow-xl shadow-[#25D366]/20">
-                <CheckCircle2 size={42} className="text-[#25D366]" />
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
-                <span>WhatsApp Forwarded</span>
-              </div>
-
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-black font-heading text-[#FFF7ED] uppercase tracking-wide">
-                ORDER FORWARDED TO WHATSAPP!
-              </h1>
-
-              <p className="mt-3 text-sm sm:text-base text-[#B8AAA0] max-w-lg mx-auto leading-relaxed">
-                Your order has been forwarded to Three Flames Restaurant via WhatsApp!
-              </p>
-
-              <p className="mt-1 text-xs text-[#B8AAA0]/80">
-                If WhatsApp did not open automatically, click below:
-              </p>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-              <a
-                href={placedOrder.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-heading font-extrabold text-xs uppercase tracking-wider bg-[#25D366] text-black hover:bg-[#20bd5a] transition-all shadow-lg shadow-[#25D366]/25 hover:scale-[1.02]"
-              >
-                <Phone size={16} />
-                OPEN WHATSAPP AGAIN
-              </a>
-
-              <Button
-                variant="secondary"
-                size="md"
-                className="w-full sm:w-auto text-xs uppercase"
-                onClick={() => navigate('/menu')}
-                leftIcon={<ShoppingBag size={16} />}
-              >
-                BROWSE MENU
-              </Button>
-            </div>
-
-            {/* Order Details Preview Card */}
-            <div className="p-5 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/20 text-left space-y-3 text-xs">
-              <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                <span className="text-[#B8AAA0]">Customer:</span>
-                <span className="font-bold text-white">{placedOrder.customerName} ({placedOrder.phone})</span>
-              </div>
-              <div className="flex justify-between items-center pb-2 border-b border-white/5">
-                <span className="text-[#B8AAA0]">Order Type:</span>
-                <span className="font-bold text-[#FF8A1F] uppercase">{placedOrder.orderType}</span>
-              </div>
-              {placedOrder.address && (
-                <div className="flex justify-between items-start pb-2 border-b border-white/5 gap-4">
-                  <span className="text-[#B8AAA0] shrink-0">Address:</span>
-                  <span className="font-medium text-white text-right">{placedOrder.address}</span>
-                </div>
-              )}
-              {placedOrder.specialInstructions && (
-                <div className="flex justify-between items-start pb-2 border-b border-white/5 gap-4">
-                  <span className="text-[#B8AAA0] shrink-0">Instructions:</span>
-                  <span className="font-medium text-[#D99A32] text-right italic">{placedOrder.specialInstructions}</span>
-                </div>
-              )}
-              <div className="space-y-1.5 pt-1">
-                <span className="text-[#B8AAA0] block font-semibold">Items:</span>
-                {placedOrder.items.map((item, idx) => (
-                  <div key={idx} className="flex justify-between text-white/90">
-                    <span>{item.quantity}x {item.name}</span>
-                    <span className="font-semibold text-[#D99A32]">Rs. {item.price.toLocaleString()}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="pt-2 border-t border-white/10 flex justify-between font-bold text-sm text-[#FF8A1F]">
-                <span>Total Amount:</span>
-                <span>Rs. {placedOrder.total.toLocaleString()}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (cartItems.length === 0) {
     return (
@@ -496,13 +395,13 @@ export const CheckoutPage: React.FC = () => {
 
                 <div>
                   <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
-                    Email Address (Optional)
+                    Email Address *
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@example.com (Optional)"
+                    placeholder="name@example.com"
                     className={`w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border text-xs text-[#FFF7ED] focus:outline-none ${
                       errors.email ? 'border-rose-500' : 'border-[#FF8A1F]/30 focus:border-[#FF8A1F]'
                     }`}
@@ -895,10 +794,9 @@ export const CheckoutPage: React.FC = () => {
                 size="lg"
                 fullWidth
                 isLoading={isSubmitting}
-                leftIcon={<Phone size={18} />}
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-black font-extrabold shadow-lg shadow-[#25D366]/20 border-none"
+                leftIcon={<FlameIcon size={18} glow={false} />}
               >
-                ORDER ON WHATSAPP
+                🔥 PLACE ORDER NOW
               </Button>
 
               <p className="text-[11px] text-center text-[#B8AAA0] leading-relaxed">

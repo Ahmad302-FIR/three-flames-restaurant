@@ -181,7 +181,7 @@ export const CartDrawer: React.FC = () => {
                   }}
                   rightIcon={<ArrowRight size={16} />}
                 >
-                  Order on WhatsApp
+                  Checkout
                 </Button>
               </div>
 

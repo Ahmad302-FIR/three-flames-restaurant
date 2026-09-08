@@ -18,6 +18,7 @@ import {
   Store,
   Utensils,
 } from 'lucide-react';
+import { joinAdminKitchen, onAdminOrderUpdate } from '../../services/socketService';
 
 export const AdminOrdersPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,18 +29,29 @@ export const AdminOrdersPage: React.FC = () => {
   const [activeOrder, setActiveOrder] = useState<Order | null>(null);
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
 
-  const fetchOrders = async () => {
-    setLoading(true);
+  const fetchOrders = async (showLoading = true) => {
+    if (showLoading) setLoading(true);
     try {
       const data = await orderService.getOrders();
       setOrders(data);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchOrders();
+    fetchOrders(true);
+    joinAdminKitchen();
+    const cleanup = onAdminOrderUpdate(() => {
+      fetchOrders(false);
+    });
+    const interval = setInterval(() => {
+      fetchOrders(false);
+    }, 10000);
+    return () => {
+      cleanup();
+      clearInterval(interval);
+    };
   }, []);
 
   const handleUpdateStatus = async (orderId: string, status: OrderStatus) => {
@@ -93,7 +105,7 @@ export const AdminOrdersPage: React.FC = () => {
           </p>
         </div>
 
-        <Button variant="secondary" size="sm" onClick={fetchOrders} isLoading={loading}>
+        <Button variant="secondary" size="sm" onClick={() => fetchOrders(true)} isLoading={loading}>
           Refresh Queue
         </Button>
       </div>
