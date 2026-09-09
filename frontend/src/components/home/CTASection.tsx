@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FlameIcon } from '../common/FlameIcon';
 import { Button } from '../common/Button';
 import { restaurantInfo } from '../../data/restaurantData';
-import { Phone, CalendarCheck, ArrowRight } from 'lucide-react';
+import { Utensils, Phone, CalendarCheck, ArrowRight } from 'lucide-react';
 
 export const CTASection: React.FC = () => {
   const navigate = useNavigate();
@@ -19,8 +18,12 @@ export const CTASection: React.FC = () => {
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#B85C38]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#25201D] border border-[#3A322D] shadow-inner mb-2">
-              <FlameIcon size={36} />
+            <div className="inline-flex items-center justify-center mb-2">
+              <img
+                src="/akr-logo-light.png"
+                alt="AKR Pakistani BBQ & Sajji"
+                className="h-20 sm:h-24 w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+              />
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-[#F3EDE5] uppercase tracking-wide leading-tight">
@@ -36,7 +39,7 @@ export const CTASection: React.FC = () => {
                 variant="primary"
                 size="lg"
                 onClick={() => navigate('/menu')}
-                leftIcon={<FlameIcon size={18} glow={false} />}
+                leftIcon={<Utensils size={18} />}
               >
                 ORDER FOOD ONLINE
               </Button>
