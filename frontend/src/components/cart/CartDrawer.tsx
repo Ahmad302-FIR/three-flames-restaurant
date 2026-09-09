@@ -32,7 +32,7 @@ export const CartDrawer: React.FC = () => {
           {/* Header */}
           <div className="p-6 border-b border-[#E8DED6] flex items-center justify-between bg-[#F7F3EE]">
             <div className="flex items-center gap-2.5">
-              <FlameIcon size={22} />
+              <img src="/akr-logo.png" alt="AKR" className="h-9 w-auto object-contain" />
               <div>
                 <h2 className="text-lg font-bold font-heading text-[#25201D]">YOUR ORDER CART</h2>
                 <p className="text-xs text-[#B85C38] uppercase tracking-wider font-semibold">

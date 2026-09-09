@@ -83,8 +83,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return (
         <div className="min-h-[60vh] flex items-center justify-center px-4 py-16 text-center">
           <div className="max-w-md w-full p-8 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] shadow-2xl space-y-5">
-            <div className="w-14 h-14 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto">
-              <FlameIcon size={28} />
+            <div className="flex items-center justify-center mx-auto">
+              <img src="/akr-logo.png" alt="AKR" className="h-14 w-auto object-contain" />
             </div>
             <h2 className="text-xl font-extrabold font-heading text-[#25201D]">
               Something Went Wrong

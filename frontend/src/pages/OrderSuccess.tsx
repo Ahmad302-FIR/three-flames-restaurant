@@ -80,8 +80,8 @@ export const OrderSuccessPage: React.FC = () => {
 
           {/* Success Header Icon */}
           <div className="relative z-10 flex flex-col items-center">
-            <div className="w-20 h-20 rounded-full bg-[#F7F3EE] border-2 border-[#E8DED6] flex items-center justify-center mb-4 shadow-xl shadow-[#B85C38]/20">
-              <FlameIcon size={44} />
+            <div className="w-20 h-20 rounded-full bg-[#F7F3EE] border-2 border-[#E8DED6] flex items-center justify-center mb-4 shadow-md">
+              <img src="/akr-logo.png" alt="AKR" className="h-14 w-auto object-contain" />
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">

@@ -26,18 +26,12 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12 border-b border-white/10">
           {/* Brand Col */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 shadow-sm">
-                <FlameIcon size={24} />
-              </div>
-              <div>
-                <span className="block text-xl font-black font-heading tracking-wider text-[#FFFDFC]">
-                  AHMED KHAN
-                </span>
-                <span className="block text-[10px] tracking-[0.2em] text-[#B85C38] font-bold -mt-1 uppercase">
-                  Restaurant • Peshawar
-                </span>
-              </div>
+            <Link to="/" className="inline-block mb-1" aria-label="AKR Home">
+              <img
+                src="/akr-logo-light.png"
+                alt="AKR Pakistani BBQ & Sajji"
+                className="h-16 w-auto object-contain hover:opacity-95 transition-opacity"
+              />
             </Link>
             <p className="text-sm leading-relaxed text-[#B8ADA4]">
               Peshawar’s premier culinary sanctuary for authentic charcoal-roasted Sajji, sizzling Desi Ghee Karahi, and traditional BBQ made with unmatched craftsmanship.

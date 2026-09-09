@@ -26,8 +26,8 @@ export const RegisterPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D] flex items-center justify-center px-4">
       <div className="max-w-md w-full p-8 sm:p-10 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] shadow-2xl text-center space-y-4">
-        <div className="w-14 h-14 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto text-[#B85C38]">
-          <FlameIcon size={30} />
+        <div className="flex items-center justify-center mx-auto mb-2">
+          <img src="/akr-logo.png" alt="AKR" className="h-14 w-auto object-contain" />
         </div>
         <h2 className="text-xl font-extrabold font-heading text-[#25201D]">
           INSTANT GUEST ORDERING

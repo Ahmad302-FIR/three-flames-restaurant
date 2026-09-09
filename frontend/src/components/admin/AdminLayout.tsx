@@ -84,10 +84,10 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
       <aside className="hidden lg:flex lg:flex-col w-64 bg-[#FFFFFF] border-r border-[#E8DED6] fixed inset-y-0 z-30 justify-between overflow-y-auto">
         <div className="p-6 space-y-6">
           {/* Brand Header */}
-          <Link to="/" className="flex items-center gap-3">
-            <FlameIcon size={26} />
+          <Link to="/" className="flex items-center gap-2.5">
+            <img src="/akr-logo.png" alt="AKR" className="h-12 w-auto object-contain" />
             <div>
-              <span className="font-extrabold font-heading text-lg tracking-wider text-[#25201D] block">
+              <span className="font-extrabold font-heading text-sm tracking-wider text-[#25201D] block">
                 AHMED KHAN
               </span>
               <span className="text-[10px] text-[#B85C38] font-bold tracking-widest uppercase block">
@@ -200,7 +200,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
             <div className="space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-[#E8DED6]">
                 <div className="flex items-center gap-2.5">
-                  <FlameIcon size={24} />
+                  <img src="/akr-logo.png" alt="AKR" className="h-10 w-auto object-contain" />
                   <span className="font-bold text-[#25201D]">Ahmed Khan Admin</span>
                 </div>
                 <button

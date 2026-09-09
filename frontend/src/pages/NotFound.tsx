@@ -8,8 +8,8 @@ export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FFFDFC] pt-32 pb-20 flex items-center justify-center text-[#25201D] px-4">
       <div className="max-w-md w-full text-center space-y-6">
-        <div className="w-20 h-20 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] flex items-center justify-center mx-auto text-[#B85C38] shadow-2xl">
-          <FlameIcon size={44} />
+        <div className="flex items-center justify-center mx-auto mb-2">
+          <img src="/akr-logo.png" alt="AKR" className="h-16 w-auto object-contain" />
         </div>
 
         <h1 className="text-6xl font-black font-heading text-[#B85C38]">404</h1>
