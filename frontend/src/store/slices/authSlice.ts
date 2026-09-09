@@ -14,9 +14,19 @@ interface AuthState {
 
 const loadAuthFromStorage = (): AuthState => {
   try {
-    const savedUser = localStorage.getItem('tf_user_v1');
     const token = localStorage.getItem('tf_token_v1');
-    const user: UserProfile | null = savedUser ? JSON.parse(savedUser) : null;
+    const savedUser = localStorage.getItem('tf_user_v1');
+
+    if (!token || !savedUser) {
+      return {
+        user: null,
+        isAdminAuthenticated: false,
+        adminUser: null,
+        isAuthenticated: false,
+      };
+    }
+
+    const user: UserProfile = JSON.parse(savedUser);
     const hasValidAdminRole = Boolean(
       token && user && ['admin', 'superadmin', 'staff'].includes(user.role)
     );
@@ -25,7 +35,7 @@ const loadAuthFromStorage = (): AuthState => {
       user,
       isAuthenticated: Boolean(user && token),
       isAdminAuthenticated: hasValidAdminRole,
-      adminUser: hasValidAdminRole && user ? { name: user.name, email: user.email, role: user.role } : null,
+      adminUser: hasValidAdminRole ? { name: user.name, email: user.email, role: user.role } : null,
     };
   } catch (e) {
     console.error('Failed to load auth state', e);
@@ -80,8 +90,13 @@ export const authSlice = createSlice({
 
     adminLoginSuccess: (state, action: PayloadAction<{ name: string; email: string; role: string }>) => {
       state.adminUser = action.payload;
-      state.isAdminAuthenticated = ['admin', 'superadmin', 'staff'].includes(action.payload.role);
-      localStorage.setItem('tf_admin_v1', JSON.stringify(action.payload));
+      const isAdmin = ['admin', 'superadmin', 'staff'].includes(action.payload.role);
+      state.isAdminAuthenticated = isAdmin;
+      if (isAdmin) {
+        localStorage.setItem('tf_admin_v1', JSON.stringify(action.payload));
+      } else {
+        localStorage.removeItem('tf_admin_v1');
+      }
     },
 
     adminLogout: (state) => {

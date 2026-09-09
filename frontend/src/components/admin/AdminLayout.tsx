@@ -30,20 +30,30 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
+  const adminUser = useAppSelector((state) => state.auth.adminUser);
   const isAdminAuthenticated = useAppSelector((state) => state.auth.isAdminAuthenticated);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
-  // Check if admin is authenticated
-  const isAuthenticated = Boolean(user && localStorage.getItem('tf_token_v1'));
-  const isAuthorizedAdmin =
-    isAuthenticated &&
-    (user.role === 'admin' || user.role === 'superadmin');
+  // Check if admin is authenticated with real backend token and authorized role
+  const token = typeof window !== 'undefined' ? localStorage.getItem('tf_token_v1') : null;
+  const activeUser = user || (adminUser ? { id: 'admin', name: adminUser.name, email: adminUser.email, phone: '', role: adminUser.role as any } : null);
 
-  if (!isAuthenticated) {
+  let cachedRole: string | null = activeUser?.role || null;
+  if (!cachedRole && typeof window !== 'undefined') {
+    try {
+      const u = localStorage.getItem('tf_user_v1');
+      cachedRole = u ? JSON.parse(u)?.role : null;
+    } catch {}
+  }
+
+  const isRoleAuthorized = Boolean(cachedRole && ['admin', 'superadmin', 'staff'].includes(cachedRole));
+  const isAuthorized = Boolean(token && isRoleAuthorized);
+
+  if (!token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!isAuthorizedAdmin) {
+  if (!isAuthorized) {
     return <Navigate to="/" replace />;
   }
 
@@ -69,9 +79,9 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
   };
 
   return (
-    <div className="min-h-screen bg-[#080604] text-[#FFF7ED] flex">
+    <div className="min-h-screen bg-[#1C1815] text-[#F3EDE5] flex">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col w-64 bg-[#120B08] border-r border-[#FF8A1F]/20 fixed inset-y-0 z-30 justify-between overflow-y-auto">
+      <aside className="hidden lg:flex lg:flex-col w-64 bg-[#28221D] border-r border-[#51463D] fixed inset-y-0 z-30 justify-between overflow-y-auto">
         <div className="p-6 space-y-6">
           {/* Brand Header */}
           <Link to="/" className="flex items-center gap-3">
@@ -80,7 +90,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
               <span className="font-extrabold font-heading text-lg tracking-wider text-white block">
                 AHMED KHAN
               </span>
-              <span className="text-[10px] text-[#FF8A1F] font-bold tracking-widest uppercase block">
+              <span className="text-[10px] text-[#C97845] font-bold tracking-widest uppercase block">
                 Ops & Kitchen Portal
               </span>
             </div>
@@ -96,8 +106,8 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                   to={item.path}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
                     isActive
-                      ? 'bg-[#1A100C] text-[#FF8A1F] border border-[#FF8A1F]/40 shadow-lg shadow-[#F97316]/10'
-                      : 'text-[#B8AAA0] hover:text-white hover:bg-[#1A100C]/50'
+                      ? 'bg-[#332B25] text-[#C97845] border border-[#51463D] shadow-lg shadow-[#C97845]/10'
+                      : 'text-[#BDB1A5] hover:text-white hover:bg-[#332B25]/50'
                   }`}
                 >
                   {item.icon}
@@ -109,10 +119,10 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
         </div>
 
         {/* Bottom User / Store Info */}
-        <div className="p-6 border-t border-white/5 space-y-4">
+        <div className="p-6 border-t border-[#51463D] space-y-4">
           <Link
             to="/"
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#1A100C] text-xs font-bold text-[#D99A32] border border-[#D99A32]/30 hover:text-white transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#332B25] text-xs font-bold text-[#D6A15D] border border-[#51463D] hover:text-white transition-colors"
           >
             <Store size={14} />
             <span>Open Diner Storefront</span>
@@ -120,12 +130,12 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
 
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center font-bold text-xs text-[#FF8A1F]">
-                {user?.name?.charAt(0) || 'A'}
+              <div className="w-8 h-8 rounded-lg bg-[#332B25] border border-[#51463D] flex items-center justify-center font-bold text-xs text-[#C97845]">
+                {activeUser?.name?.charAt(0) || 'A'}
               </div>
               <div className="text-left">
                 <span className="text-xs font-bold text-white block truncate max-w-[100px]">
-                  {user?.name || 'Administrator'}
+                  {activeUser?.name || 'Administrator'}
                 </span>
                 <span className="text-[10px] text-emerald-400 block font-semibold">Online</span>
               </div>
@@ -133,7 +143,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
 
             <button
               onClick={handleLogout}
-              className="p-2 text-[#B8AAA0] hover:text-rose-400 rounded-lg hover:bg-white/5"
+              className="p-2 text-[#BDB1A5] hover:text-rose-400 rounded-lg hover:bg-white/5"
               title="Sign Out"
             >
               <LogOut size={16} />
@@ -145,11 +155,11 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
       {/* Main Content Area */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
         {/* Top Navbar */}
-        <header className="h-16 bg-[#120B08]/90 backdrop-blur-md border-b border-[#FF8A1F]/20 sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between">
+        <header className="h-16 bg-[#28221D]/90 backdrop-blur-md border-b border-[#51463D] sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileNavOpen(true)}
-              className="lg:hidden p-2 text-[#B8AAA0] hover:text-white"
+              className="lg:hidden p-2 text-[#BDB1A5] hover:text-white"
             >
               <MenuIcon size={22} />
             </button>
@@ -159,14 +169,14 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A100C] border border-[#FF8A1F]/20 text-[11px] text-[#D99A32]">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#332B25] border border-[#51463D] text-[11px] text-[#D6A15D]">
               <ShieldCheck size={14} className="text-emerald-400" />
               <span>Peshawar Kitchen Live</span>
             </div>
 
             <Link
               to="/"
-              className="px-3 py-1.5 rounded-lg bg-[#FF8A1F]/10 hover:bg-[#FF8A1F]/20 text-xs font-bold text-[#FF8A1F] border border-[#FF8A1F]/30"
+              className="px-3 py-1.5 rounded-lg bg-[#C97845]/10 hover:bg-[#C97845]/20 text-xs font-bold text-[#C97845] border border-[#51463D]"
             >
               View Site
             </Link>
@@ -174,7 +184,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
         </header>
 
         {/* Subpage View */}
-        <main className="flex-1 p-4 sm:p-8 bg-[#080604]">
+        <main className="flex-1 p-4 sm:p-8 bg-[#1C1815]">
           {children || <Outlet />}
         </main>
       </div>
@@ -186,16 +196,16 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
             className="fixed inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setIsMobileNavOpen(false)}
           />
-          <div className="fixed inset-y-0 left-0 w-72 bg-[#120B08] p-6 border-r border-[#FF8A1F]/30 flex flex-col justify-between overflow-y-auto">
+          <div className="fixed inset-y-0 left-0 w-72 bg-[#28221D] p-6 border-r border-[#51463D] flex flex-col justify-between overflow-y-auto">
             <div className="space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-white/5">
+              <div className="flex items-center justify-between pb-4 border-b border-[#51463D]">
                 <div className="flex items-center gap-2.5">
                   <FlameIcon size={24} />
                   <span className="font-bold text-white">Ahmed Khan Admin</span>
                 </div>
                 <button
                   onClick={() => setIsMobileNavOpen(false)}
-                  className="p-1.5 text-[#B8AAA0] hover:text-white"
+                  className="p-1.5 text-[#BDB1A5] hover:text-white"
                 >
                   <X size={20} />
                 </button>
@@ -207,7 +217,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMobileNavOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-[#B8AAA0] hover:text-white hover:bg-[#1A100C]"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-[#BDB1A5] hover:text-white hover:bg-[#332B25]"
                   >
                     {item.icon}
                     <span>{item.label}</span>
@@ -216,7 +226,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
               </nav>
             </div>
 
-            <div className="pt-4 border-t border-white/5">
+            <div className="pt-4 border-t border-[#51463D]">
               <button
                 onClick={handleLogout}
                 className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-950/30"

@@ -31,17 +31,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-gradient-to-r from-[#F97316] via-[#FF8A1F] to-[#EA580C] text-black font-semibold shadow-lg shadow-[#F97316]/20 hover:shadow-[#F97316]/40 hover:brightness-110 border border-[#FF8A1F]/30',
+      'bg-[#C97845] hover:bg-[#E0AE6C] text-[#F3EDE5] font-semibold shadow-md shadow-black/20 hover:shadow-lg transition-all border border-[#C97845]/40',
     secondary:
-      'bg-[#1A100C] text-[#FFF7ED] border border-[#FF8A1F]/30 hover:bg-[#2A1A14] hover:border-[#FF8A1F]/60 shadow-md',
+      'bg-[#332B25] text-[#F3EDE5] border border-[#51463D] hover:bg-[#3D332C] hover:border-[#D6A15D]/50 shadow-sm transition-all',
     outline:
-      'bg-transparent text-[#FF8A1F] border border-[#FF8A1F]/50 hover:bg-[#FF8A1F]/10 hover:border-[#FF8A1F]',
+      'bg-transparent text-[#C97845] border border-[#C97845]/60 hover:bg-[#C97845]/10 hover:border-[#C97845] hover:text-[#E0AE6C] transition-all',
     gold:
-      'bg-gradient-to-r from-[#D99A32] to-[#F2B84B] text-black font-semibold shadow-lg shadow-[#D99A32]/20 hover:brightness-110 border border-[#F2B84B]/40',
+      'bg-gradient-to-r from-[#C97845] to-[#D6A15D] text-[#1C1815] font-semibold shadow-md shadow-black/20 hover:brightness-105 border border-[#D6A15D]/40 transition-all',
     ghost:
-      'bg-transparent text-[#FFF7ED] hover:bg-[#1A100C] hover:text-[#FF8A1F]',
+      'bg-transparent text-[#F3EDE5] hover:bg-[#332B25] hover:text-[#D6A15D] transition-all',
     danger:
-      'bg-red-600/90 text-white hover:bg-red-600 border border-red-500/30',
+      'bg-[#B96F65] text-[#F3EDE5] hover:bg-[#A85E54] border border-[#B96F65]/40 shadow-sm transition-all',
   };
 
   return (

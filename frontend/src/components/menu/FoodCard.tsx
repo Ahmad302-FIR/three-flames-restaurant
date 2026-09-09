@@ -40,16 +40,16 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
     dispatch(
       addToast({
         type: 'success',
-        title: 'Added to Cart 🔥',
+        title: 'Added to Cart',
         message: `${item.name} has been added to your order.`,
       })
     );
   };
 
   return (
-    <div className="group relative rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/15 hover:border-[#FF8A1F]/50 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-[#F97316]/10 hover:-translate-y-1">
+    <div className="group relative rounded-2xl bg-[#332B25] border border-[#51463D] hover:border-[#D6A15D]/60 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/40 hover:-translate-y-1">
       {/* Top Image Container */}
-      <div className="relative h-56 sm:h-60 overflow-hidden bg-[#120B08]">
+      <div className="relative h-56 sm:h-60 overflow-hidden bg-[#28221D]">
         <img
           src={item.image}
           alt={item.name}
@@ -57,7 +57,7 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
           loading="lazy"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A100C] via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#332B25] via-transparent to-black/30" />
 
         {/* Floating Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
@@ -80,12 +80,12 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
             e.stopPropagation();
             setIsLiked(!isLiked);
           }}
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:text-[#F97316] transition-colors z-10"
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-[#51463D] flex items-center justify-center text-white hover:text-[#C97845] transition-colors z-10"
           aria-label="Save to favorites"
         >
           <Heart
             size={16}
-            className={isLiked ? 'fill-[#F97316] text-[#F97316]' : 'text-white'}
+            className={isLiked ? 'fill-[#C97845] text-[#C97845]' : 'text-[#F3EDE5]'}
           />
         </button>
 
@@ -94,8 +94,8 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
           to={`/menu/${item.id}`}
           className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
         >
-          <span className="px-4 py-2 rounded-xl bg-[#080604]/90 border border-[#FF8A1F]/40 text-[#FFF7ED] text-xs font-semibold flex items-center gap-2 shadow-xl">
-            <Eye size={15} className="text-[#FF8A1F]" />
+          <span className="px-4 py-2 rounded-xl bg-[#28221D]/95 border border-[#51463D] text-[#F3EDE5] text-xs font-semibold flex items-center gap-2 shadow-xl hover:text-[#D6A15D]">
+            <Eye size={15} className="text-[#D6A15D]" />
             View Details & Add-ons
           </span>
         </Link>
@@ -107,9 +107,9 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
           {/* Rating & Meta */}
           <div className="flex items-center justify-between gap-2 mb-2">
             <StarRating rating={item.rating} reviewsCount={item.reviewsCount} showValue />
-            <div className="flex items-center gap-2 text-[11px] text-[#B8AAA0]">
+            <div className="flex items-center gap-2 text-[11px] text-[#BDB1A5]">
               <span className="flex items-center gap-1">
-                <Users size={12} className="text-[#D99A32]" />
+                <Users size={12} className="text-[#D6A15D]" />
                 {item.serving}
               </span>
             </div>
@@ -117,27 +117,27 @@ export const FoodCard: React.FC<FoodCardProps> = ({ item }) => {
 
           {/* Dish Title */}
           <Link to={`/menu/${item.id}`}>
-            <h3 className="text-lg font-bold font-heading text-[#FFF7ED] group-hover:text-[#FF8A1F] transition-colors line-clamp-1">
+            <h3 className="text-lg font-bold font-heading text-[#F3EDE5] group-hover:text-[#D6A15D] transition-colors line-clamp-1">
               {item.name}
             </h3>
           </Link>
 
           {/* Description */}
-          <p className="mt-1.5 text-xs text-[#B8AAA0] line-clamp-2 leading-relaxed">
+          <p className="mt-1.5 text-xs text-[#BDB1A5] line-clamp-2 leading-relaxed">
             {item.description}
           </p>
         </div>
 
         {/* Price & Action CTA */}
-        <div className="pt-3 border-t border-[#FF8A1F]/15 flex items-center justify-between gap-3">
+        <div className="pt-3 border-t border-[#51463D] flex items-center justify-between gap-3">
           <div>
-            <span className="text-[10px] text-[#B8AAA0] uppercase tracking-wider block font-medium">Price</span>
+            <span className="text-[10px] text-[#91857A] uppercase tracking-wider block font-medium">Price</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-lg sm:text-xl font-extrabold text-[#FFF7ED]">
+              <span className="text-lg sm:text-xl font-extrabold text-[#F3EDE5]">
                 Rs. {item.price.toLocaleString()}
               </span>
               {item.originalPrice && (
-                <span className="text-xs text-[#B8AAA0] line-through">
+                <span className="text-xs text-[#91857A] line-through">
                   Rs. {item.originalPrice.toLocaleString()}
                 </span>
               )}

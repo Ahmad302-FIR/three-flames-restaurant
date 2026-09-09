@@ -27,7 +27,7 @@ export const SignatureDishes: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-[#080604] relative">
+    <section className="py-20 bg-[#1C1815] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="CHEF RECOMMENDATIONS"

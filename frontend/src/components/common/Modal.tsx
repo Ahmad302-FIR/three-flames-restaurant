@@ -53,18 +53,18 @@ export const Modal: React.FC<ModalProps> = ({
 
       {/* Modal Container */}
       <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-[#120B08] border border-[#FF8A1F]/30 rounded-2xl shadow-2xl shadow-black/80 overflow-hidden z-10 my-8`}
+        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-[#28221D] border border-[#51463D] rounded-2xl shadow-2xl shadow-black/80 overflow-hidden z-10 my-8`}
       >
         {/* Header */}
         {(title || subtitle) && (
-          <div className="flex items-start justify-between p-6 border-b border-[#FF8A1F]/15 bg-[#1A100C]">
+          <div className="flex items-start justify-between p-6 border-b border-[#51463D] bg-[#332B25]">
             <div>
-              {title && <h3 className="text-xl font-bold font-heading text-[#FFF7ED]">{title}</h3>}
-              {subtitle && <p className="text-xs text-[#B8AAA0] mt-1">{subtitle}</p>}
+              {title && <h3 className="text-xl font-bold font-heading text-[#F3EDE5]">{title}</h3>}
+              {subtitle && <p className="text-xs text-[#BDB1A5] mt-1">{subtitle}</p>}
             </div>
             <button
               onClick={onClose}
-              className="rounded-lg p-1.5 text-[#B8AAA0] hover:text-[#FFF7ED] hover:bg-[#2A1A14] transition-colors"
+              className="rounded-lg p-1.5 text-[#BDB1A5] hover:text-[#F3EDE5] hover:bg-[#3D332C] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -74,14 +74,14 @@ export const Modal: React.FC<ModalProps> = ({
         {!title && !subtitle && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-20 rounded-full p-2 text-[#B8AAA0] hover:text-[#FFF7ED] bg-black/50 hover:bg-black transition-colors"
+            className="absolute top-4 right-4 z-20 rounded-full p-2 text-[#BDB1A5] hover:text-[#F3EDE5] bg-[#332B25]/80 hover:bg-[#332B25] border border-[#51463D] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         )}
 
         {/* Content */}
-        <div className="p-6 max-h-[80vh] overflow-y-auto">{children}</div>
+        <div className="p-6 max-h-[80vh] overflow-y-auto text-[#F3EDE5]">{children}</div>
       </div>
     </div>
   );

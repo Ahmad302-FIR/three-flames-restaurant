@@ -89,7 +89,7 @@ export const ReservationPage: React.FC = () => {
           particleCount: 70,
           spread: 60,
           origin: { y: 0.6 },
-          colors: ['#F97316', '#D99A32', '#EA580C'],
+          colors: ['#C97845', '#D6A15D', '#C97845'],
         });
       } catch (e) {}
 
@@ -115,7 +115,7 @@ export const ReservationPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080604] pt-28 pb-20 text-[#FFF7ED]">
+    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="AUTHENTIC CHARCOAL DINING"
@@ -125,8 +125,8 @@ export const ReservationPage: React.FC = () => {
         />
 
         {confirmedReservation ? (
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/40 text-center space-y-6 max-w-2xl mx-auto shadow-2xl">
-            <div className="w-16 h-16 rounded-full bg-[#1A100C] border-2 border-[#FF8A1F] flex items-center justify-center mx-auto text-[#FF8A1F]">
+          <div className="p-8 sm:p-12 rounded-3xl bg-[#28221D] border border-[#51463D] text-center space-y-6 max-w-2xl mx-auto shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-[#332B25] border-2 border-[#51463D] flex items-center justify-center mx-auto text-[#C97845]">
               <PartyPopper size={32} />
             </div>
 
@@ -134,32 +134,32 @@ export const ReservationPage: React.FC = () => {
               Table Reservation Confirmed!
             </h2>
 
-            <div className="p-5 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/20 text-left text-xs space-y-2.5">
+            <div className="p-5 rounded-2xl bg-[#332B25] border border-[#51463D] text-left text-xs space-y-2.5">
               <div className="flex justify-between">
-                <span className="text-[#B8AAA0]">Booking Reference:</span>
-                <span className="font-bold text-[#FF8A1F]">#{confirmedReservation.id}</span>
+                <span className="text-[#BDB1A5]">Booking Reference:</span>
+                <span className="font-bold text-[#C97845]">#{confirmedReservation.id}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#B8AAA0]">Primary Guest:</span>
+                <span className="text-[#BDB1A5]">Primary Guest:</span>
                 <span className="font-bold text-white">{confirmedReservation.guestName}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#B8AAA0]">Party Size:</span>
+                <span className="text-[#BDB1A5]">Party Size:</span>
                 <span className="font-bold text-white">{confirmedReservation.guestCount} Guests</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#B8AAA0]">Date & Time:</span>
-                <span className="font-bold text-[#D99A32]">
+                <span className="text-[#BDB1A5]">Date & Time:</span>
+                <span className="font-bold text-[#D6A15D]">
                   {confirmedReservation.date} at {confirmedReservation.time}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#B8AAA0]">Seating Zone:</span>
+                <span className="text-[#BDB1A5]">Seating Zone:</span>
                 <span className="font-bold text-white uppercase">{confirmedReservation.seatingArea}</span>
               </div>
             </div>
 
-            <p className="text-xs text-[#B8AAA0] max-w-md mx-auto">
+            <p className="text-xs text-[#BDB1A5] max-w-md mx-auto">
               We look forward to welcoming you at Ahmed Khan Restaurant, University Town, Peshawar. An SMS confirmation has been scheduled.
             </p>
 
@@ -175,16 +175,16 @@ export const ReservationPage: React.FC = () => {
             {/* Form */}
             <form
               onSubmit={handleSubmit}
-              className="lg:col-span-8 p-6 sm:p-10 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-6 shadow-2xl"
+              className="lg:col-span-8 p-6 sm:p-10 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-6 shadow-2xl"
             >
-              <h3 className="text-lg font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#FF8A1F]/15">
+              <h3 className="text-lg font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#51463D]">
                 <FlameIcon size={20} />
                 Reservation Specifications
               </h3>
 
               {/* Guest Count */}
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-2">
                   Number of Guests
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -195,8 +195,8 @@ export const ReservationPage: React.FC = () => {
                       onClick={() => setGuestCount(num)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         guestCount === num
-                          ? 'bg-[#F97316] text-black shadow-lg shadow-[#F97316]/20 scale-105'
-                          : 'bg-[#1A100C] text-[#B8AAA0] border border-white/10 hover:border-[#FF8A1F]/30'
+                          ? 'bg-[#C97845] text-black shadow-lg shadow-[#C97845]/20 scale-105'
+                          : 'bg-[#332B25] text-[#BDB1A5] border border-[#51463D] hover:border-[#51463D]'
                       }`}
                     >
                       {num} {num === 2 ? 'Guests' : 'People'}
@@ -208,25 +208,25 @@ export const ReservationPage: React.FC = () => {
               {/* Date & Time */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Reservation Date
                   </label>
                   <input
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-[#FFF7ED] focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-[#F3EDE5] focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Preferred Time Slot
                   </label>
                   <select
                     value={timeSlot}
                     onChange={(e) => setTimeSlot(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-[#FFF7ED] focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-[#F3EDE5] focus:outline-none focus:border-[#51463D]"
                   >
                     {timeSlots.map((slot) => (
                       <option key={slot} value={slot}>
@@ -239,7 +239,7 @@ export const ReservationPage: React.FC = () => {
 
               {/* Seating Area Selection */}
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-2">
                   Preferred Seating Atmosphere
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -255,12 +255,12 @@ export const ReservationPage: React.FC = () => {
                       onClick={() => setSeatingArea(area.id as any)}
                       className={`p-3.5 rounded-xl text-left border transition-all ${
                         seatingArea === area.id
-                          ? 'bg-[#1A100C] border-[#FF8A1F] ring-1 ring-[#FF8A1F] shadow-lg shadow-[#F97316]/10'
-                          : 'bg-[#1A100C]/40 border-white/5 hover:border-[#FF8A1F]/30'
+                          ? 'bg-[#332B25] border-[#51463D] ring-1 ring-[#C97845] shadow-lg shadow-[#C97845]/10'
+                          : 'bg-[#332B25]/40 border-[#51463D] hover:border-[#51463D]'
                       }`}
                     >
                       <span className="text-xs font-bold text-white block">{area.name}</span>
-                      <span className="text-[11px] text-[#B8AAA0] block mt-0.5">{area.desc}</span>
+                      <span className="text-[11px] text-[#BDB1A5] block mt-0.5">{area.desc}</span>
                     </button>
                   ))}
                 </div>
@@ -269,31 +269,31 @@ export const ReservationPage: React.FC = () => {
               {/* Contact Details */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Your Name *
                   </label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Phone Number *
                   </label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Occasion
                   </label>
                   <input
@@ -301,14 +301,14 @@ export const ReservationPage: React.FC = () => {
                     value={occasion}
                     onChange={(e) => setOccasion(e.target.value)}
                     placeholder="e.g. Birthday, Anniversary"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
               </div>
 
               {/* Special Requests */}
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                   Special Dining Request (Optional)
                 </label>
                 <input
@@ -316,7 +316,7 @@ export const ReservationPage: React.FC = () => {
                   value={specialRequests}
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   placeholder="e.g. High chair needed, cake arrangement, quiet corner..."
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/20 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                 />
               </div>
 
@@ -335,12 +335,12 @@ export const ReservationPage: React.FC = () => {
 
             {/* Right Information Sidebar */}
             <div className="lg:col-span-4 space-y-6">
-              <div className="p-6 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-4">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-[#D99A32] flex items-center gap-2">
+              <div className="p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-4">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-[#D6A15D] flex items-center gap-2">
                   <Sparkles size={16} />
                   Table Booking Policy
                 </h4>
-                <ul className="text-xs space-y-2.5 text-[#B8AAA0] leading-relaxed">
+                <ul className="text-xs space-y-2.5 text-[#BDB1A5] leading-relaxed">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 size={14} className="text-emerald-400 shrink-0 mt-0.5" />
                     <span>Tables are reserved for 15 minutes past scheduled time.</span>
@@ -356,19 +356,19 @@ export const ReservationPage: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#1A100C] border border-[#FF8A1F]/30 space-y-3">
+              <div className="p-6 rounded-3xl bg-[#332B25] border border-[#51463D] space-y-3">
                 <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Phone size={16} className="text-[#FF8A1F]" />
+                  <Phone size={16} className="text-[#C97845]" />
                   Direct Reservations Line
                 </h4>
-                <p className="text-xs text-[#B8AAA0]">
+                <p className="text-xs text-[#BDB1A5]">
                   For large banquets (20+ guests) or custom catering arrangements, please call:
                 </p>
                 <a
                   href={restaurantInfo.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base font-extrabold text-[#FF8A1F] block hover:underline"
+                  className="text-base font-extrabold text-[#C97845] block hover:underline"
                   title="Chat on WhatsApp"
                 >
                   {restaurantInfo.phone}

@@ -9,7 +9,7 @@ import { CTASection } from '../components/home/CTASection';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#080604] text-[#FFF7ED]">
+    <div className="min-h-screen bg-[#1C1815] text-[#F3EDE5]">
       <Hero />
       <RestaurantIntro />
       <SignatureDishes />

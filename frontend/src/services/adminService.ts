@@ -54,16 +54,16 @@ export const adminService = {
       return res.data.data.map((d: any) => ({
         name: d.name,
         value: d.count,
-        color: d.color || '#F97316'
+        color: d.color || '#C97845'
       }));
     } catch (err: any) {
       if (err.status === 401 || err.status === 403 || err.statusCode === 401 || err.statusCode === 403) {
         throw err;
       }
       return [
-        { name: 'Delivery', value: 56, color: '#F97316' },
-        { name: 'Pickup', value: 24, color: '#D99A32' },
-        { name: 'Dine-In', value: 20, color: '#E11D48' }
+        { name: 'Delivery', value: 56, color: '#C97845' },
+        { name: 'Pickup', value: 24, color: '#D6A15D' },
+        { name: 'Dine-In', value: 20, color: '#7FA27A' }
       ];
     }
   },

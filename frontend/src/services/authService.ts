@@ -3,58 +3,27 @@ import { UserProfile } from '../types';
 
 export const authService = {
   login: async (email: string, password: string): Promise<UserProfile> => {
-    try {
-      const res = await api.post('/auth/login', { email, password });
-      const { user, token } = res.data.data;
-      if (token) {
-        localStorage.setItem('tf_token_v1', token);
-      }
-      return user;
-    } catch (error: any) {
-      // If offline/fallback needed for demo
-      if (error.message?.includes('Unable to connect to the server')) {
-        const fallbackUser: UserProfile = {
-          id: `cust-${Date.now()}`,
-          name: email.split('@')[0].replace(/[^a-zA-Z]/g, ' ') || 'Guest Customer',
-          email,
-          phone: '03295664981',
-          role: 'customer',
-          savedAddresses: [
-            {
-              id: 'addr-1',
-              label: 'Home',
-              address: 'House 42, Sector F-3, Phase 6',
-              area: 'Hayatabad (Phases 1 - 7)',
-              landmark: 'Near Tatara Park'
-            }
-          ]
-        };
-        return fallbackUser;
-      }
-      throw error;
+    const cleanEmail = email.trim().toLowerCase();
+    const res = await api.post('/auth/login', { email: cleanEmail, password });
+    const resData = res.data;
+
+    if (!resData?.data?.user || !resData?.data?.token) {
+      throw new Error('Authentication failed: Missing credentials verification from server.');
     }
+
+    const { user, token } = resData.data;
+
+    // Verify administrative clearance from the real backend response
+    if (!['admin', 'superadmin', 'staff'].includes(user.role)) {
+      throw new Error('Access denied. Administrator clearance required.');
+    }
+
+    localStorage.setItem('tf_token_v1', token);
+    return user;
   },
 
-  adminLogin: async (email: string, password: string): Promise<{ name: string; email: string; role: string }> => {
-    try {
-      const res = await api.post('/auth/admin-login', { email, password });
-      const { user, token } = res.data.data;
-      if (token) {
-        localStorage.setItem('tf_token_v1', token);
-      }
-      return user;
-    } catch (error: any) {
-      if (error.message?.includes('Unable to connect to the server')) {
-        if (email.toLowerCase().includes('admin') || password.length >= 4) {
-          return {
-            name: 'Head Chef & GM Tariq',
-            email: email.trim(),
-            role: 'superadmin'
-          };
-        }
-      }
-      throw error;
-    }
+  adminLogin: async (email: string, password: string): Promise<UserProfile> => {
+    return authService.login(email, password);
   },
 
   getMe: async (): Promise<UserProfile | null> => {

@@ -132,10 +132,10 @@ export const AdminOffersPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <Tag size={24} className="text-[#FF8A1F]" />
+            <Tag size={24} className="text-[#C97845]" />
             Promotional Coupons & Voucher Desk
           </h1>
-          <p className="text-xs text-[#B8AAA0] mt-1">
+          <p className="text-xs text-[#BDB1A5] mt-1">
             Create discount promo codes, percentage vouchers, and minimum order rules.
           </p>
         </div>
@@ -154,13 +154,13 @@ export const AdminOffersPage: React.FC = () => {
         {offers.map((offer) => (
           <div
             key={offer.id}
-            className={`p-6 rounded-2xl bg-[#120B08] border transition-all ${
-              offer.isActive ? 'border-[#FF8A1F]/30 shadow-lg' : 'border-white/5 opacity-60'
+            className={`p-6 rounded-2xl bg-[#28221D] border transition-all ${
+              offer.isActive ? 'border-[#51463D] shadow-lg' : 'border-[#51463D] opacity-60'
             }`}
           >
             <div className="flex items-start justify-between mb-4">
               <div>
-                <span className="text-lg font-black font-heading text-[#FF8A1F] uppercase tracking-wider block">
+                <span className="text-lg font-black font-heading text-[#C97845] uppercase tracking-wider block">
                   {offer.code}
                 </span>
                 <h4 className="text-xs font-bold text-white mt-0.5">{offer.title}</h4>
@@ -187,11 +187,11 @@ export const AdminOffersPage: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-xs text-[#B8AAA0] mb-4">{offer.description}</p>
+            <p className="text-xs text-[#BDB1A5] mb-4">{offer.description}</p>
 
-            <div className="pt-3 border-t border-white/5 grid grid-cols-2 gap-2 text-xs">
+            <div className="pt-3 border-t border-[#51463D] grid grid-cols-2 gap-2 text-xs">
               <div>
-                <span className="text-[#B8AAA0] block text-[10px] uppercase font-semibold">
+                <span className="text-[#BDB1A5] block text-[10px] uppercase font-semibold">
                   Discount
                 </span>
                 <span className="text-sm font-bold text-white">
@@ -201,10 +201,10 @@ export const AdminOffersPage: React.FC = () => {
                 </span>
               </div>
               <div>
-                <span className="text-[#B8AAA0] block text-[10px] uppercase font-semibold">
+                <span className="text-[#BDB1A5] block text-[10px] uppercase font-semibold">
                   Min Order
                 </span>
-                <span className="text-sm font-bold text-[#D99A32]">
+                <span className="text-sm font-bold text-[#D6A15D]">
                   Rs. {offer.minOrder.toLocaleString()}
                 </span>
               </div>
@@ -216,12 +216,12 @@ export const AdminOffersPage: React.FC = () => {
       {/* Add Modal */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="max-w-md w-full rounded-3xl bg-[#120B08] border border-[#FF8A1F]/40 p-6 sm:p-8 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#FF8A1F]/20">
+          <div className="max-w-md w-full rounded-3xl bg-[#28221D] border border-[#51463D] p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#51463D]">
               <h3 className="text-base font-bold font-heading text-white">Create Promo Voucher</h3>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="p-1 rounded bg-[#1A100C] text-[#B8AAA0]"
+                className="p-1 rounded bg-[#332B25] text-[#BDB1A5]"
               >
                 <X size={18} />
               </button>
@@ -229,36 +229,36 @@ export const AdminOffersPage: React.FC = () => {
 
             <form onSubmit={handleCreateOffer} className="space-y-4 text-xs">
               <div>
-                <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Coupon Code *</label>
+                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Coupon Code *</label>
                 <input
                   type="text"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="e.g. FESTIVE20"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white uppercase font-bold focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white uppercase font-bold focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Campaign Title *</label>
+                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Campaign Title *</label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. 20% Off Weekend BBQ"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Type</label>
+                  <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Type</label>
                   <select
                     value={discountType}
                     onChange={(e: any) => setDiscountType(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed PKR (Rs.)</option>
@@ -266,37 +266,37 @@ export const AdminOffersPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Value *</label>
+                  <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Value *</label>
                   <input
                     type="number"
                     value={discountValue}
                     onChange={(e) => setDiscountValue(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Min Order (PKR)</label>
+                  <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Min Order (PKR)</label>
                   <input
                     type="number"
                     value={minOrder}
                     onChange={(e) => setMinOrder(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Max Cap (PKR)</label>
+                  <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Max Cap (PKR)</label>
                   <input
                     type="number"
                     value={maxDiscount || ''}
                     onChange={(e) => setMaxDiscount(e.target.value ? Number(e.target.value) : undefined)}
                     placeholder="e.g. 500"
-                    className="w-full px-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   />
                 </div>
               </div>

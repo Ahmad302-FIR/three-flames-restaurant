@@ -24,9 +24,9 @@ export const AdminAnalyticsPage: React.FC = () => {
   ];
 
   const categoryBreakdown = [
-    { category: 'Sajji Specialties', percentage: 38, revenue: 'Rs. 614,000', color: 'bg-[#F97316]' },
-    { category: 'Shinwari & Karahi', percentage: 28, revenue: 'Rs. 452,000', color: 'bg-[#D99A32]' },
-    { category: 'Charcoal BBQ Skewers', percentage: 18, revenue: 'Rs. 290,000', color: 'bg-[#EA580C]' },
+    { category: 'Sajji Specialties', percentage: 38, revenue: 'Rs. 614,000', color: 'bg-[#C97845]' },
+    { category: 'Shinwari & Karahi', percentage: 28, revenue: 'Rs. 452,000', color: 'bg-[#D6A15D]' },
+    { category: 'Charcoal BBQ Skewers', percentage: 18, revenue: 'Rs. 290,000', color: 'bg-[#C97845]' },
     { category: 'Kabuli Pulao & Rice', percentage: 11, revenue: 'Rs. 177,000', color: 'bg-amber-500' },
     { category: 'Naan & Beverages', percentage: 5, revenue: 'Rs. 82,000', color: 'bg-emerald-500' },
   ];
@@ -44,32 +44,32 @@ export const AdminAnalyticsPage: React.FC = () => {
       {/* Header */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-          <BarChart3 size={24} className="text-[#FF8A1F]" />
+          <BarChart3 size={24} className="text-[#C97845]" />
           Sales & Gastronomy Analytics
         </h1>
-        <p className="text-xs text-[#B8AAA0] mt-1">
+        <p className="text-xs text-[#BDB1A5] mt-1">
           Weekly turnover, category market shares, channel velocity, and customer retention metrics.
         </p>
       </div>
 
       {/* Top Highlights Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="p-6 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 shadow-lg space-y-2">
-          <span className="text-xs font-bold uppercase text-[#B8AAA0]">This Week's Turnover</span>
+        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-2">
+          <span className="text-xs font-bold uppercase text-[#BDB1A5]">This Week's Turnover</span>
           <div className="text-3xl font-black font-heading text-white">Rs. 1,615,000</div>
           <div className="text-xs text-emerald-400 font-bold flex items-center gap-1">
             <TrendingUp size={14} /> +22.4% vs last week
           </div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 shadow-lg space-y-2">
-          <span className="text-xs font-bold uppercase text-[#B8AAA0]">Average Ticket Size</span>
-          <div className="text-3xl font-black font-heading text-[#FF8A1F]">Rs. 3,018</div>
-          <div className="text-xs text-[#D99A32]">Family platters drive +45% average order value</div>
+        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-2">
+          <span className="text-xs font-bold uppercase text-[#BDB1A5]">Average Ticket Size</span>
+          <div className="text-3xl font-black font-heading text-[#C97845]">Rs. 3,018</div>
+          <div className="text-xs text-[#D6A15D]">Family platters drive +45% average order value</div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 shadow-lg space-y-2">
-          <span className="text-xs font-bold uppercase text-[#B8AAA0]">Customer Rating Index</span>
+        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-2">
+          <span className="text-xs font-bold uppercase text-[#BDB1A5]">Customer Rating Index</span>
           <div className="text-3xl font-black font-heading text-white">4.92 / 5.0</div>
           <div className="text-xs text-emerald-400">96.8% positive kitchen sentiment</div>
         </div>
@@ -78,13 +78,13 @@ export const AdminAnalyticsPage: React.FC = () => {
       {/* Main Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Weekly Revenue Bar Chart */}
-        <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-6 shadow-2xl">
-          <div className="flex justify-between items-center pb-4 border-b border-white/5">
+        <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-6 shadow-2xl">
+          <div className="flex justify-between items-center pb-4 border-b border-[#51463D]">
             <div>
               <h3 className="text-base font-bold font-heading text-white">Weekly Revenue Trajectory</h3>
-              <p className="text-xs text-[#B8AAA0]">Daily sales breakdown for the current 7-day period</p>
+              <p className="text-xs text-[#BDB1A5]">Daily sales breakdown for the current 7-day period</p>
             </div>
-            <span className="text-xs font-bold text-[#FF8A1F]">Peshawar Campus</span>
+            <span className="text-xs font-bold text-[#C97845]">Peshawar Campus</span>
           </div>
 
           {/* Bar Chart Visual */}
@@ -93,17 +93,17 @@ export const AdminAnalyticsPage: React.FC = () => {
               const heightPercent = (day.revenue / maxRevenue) * 100;
               return (
                 <div key={day.day} className="flex-1 flex flex-col items-center gap-2 group">
-                  <div className="text-[10px] text-[#B8AAA0] opacity-0 group-hover:opacity-100 transition-opacity font-bold">
+                  <div className="text-[10px] text-[#BDB1A5] opacity-0 group-hover:opacity-100 transition-opacity font-bold">
                     Rs. {(day.revenue / 1000).toFixed(0)}k
                   </div>
-                  <div className="w-full bg-[#1A100C] rounded-xl h-48 relative overflow-hidden flex items-end">
+                  <div className="w-full bg-[#332B25] rounded-xl h-48 relative overflow-hidden flex items-end">
                     <div
-                      className="w-full bg-gradient-to-t from-[#EA580C] to-[#FF8A1F] rounded-xl transition-all duration-700 group-hover:brightness-125"
+                      className="w-full bg-gradient-to-t from-[#C97845] to-[#C97845] rounded-xl transition-all duration-700 group-hover:brightness-125"
                       style={{ height: `${heightPercent}%` }}
                     />
                   </div>
                   <span className="text-xs font-bold text-white mt-1">{day.day}</span>
-                  <span className="text-[10px] text-[#B8AAA0]">{day.orders} ord</span>
+                  <span className="text-[10px] text-[#BDB1A5]">{day.orders} ord</span>
                 </div>
               );
             })}
@@ -111,10 +111,10 @@ export const AdminAnalyticsPage: React.FC = () => {
         </div>
 
         {/* Category Share Breakdown */}
-        <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-5 shadow-2xl">
+        <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-2xl">
           <div>
             <h3 className="text-base font-bold font-heading text-white">Revenue by Menu Category</h3>
-            <p className="text-xs text-[#B8AAA0]">Dominant culinary revenue drivers</p>
+            <p className="text-xs text-[#BDB1A5]">Dominant culinary revenue drivers</p>
           </div>
 
           <div className="space-y-4 pt-2">
@@ -122,9 +122,9 @@ export const AdminAnalyticsPage: React.FC = () => {
               <div key={i} className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium">
                   <span className="text-white">{cat.category}</span>
-                  <span className="font-bold text-[#FF8A1F]">{cat.percentage}%</span>
+                  <span className="font-bold text-[#C97845]">{cat.percentage}%</span>
                 </div>
-                <div className="h-2 rounded-full bg-[#1A100C] overflow-hidden">
+                <div className="h-2 rounded-full bg-[#332B25] overflow-hidden">
                   <div
                     className={`h-full ${cat.color} rounded-full`}
                     style={{ width: `${cat.percentage}%` }}
@@ -135,11 +135,11 @@ export const AdminAnalyticsPage: React.FC = () => {
           </div>
 
           {/* Channel breakdown */}
-          <div className="pt-6 border-t border-white/5 space-y-3">
-            <h4 className="text-xs font-bold uppercase text-[#D99A32]">Fulfillment Channels</h4>
+          <div className="pt-6 border-t border-[#51463D] space-y-3">
+            <h4 className="text-xs font-bold uppercase text-[#D6A15D]">Fulfillment Channels</h4>
             {orderTypes.map((t, idx) => (
               <div key={idx} className="flex justify-between items-center text-xs">
-                <span className="text-[#B8AAA0]">{t.type}</span>
+                <span className="text-[#BDB1A5]">{t.type}</span>
                 <span className="font-bold text-white">{t.share}</span>
               </div>
             ))}

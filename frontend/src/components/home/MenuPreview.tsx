@@ -38,7 +38,7 @@ export const MenuPreview: React.FC = () => {
   }, [selectedCategory]);
 
   return (
-    <section className="py-20 bg-[#0E0806] border-t border-[#FF8A1F]/15">
+    <section className="py-20 bg-[#28221D] border-t border-[#51463D]/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="SAVOR THE FLAME"
@@ -54,11 +54,11 @@ export const MenuPreview: React.FC = () => {
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
                 selectedCategory === cat.id
-                  ? 'bg-gradient-to-r from-[#F97316] to-[#EA580C] text-black shadow-lg shadow-[#F97316]/30 scale-105'
-                  : 'bg-[#1A100C] text-[#B8AAA0] hover:text-[#FFF7ED] hover:bg-[#2A1A14] border border-[#FF8A1F]/20'
+                  ? 'bg-[#C97845] text-[#F3EDE5] shadow-md shadow-black/20 scale-105'
+                  : 'bg-[#332B25] text-[#BDB1A5] hover:text-[#F3EDE5] hover:bg-[#3D332C] border border-[#51463D]'
               }`}
             >
-              {selectedCategory === cat.id && <Flame size={14} className="fill-black" />}
+              {selectedCategory === cat.id && <Flame size={14} className="fill-[#F3EDE5] text-[#F3EDE5]" />}
               <span>{cat.name}</span>
             </button>
           ))}

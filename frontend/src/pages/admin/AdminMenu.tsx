@@ -227,10 +227,10 @@ export const AdminMenuPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <UtensilsCrossed size={24} className="text-[#FF8A1F]" />
+            <UtensilsCrossed size={24} className="text-[#C97845]" />
             Menu Catalog Management
           </h1>
-          <p className="text-xs text-[#B8AAA0] mt-1">
+          <p className="text-xs text-[#BDB1A5] mt-1">
             Configure dish prices, descriptions, add-ons, availability, and featured flags.
           </p>
         </div>
@@ -246,27 +246,27 @@ export const AdminMenuPage: React.FC = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="p-4 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 flex items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#28221D] border border-[#51463D] flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B8AAA0]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#BDB1A5]" />
           <input
             type="text"
             placeholder="Search menu items by name or category..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white placeholder-[#B8AAA0]/60 focus:outline-none focus:border-[#FF8A1F]"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white placeholder-[#BDB1A5]/60 focus:outline-none focus:border-[#51463D]"
           />
         </div>
-        <span className="text-xs text-[#B8AAA0]">
+        <span className="text-xs text-[#BDB1A5]">
           Total: <strong className="text-white">{filteredItems.length}</strong> items
         </span>
       </div>
 
       {/* Dishes Table */}
-      <div className="rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 overflow-hidden shadow-2xl">
+      <div className="rounded-2xl bg-[#28221D] border border-[#51463D] overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#1A100C] text-[#B8AAA0] font-bold uppercase tracking-wider text-[11px] border-b border-white/10">
+            <thead className="bg-[#332B25] text-[#BDB1A5] font-bold uppercase tracking-wider text-[11px] border-b border-[#51463D]">
               <tr>
                 <th className="p-4">Dish</th>
                 <th className="p-4">Category</th>
@@ -279,28 +279,28 @@ export const AdminMenuPage: React.FC = () => {
             </thead>
             <tbody className="divide-y divide-white/5">
               {filteredItems.map((item) => (
-                <tr key={item.id} className="hover:bg-[#1A100C]/60 transition-colors">
+                <tr key={item.id} className="hover:bg-[#332B25]/60 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-12 h-12 rounded-xl object-cover border border-[#FF8A1F]/20 shrink-0"
+                        className="w-12 h-12 rounded-xl object-cover border border-[#51463D] shrink-0"
                         referrerPolicy="no-referrer"
                       />
                       <div>
                         <span className="font-bold text-white block text-sm">{item.name}</span>
                         {item.featured && (
-                          <span className="text-[10px] text-[#FF8A1F] font-semibold">
+                          <span className="text-[10px] text-[#C97845] font-semibold">
                             ★ Featured Special
                           </span>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="p-4 uppercase font-bold text-[#D99A32]">{item.category}</td>
+                  <td className="p-4 uppercase font-bold text-[#D6A15D]">{item.category}</td>
                   <td className="p-4 font-bold text-white">Rs. {item.price.toLocaleString()}</td>
-                  <td className="p-4 text-[#B8AAA0]">{item.serving}</td>
+                  <td className="p-4 text-[#BDB1A5]">{item.serving}</td>
                   <td className="p-4">🌶️ {item.spiceLevel || 'Medium'}</td>
                   <td className="p-4">
                     <button
@@ -318,14 +318,14 @@ export const AdminMenuPage: React.FC = () => {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEditModal(item)}
-                        className="p-1.5 rounded-lg bg-[#1A100C] text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                        className="p-1.5 rounded-lg bg-[#332B25] text-[#BDB1A5] hover:text-[#C97845] transition-colors"
                         title="Edit Dish"
                       >
                         <Edit2 size={15} />
                       </button>
                       <button
                         onClick={() => handleDeleteItem(item.id, item.name)}
-                        className="p-1.5 rounded-lg bg-[#1A100C] text-[#B8AAA0] hover:text-rose-400 transition-colors"
+                        className="p-1.5 rounded-lg bg-[#332B25] text-[#BDB1A5] hover:text-rose-400 transition-colors"
                         title="Delete Dish"
                       >
                         <Trash2 size={15} />
@@ -342,14 +342,14 @@ export const AdminMenuPage: React.FC = () => {
       {/* Add / Edit Dish Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="max-w-xl w-full rounded-3xl bg-[#120B08] border border-[#FF8A1F]/40 p-6 sm:p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-[#FF8A1F]/20">
+          <div className="max-w-xl w-full rounded-3xl bg-[#28221D] border border-[#51463D] p-6 sm:p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-[#51463D]">
               <h3 className="text-lg font-bold font-heading text-white">
                 {editingItem ? 'Edit Culinary Dish' : 'Create New Menu Dish'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 rounded-lg bg-[#1A100C] text-[#B8AAA0] hover:text-white"
+                className="p-1.5 rounded-lg bg-[#332B25] text-[#BDB1A5] hover:text-white"
               >
                 <X size={18} />
               </button>
@@ -357,7 +357,7 @@ export const AdminMenuPage: React.FC = () => {
 
             <form onSubmit={handleSaveItem} className="space-y-4 text-xs">
               <div>
-                <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                   Dish Title *
                 </label>
                 <input
@@ -366,19 +366,19 @@ export const AdminMenuPage: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Peshawar Namak Mandi Tikka"
                   required
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none focus:border-[#51463D]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                  <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                     Category *
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   >
                     <option value="sajji">Sajji Specialties</option>
                     <option value="bbq">Charcoal BBQ Skewers</option>
@@ -390,7 +390,7 @@ export const AdminMenuPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                  <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                     Price (PKR) *
                   </label>
                   <input
@@ -398,33 +398,33 @@ export const AdminMenuPage: React.FC = () => {
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                   Dish Image (Select from Computer / Gallery) *
                 </label>
                 
-                <div className="border-2 border-dashed border-[#FF8A1F]/30 hover:border-[#FF8A1F]/60 transition-colors rounded-2xl p-4 bg-[#1A100C]/60 flex flex-col sm:flex-row items-center gap-4">
+                <div className="border-2 border-dashed border-[#51463D] hover:border-[#51463D] transition-colors rounded-2xl p-4 bg-[#332B25]/60 flex flex-col sm:flex-row items-center gap-4">
                   {imagePreview ? (
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-[#FF8A1F]/40 flex-shrink-0 group">
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-[#51463D] flex-shrink-0 group">
                       <img src={imagePreview} alt="Dish Preview" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[10px] text-white text-center font-bold px-1">
                         Selected Image
                       </div>
                     </div>
                   ) : (
-                    <div className="w-24 h-24 rounded-xl border border-dashed border-[#FF8A1F]/30 bg-[#120B08] flex flex-col items-center justify-center text-[#B8AAA0] flex-shrink-0">
-                      <Upload className="w-6 h-6 text-[#FF8A1F]/60 mb-1" />
+                    <div className="w-24 h-24 rounded-xl border border-dashed border-[#51463D] bg-[#28221D] flex flex-col items-center justify-center text-[#BDB1A5] flex-shrink-0">
+                      <Upload className="w-6 h-6 text-[#C97845]/60 mb-1" />
                       <span className="text-[10px]">No file</span>
                     </div>
                   )}
 
                   <div className="flex-1 space-y-1.5 w-full">
-                    <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF8A1F]/15 hover:bg-[#FF8A1F]/25 text-[#FF8A1F] border border-[#FF8A1F]/40 cursor-pointer font-bold text-xs transition-colors">
+                    <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#C97845]/15 hover:bg-[#C97845]/25 text-[#C97845] border border-[#51463D] cursor-pointer font-bold text-xs transition-colors">
                       <Upload className="w-4 h-4" />
                       <span>{imagePreview ? 'Change Image from Computer' : 'Choose Dish Photo'}</span>
                       <input
@@ -440,7 +440,7 @@ export const AdminMenuPage: React.FC = () => {
                         className="hidden"
                       />
                     </label>
-                    <p className="text-[11px] text-[#B8AAA0]/80">
+                    <p className="text-[11px] text-[#BDB1A5]/80">
                       {imageFile
                         ? `Selected: ${imageFile.name} (${(imageFile.size / 1024).toFixed(1)} KB)`
                         : editingItem
@@ -452,7 +452,7 @@ export const AdminMenuPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                   Description
                 </label>
                 <textarea
@@ -460,13 +460,13 @@ export const AdminMenuPage: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe secret marinades, coal roasting method, and taste profile..."
-                  className="w-full p-3 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                  <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                     Serving Size
                   </label>
                   <input
@@ -474,18 +474,18 @@ export const AdminMenuPage: React.FC = () => {
                     value={serving}
                     onChange={(e) => setServing(e.target.value)}
                     placeholder="e.g. 2-3 Persons / 1kg"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1">
+                  <label className="font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1">
                     Spice Intensity
                   </label>
                   <select
                     value={spiceLevel}
                     onChange={(e: any) => setSpiceLevel(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
                   >
                     <option value="Mild">Mild</option>
                     <option value="Medium">Medium</option>
@@ -500,7 +500,7 @@ export const AdminMenuPage: React.FC = () => {
                     type="checkbox"
                     checked={featured}
                     onChange={(e) => setFeatured(e.target.checked)}
-                    className="rounded bg-[#1A100C] border-[#FF8A1F] text-[#F97316]"
+                    className="rounded bg-[#332B25] border-[#51463D] text-[#C97845]"
                   />
                   <span>Mark as Chef Featured Special</span>
                 </label>
@@ -510,7 +510,7 @@ export const AdminMenuPage: React.FC = () => {
                     type="checkbox"
                     checked={available}
                     onChange={(e) => setAvailable(e.target.checked)}
-                    className="rounded bg-[#1A100C] border-[#FF8A1F] text-[#F97316]"
+                    className="rounded bg-[#332B25] border-[#51463D] text-[#C97845]"
                   />
                   <span>Available in Kitchen Stock</span>
                 </label>

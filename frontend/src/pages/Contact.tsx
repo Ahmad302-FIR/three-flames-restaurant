@@ -67,7 +67,7 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080604] pt-28 pb-20 text-[#FFF7ED]">
+    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="GET IN TOUCH"
@@ -79,20 +79,20 @@ export const ContactPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Info Cards */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/25 space-y-6 shadow-2xl">
-              <h3 className="text-xl font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#FF8A1F]/15">
+            <div className="p-8 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-6 shadow-2xl">
+              <h3 className="text-xl font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#51463D]">
                 <FlameIcon size={20} />
                 Restaurant Headquarters
               </h3>
 
               <div className="space-y-5 text-xs sm:text-sm">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#FF8A1F] shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845] shrink-0">
                     <MapPin size={20} />
                   </div>
                   <div>
                     <span className="font-bold text-white block">Physical Address</span>
-                    <span className="text-[#B8AAA0] leading-relaxed block mt-0.5">
+                    <span className="text-[#BDB1A5] leading-relaxed block mt-0.5">
                       {restaurantInfo.address}
                     </span>
                   </div>
@@ -103,7 +103,7 @@ export const ContactPage: React.FC = () => {
                     href={restaurantInfo.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#FF8A1F] hover:bg-[#FF8A1F]/20 hover:border-[#FF8A1F] transition-all shrink-0"
+                    className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845] hover:bg-[#C97845]/20 hover:border-[#51463D] transition-all shrink-0"
                     title="Chat on WhatsApp"
                     aria-label="Chat on WhatsApp"
                   >
@@ -115,7 +115,7 @@ export const ContactPage: React.FC = () => {
                       href={restaurantInfo.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#FF8A1F] font-bold hover:underline block mt-0.5"
+                      className="text-[#C97845] font-bold hover:underline block mt-0.5"
                     >
                       {restaurantInfo.phone}
                     </a>
@@ -123,14 +123,14 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#FF8A1F] shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845] shrink-0">
                     <Mail size={20} />
                   </div>
                   <div>
                     <span className="font-bold text-white block">Email Support</span>
                     <a
                       href={`mailto:${restaurantInfo.email}`}
-                      className="text-[#B8AAA0] hover:text-white block mt-0.5"
+                      className="text-[#BDB1A5] hover:text-white block mt-0.5"
                     >
                       {restaurantInfo.email}
                     </a>
@@ -138,17 +138,17 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 flex items-center justify-center text-[#D99A32] shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#D6A15D] shrink-0 mt-0.5">
                     <Clock size={20} />
                   </div>
                   <div className="flex-1 space-y-1.5">
                     <span className="font-bold text-white block">Service Hours</span>
-                    <div className="text-xs text-[#B8AAA0] space-y-1">
-                      <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-1">
+                    <div className="text-xs text-[#BDB1A5] space-y-1">
+                      <div className="flex items-center justify-between gap-2 border-b border-[#51463D] pb-1">
                         <span>Monday – Thursday:</span>
                         <span className="text-white font-medium">{restaurantInfo.openingHours.monday_thursday}</span>
                       </div>
-                      <div className="flex items-center justify-between gap-2 border-b border-white/5 pb-1">
+                      <div className="flex items-center justify-between gap-2 border-b border-[#51463D] pb-1">
                         <span>Friday:</span>
                         <span className="text-white font-medium">{restaurantInfo.openingHours.friday}</span>
                       </div>
@@ -163,25 +163,25 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Map Preview Frame */}
-            <div className="rounded-3xl overflow-hidden border border-[#FF8A1F]/20 bg-[#120B08] p-4 text-center space-y-3">
-              <div className="h-48 rounded-2xl bg-[#1A100C] relative flex items-center justify-center overflow-hidden border border-white/5">
+            <div className="rounded-3xl overflow-hidden border border-[#51463D] bg-[#28221D] p-4 text-center space-y-3">
+              <div className="h-48 rounded-2xl bg-[#332B25] relative flex items-center justify-center overflow-hidden border border-[#51463D]">
                 <img
                   src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=800&auto=format&fit=crop"
                   alt="Peshawar Map Location"
                   className="w-full h-full object-cover opacity-40"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-[#080604]/60 flex flex-col items-center justify-center p-4">
-                  <MapPin size={32} className="text-[#FF8A1F] animate-bounce" />
+                <div className="absolute inset-0 bg-[#1C1815]/60 flex flex-col items-center justify-center p-4">
+                  <MapPin size={32} className="text-[#C97845] animate-bounce" />
                   <span className="text-xs font-bold text-white mt-1">University Town, Peshawar</span>
-                  <span className="text-[10px] text-[#D99A32]">Opposite Town Club & Bilour Chowk</span>
+                  <span className="text-[10px] text-[#D6A15D]">Opposite Town Club & Bilour Chowk</span>
                 </div>
               </div>
               <a
                 href="https://maps.google.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-[#FF8A1F] hover:underline font-bold inline-block"
+                className="text-xs text-[#C97845] hover:underline font-bold inline-block"
               >
                 Open in Google Maps & Get Directions →
               </a>
@@ -192,16 +192,16 @@ export const ContactPage: React.FC = () => {
           <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="p-8 sm:p-10 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/25 space-y-5 shadow-2xl"
+              className="p-8 sm:p-10 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-2xl"
             >
-              <h3 className="text-xl font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#FF8A1F]/15">
-                <MessageSquare size={20} className="text-[#FF8A1F]" />
+              <h3 className="text-xl font-bold font-heading text-white flex items-center gap-2 pb-4 border-b border-[#51463D]">
+                <MessageSquare size={20} className="text-[#C97845]" />
                 Send Us a Note or Inquiry
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Your Name *
                   </label>
                   <input
@@ -211,12 +211,12 @@ export const ContactPage: React.FC = () => {
                     required
                     autoComplete="name"
                     placeholder="e.g. Asadullah Durrani"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Email Address *
                   </label>
                   <input
@@ -226,14 +226,14 @@ export const ContactPage: React.FC = () => {
                     required
                     autoComplete="email"
                     placeholder="name@example.com"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Phone Number
                   </label>
                   <input
@@ -242,12 +242,12 @@ export const ContactPage: React.FC = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     autoComplete="tel"
                     placeholder="03xx-xxxxxxx"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                     Subject / Topic
                   </label>
                   <input
@@ -255,13 +255,13 @@ export const ContactPage: React.FC = () => {
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. Banquet Catering, Feedback..."
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-[#B8AAA0] block mb-1.5">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
                   Your Message / Comments *
                 </label>
                 <textarea
@@ -270,7 +270,7 @@ export const ContactPage: React.FC = () => {
                   onChange={(e) => setMessage(e.target.value)}
                   required
                   placeholder="Share your experience, catering requirements, or any question..."
-                  className="w-full p-3 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full p-3 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
                 />
               </div>
 

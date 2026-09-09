@@ -126,19 +126,19 @@ export const AdminProfilePage: React.FC = () => {
     <div className="space-y-6 max-w-4xl">
       <div>
         <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-          <User size={24} className="text-[#FF8A1F]" />
+          <User size={24} className="text-[#C97845]" />
           Administrator Profile & Security
         </h1>
-        <p className="text-xs text-[#B8AAA0] mt-1">
+        <p className="text-xs text-[#BDB1A5] mt-1">
           Manage your pitmaster credentials, contact information, and security passwords.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Personal Details Form */}
-        <div className="p-6 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-5 shadow-xl">
-          <div className="flex items-center gap-3 pb-3 border-b border-white/5">
-            <div className="w-12 h-12 rounded-2xl bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center font-extrabold text-lg text-[#FF8A1F]">
+        <div className="p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-xl">
+          <div className="flex items-center gap-3 pb-3 border-b border-[#51463D]">
+            <div className="w-12 h-12 rounded-2xl bg-[#332B25] border border-[#51463D] flex items-center justify-center font-extrabold text-lg text-[#C97845]">
               {user?.name?.charAt(0) || 'A'}
             </div>
             <div>
@@ -151,35 +151,35 @@ export const AdminProfilePage: React.FC = () => {
 
           <form onSubmit={handleUpdateProfile} className="space-y-4 text-xs">
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Full Name</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Full Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Email Address (Read-only)</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Email Address (Read-only)</label>
               <input
                 type="email"
                 value={user?.email || ''}
                 disabled
                 placeholder="Admin Email"
-                className="w-full px-3 py-2.5 rounded-xl bg-[#080604] border border-white/10 text-zinc-400 cursor-not-allowed"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#1C1815] border border-[#51463D] text-zinc-400 cursor-not-allowed"
               />
             </div>
 
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Contact Phone</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Contact Phone</label>
               <input
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
               />
             </div>
 
@@ -190,15 +190,15 @@ export const AdminProfilePage: React.FC = () => {
         </div>
 
         {/* Change Password Form */}
-        <div className="p-6 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/20 space-y-5 shadow-xl">
-          <div className="flex items-center gap-2 pb-3 border-b border-white/5">
-            <KeyRound size={18} className="text-[#FF8A1F]" />
+        <div className="p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-xl">
+          <div className="flex items-center gap-2 pb-3 border-b border-[#51463D]">
+            <KeyRound size={18} className="text-[#C97845]" />
             <h3 className="font-bold text-white text-sm">Security & Password Change</h3>
           </div>
 
           <form onSubmit={handleChangePassword} className="space-y-4 text-xs">
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Current Password *</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Current Password *</label>
               <div className="relative">
                 <input
                   type={showCurrentPassword ? 'text' : 'password'}
@@ -207,12 +207,12 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="current-password"
                   placeholder="Enter current password"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none focus:border-[#51463D]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#BDB1A5] hover:text-[#C97845] transition-colors"
                 >
                   {showCurrentPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -220,7 +220,7 @@ export const AdminProfilePage: React.FC = () => {
             </div>
 
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">New Password *</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">New Password *</label>
               <div className="relative">
                 <input
                   type={showNewPassword ? 'text' : 'password'}
@@ -229,12 +229,12 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="new-password"
                   placeholder="Minimum 6 characters"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none focus:border-[#51463D]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowNewPassword(!showNewPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#BDB1A5] hover:text-[#C97845] transition-colors"
                 >
                   {showNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -242,7 +242,7 @@ export const AdminProfilePage: React.FC = () => {
             </div>
 
             <div>
-              <label className="font-bold uppercase text-[#B8AAA0] block mb-1">Confirm New Password *</label>
+              <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Confirm New Password *</label>
               <div className="relative">
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
@@ -251,12 +251,12 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="new-password"
                   placeholder="Confirm password match"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-white focus:outline-none focus:border-[#FF8A1F]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none focus:border-[#51463D]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#B8AAA0] hover:text-[#FF8A1F] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#BDB1A5] hover:text-[#C97845] transition-colors"
                 >
                   {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>

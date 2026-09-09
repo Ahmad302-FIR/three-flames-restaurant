@@ -39,36 +39,36 @@ export const AdminCustomersPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <Users size={24} className="text-[#FF8A1F]" />
+            <Users size={24} className="text-[#C97845]" />
             Registered Diners & Loyalty Profiles
           </h1>
-          <p className="text-xs text-[#B8AAA0] mt-1">
+          <p className="text-xs text-[#BDB1A5] mt-1">
             Real customer database records with order histories, lifetime spend, and VIP tiers.
           </p>
         </div>
       </div>
 
-      <div className="p-4 rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 flex items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#28221D] border border-[#51463D] flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#B8AAA0]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#BDB1A5]" />
           <input
             type="text"
             placeholder="Search by customer name, email, or phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-xs text-white placeholder-[#B8AAA0]/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white placeholder-[#BDB1A5]/60 focus:outline-none"
           />
         </div>
-        <span className="text-xs text-[#B8AAA0]">Total: <strong className="text-white">{filtered.length}</strong> customers</span>
+        <span className="text-xs text-[#BDB1A5]">Total: <strong className="text-white">{filtered.length}</strong> customers</span>
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-xs text-[#B8AAA0]">Loading diner directory...</div>
+        <div className="py-20 text-center text-xs text-[#BDB1A5]">Loading diner directory...</div>
       ) : (
-        <div className="rounded-2xl bg-[#120B08] border border-[#FF8A1F]/20 overflow-hidden shadow-2xl">
+        <div className="rounded-2xl bg-[#28221D] border border-[#51463D] overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#1A100C] text-[#B8AAA0] font-bold uppercase tracking-wider text-[11px] border-b border-white/10">
+              <thead className="bg-[#332B25] text-[#BDB1A5] font-bold uppercase tracking-wider text-[11px] border-b border-[#51463D]">
                 <tr>
                   <th className="p-4">Customer</th>
                   <th className="p-4">Contact</th>
@@ -80,25 +80,25 @@ export const AdminCustomersPage: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-white/5">
                 {filtered.map((cust) => (
-                  <tr key={cust.id} className="hover:bg-[#1A100C]/60 transition-colors">
+                  <tr key={cust.id} className="hover:bg-[#332B25]/60 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/40 flex items-center justify-center font-bold text-xs text-[#FF8A1F]">
+                        <div className="w-9 h-9 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center font-bold text-xs text-[#C97845]">
                           {cust.name.charAt(0)}
                         </div>
                         <div>
                           <span className="font-bold text-white block">{cust.name}</span>
-                          <span className="text-[10px] text-[#B8AAA0]">Joined {cust.joinedDate || '2025'}</span>
+                          <span className="text-[10px] text-[#BDB1A5]">Joined {cust.joinedDate || '2025'}</span>
                         </div>
                       </div>
                     </td>
 
                     <td className="p-4 space-y-0.5">
-                      <div className="flex items-center gap-1 text-[#B8AAA0]">
-                        <Mail size={12} className="text-[#FF8A1F]" />
+                      <div className="flex items-center gap-1 text-[#BDB1A5]">
+                        <Mail size={12} className="text-[#C97845]" />
                         <span>{cust.email}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-[#B8AAA0]">
+                      <div className="flex items-center gap-1 text-[#BDB1A5]">
                         <Phone size={12} className="text-emerald-400" />
                         <span>{cust.phone}</span>
                       </div>
@@ -106,16 +106,16 @@ export const AdminCustomersPage: React.FC = () => {
 
                     <td className="p-4 font-bold text-white">
                       <span className="flex items-center gap-1">
-                        <ShoppingBag size={13} className="text-[#FF8A1F]" />
+                        <ShoppingBag size={13} className="text-[#C97845]" />
                         {cust.ordersCount} orders
                       </span>
                     </td>
 
-                    <td className="p-4 font-extrabold text-[#FF8A1F]">
+                    <td className="p-4 font-extrabold text-[#C97845]">
                       Rs. {cust.totalSpent.toLocaleString()}
                     </td>
 
-                    <td className="p-4 text-[#B8AAA0]">
+                    <td className="p-4 text-[#BDB1A5]">
                       {cust.lastOrderDate || 'N/A'}
                     </td>
 
