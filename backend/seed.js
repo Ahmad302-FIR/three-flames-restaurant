@@ -479,8 +479,8 @@ export const seedDatabase = async () => {
       restaurantName: 'Three Flames Restaurant',
       tagline: 'WHERE TASTE MEETS FLAME',
       subtagline: 'Authentic Charcoal Sajji, Live Karahi & Premium BBQ in Peshawar',
-      phone: '0334-4226655',
-      whatsapp: '923344226655',
+      phone: '03295664981',
+      whatsapp: '923295664981',
       email: 'info@threeflames.pk',
       address: {
         street: 'Bilour Chowk, Rehman Baba Road, Abdara Road',
@@ -542,7 +542,7 @@ export const seedDatabase = async () => {
     const adminUser = await User.create({
       name: 'Chef Tariq Afridi (Head Pitmaster)',
       email: 'admin@threeflames.pk',
-      phone: '0334-4226655',
+      phone: '03295664981',
       password: 'Admin@123', // Hashed by User model pre-save hook
       role: 'superadmin',
       addresses: [{

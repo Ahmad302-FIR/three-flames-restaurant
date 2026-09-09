@@ -8,8 +8,8 @@ export const getSettings = async (req, res, next) => {
       settings = await RestaurantSettings.create({
         restaurantName: 'Three Flames Restaurant',
         tagline: 'WHERE TASTE MEETS FLAME',
-        phone: '0334-4226655',
-        whatsapp: '923344226655',
+        phone: '03295664981',
+        whatsapp: '923295664981',
         email: 'info@threeflames.pk',
         address: {
           street: 'Bilour Chowk, Rehman Baba Road, Abdara Road',

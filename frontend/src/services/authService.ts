@@ -17,7 +17,7 @@ export const authService = {
           id: `cust-${Date.now()}`,
           name: email.split('@')[0].replace(/[^a-zA-Z]/g, ' ') || 'Guest Customer',
           email,
-          phone: '0334-4226655',
+          phone: '03295664981',
           role: 'customer',
           savedAddresses: [
             {

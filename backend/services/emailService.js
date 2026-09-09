@@ -77,7 +77,7 @@ export const sendOrderConfirmationEmail = async (order) => {
         <hr style="border: 0; border-top: 1px solid #332014;" />
         <p style="font-size: 16px;"><strong>Total Amount: Rs. ${order.total}</strong> (${order.paymentMethod})</p>
       </div>
-      <p style="font-size: 13px; color: #9CA3AF;">Need assistance? Call our hotline at <strong>0334-4226655</strong> or visit us at Bilour Chowk, Rehman Baba Road, University Town, Peshawar.</p>
+      <p style="font-size: 13px; color: #9CA3AF;">Need assistance? Call our hotline at <strong>03295664981</strong> or visit us at Bilour Chowk, Rehman Baba Road, University Town, Peshawar.</p>
     </div>
   `;
 
@@ -104,7 +104,7 @@ export const sendReservationConfirmationEmail = async (reservation) => {
         <p><strong>Seating Preference:</strong> ${reservation.seatingArea}</p>
         <p><strong>Status:</strong> ${reservation.status.toUpperCase()}</p>
       </div>
-      <p style="font-size: 13px; color: #9CA3AF;">Three Flames Restaurant — Bilour Chowk, Rehman Baba Road, University Town, Peshawar | Phone: 0334-4226655</p>
+      <p style="font-size: 13px; color: #9CA3AF;">Three Flames Restaurant — Bilour Chowk, Rehman Baba Road, University Town, Peshawar | Phone: 03295664981</p>
     </div>
   `;
 

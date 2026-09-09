@@ -16,11 +16,11 @@ const restaurantSettingsSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      default: '0334-4226655'
+      default: '03295664981'
     },
     whatsapp: {
       type: String,
-      default: '923344226655'
+      default: '923295664981'
     },
     email: {
       type: String,

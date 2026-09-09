@@ -12,8 +12,8 @@ export const AdminSettingsPage: React.FC = () => {
 
   const [restaurantName, setRestaurantName] = useState('Three Flames Restaurant');
   const [tagline, setTagline] = useState('WHERE TASTE MEETS FLAME');
-  const [phone, setPhone] = useState('0334-4226655');
-  const [whatsapp, setWhatsapp] = useState('923344226655');
+  const [phone, setPhone] = useState('03295664981');
+  const [whatsapp, setWhatsapp] = useState('923295664981');
   const [email, setEmail] = useState('info@threeflames.pk');
   const [streetAddress, setStreetAddress] = useState('Bilour Chowk, Rehman Baba Road, Abdara Road');
   const [city, setCity] = useState('University Town, Peshawar, Pakistan');
@@ -29,8 +29,8 @@ export const AdminSettingsPage: React.FC = () => {
       if (data) {
         setRestaurantName(data.restaurantName || 'Three Flames Restaurant');
         setTagline(data.tagline || 'WHERE TASTE MEETS FLAME');
-        setPhone(data.phone || '0334-4226655');
-        setWhatsapp(data.whatsapp || '923344226655');
+        setPhone(data.phone || '03295664981');
+        setWhatsapp(data.whatsapp || '923295664981');
         setEmail(data.email || 'info@threeflames.pk');
         if (data.address) {
           setStreetAddress(data.address.street || '');
