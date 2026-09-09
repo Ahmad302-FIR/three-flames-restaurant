@@ -31,11 +31,11 @@ export const ReservationPage: React.FC = () => {
   });
   const [timeSlot, setTimeSlot] = useState('08:30 PM');
   const [seatingArea, setSeatingArea] = useState<'rooftop' | 'dastarkhwan' | 'family_hall' | 'outdoor' | 'any'>('rooftop');
-  const [fullName, setFullName] = useState(currentUser?.name || 'Taimoor Khan');
-  const [phone, setPhone] = useState(currentUser?.phone || '0300-5544332');
-  const [email, setEmail] = useState(currentUser?.email || 'taimoor@example.com');
-  const [occasion, setOccasion] = useState('Family Gathering');
-  const [specialRequests, setSpecialRequests] = useState('Charcoal braziers nearby please');
+  const [fullName, setFullName] = useState(currentUser?.name || '');
+  const [phone, setPhone] = useState(currentUser?.phone || '');
+  const [email, setEmail] = useState(currentUser?.email || '');
+  const [occasion, setOccasion] = useState('');
+  const [specialRequests, setSpecialRequests] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmedReservation, setConfirmedReservation] = useState<any>(null);
@@ -57,12 +57,12 @@ export const ReservationPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!fullName || !phone || !date || !timeSlot) {
+    if (!fullName || !phone || !email || !date || !timeSlot) {
       dispatch(
         addToast({
           type: 'error',
           title: 'Missing Details',
-          message: 'Please fill in all required fields to book a table.',
+          message: 'Please fill in all required fields (name, phone, email, date, and time).',
         })
       );
       return;
@@ -100,13 +100,13 @@ export const ReservationPage: React.FC = () => {
           message: `Booking #${res.id} confirmed for ${guestCount} guests on ${date} at ${timeSlot}.`,
         })
       );
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       dispatch(
         addToast({
           type: 'error',
           title: 'Reservation Failed',
-          message: 'Could not complete reservation. Please try again.',
+          message: err?.message || 'Could not complete reservation. Please try again.',
         })
       );
     } finally {
@@ -141,11 +141,15 @@ export const ReservationPage: React.FC = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6F6761]">Primary Guest:</span>
-                <span className="font-bold text-[#25201D]">{confirmedReservation.guestName}</span>
+                <span className="font-bold text-[#25201D]">
+                  {confirmedReservation.fullName || confirmedReservation.guestName}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6F6761]">Party Size:</span>
-                <span className="font-bold text-[#25201D]">{confirmedReservation.guestCount} Guests</span>
+                <span className="font-bold text-[#25201D]">
+                  {confirmedReservation.guests || confirmedReservation.guestCount} Guests
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6F6761]">Date & Time:</span>
@@ -267,7 +271,7 @@ export const ReservationPage: React.FC = () => {
               </div>
 
               {/* Contact Details */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
                   <label className="text-xs font-bold uppercase tracking-wider text-[#6F6761] block mb-1.5">
                     Your Name *
@@ -276,7 +280,8 @@ export const ReservationPage: React.FC = () => {
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] focus:outline-none focus:border-[#B85C38]"
+                    placeholder="e.g. Taimoor Khan"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -288,7 +293,21 @@ export const ReservationPage: React.FC = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] focus:outline-none focus:border-[#B85C38]"
+                    placeholder="e.g. 0300-5544332"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold uppercase tracking-wider text-[#6F6761] block mb-1.5">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="e.g. customer@example.com"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
