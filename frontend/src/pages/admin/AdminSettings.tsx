@@ -10,11 +10,11 @@ export const AdminSettingsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  const [restaurantName, setRestaurantName] = useState('Three Flames Restaurant');
+  const [restaurantName, setRestaurantName] = useState('Ahmed Khan Restaurant');
   const [tagline, setTagline] = useState('WHERE TASTE MEETS FLAME');
   const [phone, setPhone] = useState('03295664981');
   const [whatsapp, setWhatsapp] = useState('923295664981');
-  const [email, setEmail] = useState('info@threeflames.pk');
+  const [email, setEmail] = useState('info.ahmadkhan.com@gmail.com');
   const [streetAddress, setStreetAddress] = useState('Bilour Chowk, Rehman Baba Road, Abdara Road');
   const [city, setCity] = useState('University Town, Peshawar, Pakistan');
   const [weekdaysHours, setWeekdaysHours] = useState('12:00 PM – 01:00 AM');
@@ -27,11 +27,11 @@ export const AdminSettingsPage: React.FC = () => {
     try {
       const data = await adminService.getSettings();
       if (data) {
-        setRestaurantName(data.restaurantName || 'Three Flames Restaurant');
+        setRestaurantName(data.restaurantName || 'Ahmed Khan Restaurant');
         setTagline(data.tagline || 'WHERE TASTE MEETS FLAME');
         setPhone(data.phone || '03295664981');
         setWhatsapp(data.whatsapp || '923295664981');
-        setEmail(data.email || 'info@threeflames.pk');
+        setEmail(data.email || 'info.ahmadkhan.com@gmail.com');
         if (data.address) {
           setStreetAddress(data.address.street || '');
           setCity(data.address.city || 'Peshawar, Pakistan');

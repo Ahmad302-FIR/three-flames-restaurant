@@ -6,11 +6,11 @@ export const getSettings = async (req, res, next) => {
     let settings = await RestaurantSettings.findOne();
     if (!settings) {
       settings = await RestaurantSettings.create({
-        restaurantName: 'Three Flames Restaurant',
+        restaurantName: 'Ahmed Khan Restaurant',
         tagline: 'WHERE TASTE MEETS FLAME',
         phone: '03295664981',
         whatsapp: '923295664981',
-        email: 'info@threeflames.pk',
+        email: 'info.ahmadkhan.com@gmail.com',
         address: {
           street: 'Bilour Chowk, Rehman Baba Road, Abdara Road',
           area: 'University Town',

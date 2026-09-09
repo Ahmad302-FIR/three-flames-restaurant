@@ -22,7 +22,7 @@ const startServer = async () => {
   // Start listening
   server.listen(PORT, () => {
     logger.info(`================================================`);
-    logger.info(`🔥 THREE FLAMES RESTAURANT API SERVER STARTED`);
+    logger.info(`🔥 AHMED KHAN RESTAURANT API SERVER STARTED`);
     logger.info(`📍 Port: ${PORT}`);
     logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
     logger.info(`⚡ Socket.IO initialized`);

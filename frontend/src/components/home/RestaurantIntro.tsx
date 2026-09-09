@@ -22,7 +22,7 @@ export const RestaurantIntro: React.FC = () => {
             </h2>
 
             <p className="text-base sm:text-lg text-[#B8AAA0] leading-relaxed">
-              Three Flames Restaurant brings together authentic Pakistani flavors, heritage recipes, and the unforgettable aroma of open charcoal flames.
+              Ahmed Khan Restaurant brings together authentic Pakistani flavors, heritage recipes, and the unforgettable aroma of open charcoal flames.
             </p>
 
             <div className="space-y-3 pt-2 text-sm text-[#FFF7ED]">
@@ -64,7 +64,7 @@ export const RestaurantIntro: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden border border-[#FF8A1F]/30 shadow-2xl shadow-black/80">
                 <img
                   src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop"
-                  alt="Three Flames Slow-Roasted Sajji & BBQ Feast"
+                  alt="Ahmed Khan Slow-Roasted Sajji & BBQ Feast"
                   className="w-full h-96 sm:h-[450px] object-cover"
                   referrerPolicy="no-referrer"
                 />

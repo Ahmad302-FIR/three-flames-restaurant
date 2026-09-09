@@ -31,11 +31,11 @@ export const Footer: React.FC = () => {
                 <FlameIcon size={24} />
               </div>
               <div>
-                <span className="block text-xl font-black font-heading tracking-widest text-[#FFF7ED]">
-                  THREE FLAMES
+                <span className="block text-xl font-black font-heading tracking-wider text-[#FFF7ED]">
+                  AHMED KHAN
                 </span>
-                <span className="block text-[10px] tracking-[0.25em] text-[#D99A32] font-semibold -mt-1 uppercase">
-                  Where Taste Meets Flame
+                <span className="block text-[10px] tracking-[0.2em] text-[#D99A32] font-semibold -mt-1 uppercase">
+                  Restaurant • Peshawar
                 </span>
               </div>
             </Link>
@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#B8AAA0]">
-          <p>© 2026 Three Flames Restaurant. All Rights Reserved. Peshawar, Pakistan.</p>
+          <p>© 2026 Ahmed Khan Restaurant. All Rights Reserved. Peshawar, Pakistan.</p>
           <div className="flex items-center gap-6">
             <Link to="/about" className="hover:text-white transition-colors">Our Story</Link>
             <Link to="/menu" className="hover:text-white transition-colors">Order Online</Link>

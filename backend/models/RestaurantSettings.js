@@ -4,7 +4,7 @@ const restaurantSettingsSchema = new mongoose.Schema(
   {
     restaurantName: {
       type: String,
-      default: 'Three Flames Restaurant'
+      default: 'Ahmed Khan Restaurant'
     },
     tagline: {
       type: String,
@@ -24,7 +24,7 @@ const restaurantSettingsSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      default: 'info@threeflames.pk'
+      default: 'info.ahmadkhan.com@gmail.com'
     },
     address: {
       street: { type: String, default: 'Bilour Chowk, Rehman Baba Road, Abdara Road' },

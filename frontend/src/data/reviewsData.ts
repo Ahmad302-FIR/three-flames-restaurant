@@ -19,7 +19,7 @@ export const reviewsData: Review[] = [
     rating: 5,
     date: '2026-08-18',
     comment: 'We booked a family dinner in their Traditional Dastarkhwan area. The Royal BBQ Platter was overflowing and fed all 6 of us comfortably. Extraordinary mutton chops and Shinwari Karahi!',
-    dishesMentioned: ['Three Flames Royal BBQ Platter', 'Shinwari Mutton Karahi'],
+    dishesMentioned: ['Ahmed Khan Royal BBQ Platter', 'Shinwari Mutton Karahi'],
     verifiedCustomer: true,
     status: 'approved'
   },
@@ -84,8 +84,8 @@ export const reviewsData: Review[] = [
     avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=200&auto=format&fit=crop',
     rating: 5,
     date: '2026-07-29',
-    comment: 'The live flame showcase and charcoal aroma hit you the moment you step inside Three Flames. Perfect executive setup for hosting foreign business delegates in Peshawar.',
-    dishesMentioned: ['Royal Mutton Raan Sajji', 'Three Flames Royal BBQ Platter'],
+    comment: 'The live flame showcase and charcoal aroma hit you the moment you step inside Ahmed Khan Restaurant. Perfect executive setup for hosting foreign business delegates in Peshawar.',
+    dishesMentioned: ['Royal Mutton Raan Sajji', 'Ahmed Khan Royal BBQ Platter'],
     verifiedCustomer: true,
     status: 'approved'
   }

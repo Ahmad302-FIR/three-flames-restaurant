@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Three Flames API is running',
+    message: 'Ahmed Khan Restaurant API is running',
     timestamp: new Date().toISOString(),
     database: dbStatus,
     databaseName: dbName,

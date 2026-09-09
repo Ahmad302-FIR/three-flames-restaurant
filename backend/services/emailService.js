@@ -31,7 +31,7 @@ const sendMailSafely = async (mailOptions) => {
       return { messageId: 'simulated_' + Date.now() };
     }
     const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM || 'Three Flames Restaurant <noreply@threeflames.pk>',
+      from: process.env.EMAIL_FROM || 'Ahmed Khan Restaurant <info.ahmadkhan.com@gmail.com>',
       ...mailOptions
     });
     logger.info(`Email delivered to ${mailOptions.to}: ${info.messageId}`);
@@ -52,12 +52,12 @@ export const sendOrderConfirmationEmail = async (order) => {
 
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0c0806; color: #FFF7ED; padding: 24px; border-radius: 12px; border: 1px solid #F97316;">
-      <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">THREE FLAMES RESTAURANT</h1>
+      <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">AHMED KHAN RESTAURANT</h1>
       <p style="text-align: center; color: #D99A32; margin-top: 0; font-size: 12px; letter-spacing: 2px;">WHERE TASTE MEETS FLAME</p>
       <hr style="border: 0; border-top: 1px solid #332014; margin: 20px 0;" />
       <h2 style="color: #FFF7ED;">Order Confirmed! #${order.orderNumber}</h2>
       <p>Dear ${order.customer?.name || 'Valued Diner'},</p>
-      <p>Thank you for choosing Three Flames. Your order has been received and our pitmasters are firing up the charcoal!</p>
+      <p>Thank you for choosing Ahmed Khan Restaurant. Your order has been received and our pitmasters are firing up the charcoal!</p>
       
       <div style="background: #1A100C; border: 1px solid rgba(255, 138, 31, 0.4); padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
         <p style="margin: 0; font-size: 12px; color: #B8AAA0; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;">Your Order ID</p>
@@ -83,7 +83,7 @@ export const sendOrderConfirmationEmail = async (order) => {
 
   return sendMailSafely({
     to: order.customer.email,
-    subject: `Order Confirmed: #${order.orderNumber} — Three Flames Restaurant`,
+    subject: `Order Confirmed: #${order.orderNumber} — Ahmed Khan Restaurant`,
     html
   });
 };
@@ -91,7 +91,7 @@ export const sendOrderConfirmationEmail = async (order) => {
 export const sendReservationConfirmationEmail = async (reservation) => {
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0c0806; color: #FFF7ED; padding: 24px; border-radius: 12px; border: 1px solid #F97316;">
-      <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">THREE FLAMES RESTAURANT</h1>
+      <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">AHMED KHAN RESTAURANT</h1>
       <p style="text-align: center; color: #D99A32; margin-top: 0; font-size: 12px; letter-spacing: 2px;">WHERE TASTE MEETS FLAME</p>
       <hr style="border: 0; border-top: 1px solid #332014; margin: 20px 0;" />
       <h2 style="color: #FFF7ED;">Table Reservation Received #${reservation.reservationNumber}</h2>
@@ -104,13 +104,13 @@ export const sendReservationConfirmationEmail = async (reservation) => {
         <p><strong>Seating Preference:</strong> ${reservation.seatingArea}</p>
         <p><strong>Status:</strong> ${reservation.status.toUpperCase()}</p>
       </div>
-      <p style="font-size: 13px; color: #9CA3AF;">Three Flames Restaurant — Bilour Chowk, Rehman Baba Road, University Town, Peshawar | Phone: 03295664981</p>
+      <p style="font-size: 13px; color: #9CA3AF;">Ahmed Khan Restaurant — Bilour Chowk, Rehman Baba Road, University Town, Peshawar | Phone: 03295664981</p>
     </div>
   `;
 
   return sendMailSafely({
     to: reservation.email,
-    subject: `Table Booking #${reservation.reservationNumber} — Three Flames Restaurant`,
+    subject: `Table Booking #${reservation.reservationNumber} — Ahmed Khan Restaurant`,
     html
   });
 };
@@ -128,7 +128,7 @@ export const sendContactMessageAlert = async (contact) => {
   `;
 
   return sendMailSafely({
-    to: process.env.EMAIL_FROM || 'info@threeflames.pk',
+    to: process.env.EMAIL_FROM || 'info.ahmadkhan.com@gmail.com',
     subject: `New Inquiry from ${contact.name}: ${contact.subject}`,
     html
   });

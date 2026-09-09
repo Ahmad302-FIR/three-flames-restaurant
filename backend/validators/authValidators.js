@@ -8,12 +8,13 @@ export const registerValidation = [
 ];
 
 export const loginValidation = [
-  body('email').trim().isEmail().withMessage('Valid email is required').normalizeEmail(),
+  body('email').trim().isEmail().withMessage('Valid email is required').normalizeEmail({ gmail_remove_dots: false }),
   body('password').notEmpty().withMessage('Password is required')
 ];
 
 export const updateProfileValidation = [
   body('name').optional().trim().notEmpty().withMessage('Name cannot be empty'),
+  body('email').optional().trim().isEmail().withMessage('Valid email is required').normalizeEmail({ gmail_remove_dots: false }),
   body('phone').optional().trim().notEmpty().withMessage('Phone cannot be empty')
 ];
 

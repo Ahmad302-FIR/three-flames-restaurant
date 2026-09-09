@@ -160,7 +160,7 @@ export const ReservationPage: React.FC = () => {
             </div>
 
             <p className="text-xs text-[#B8AAA0] max-w-md mx-auto">
-              We look forward to welcoming you at Three Flames Restaurant, University Town, Peshawar. An SMS confirmation has been scheduled.
+              We look forward to welcoming you at Ahmed Khan Restaurant, University Town, Peshawar. An SMS confirmation has been scheduled.
             </p>
 
             <Button

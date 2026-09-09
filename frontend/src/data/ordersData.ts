@@ -64,7 +64,7 @@ export const initialOrders: Order[] = [
         title: 'Order Received',
         timestamp: '11:45 AM',
         completed: true,
-        note: 'Order successfully logged into Three Flames kitchen system.'
+        note: 'Order successfully logged into Ahmed Khan kitchen system.'
       },
       {
         status: 'confirmed',
@@ -179,7 +179,7 @@ export const initialOrders: Order[] = [
       {
         id: 'special-grand-platter-1',
         menuItemId: 'special-grand-platter',
-        name: 'Three Flames Royal BBQ Platter (Grand Feast)',
+        name: 'Ahmed Khan Royal BBQ Platter (Grand Feast)',
         price: 4900,
         image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=900&auto=format&fit=crop',
         category: 'specials',

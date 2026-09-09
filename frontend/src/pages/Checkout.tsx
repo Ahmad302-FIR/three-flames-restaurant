@@ -506,7 +506,7 @@ export const CheckoutPage: React.FC = () => {
                     <span>Restaurant Pickup Counter</span>
                   </div>
                   <p className="text-[#FFF7ED]">
-                    Three Flames Restaurant, Bilour Chowk, Rehman Baba Road, Abdara Road, University Town, Peshawar.
+                    Ahmed Khan Restaurant, Bilour Chowk, Rehman Baba Road, Abdara Road, University Town, Peshawar.
                   </p>
                 </div>
 
@@ -799,8 +799,8 @@ export const CheckoutPage: React.FC = () => {
                 🔥 PLACE ORDER NOW
               </Button>
 
-              <p className="text-[11px] text-center text-[#B8AAA0] leading-relaxed">
-                By placing this order, you confirm acceptance of Three Flames Restaurant fresh flame preparation terms.
+              <p className="text-[11px] text-[#B8AAA0] text-center pt-2">
+                By placing this order, you confirm acceptance of Ahmed Khan Restaurant fresh flame preparation terms.
               </p>
             </div>
           </div>

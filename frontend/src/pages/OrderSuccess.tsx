@@ -93,8 +93,8 @@ export const OrderSuccessPage: React.FC = () => {
               ORDER CONFIRMED!
             </h1>
 
-            <p className="mt-2 text-sm sm:text-base text-[#B8AAA0] max-w-lg mx-auto leading-relaxed">
-              Thank you for dining with Three Flames Restaurant. Our pitmasters have received your ticket and are firing up the charcoal grill!
+            <p className="text-xs sm:text-sm text-[#B8AAA0] max-w-lg mx-auto leading-relaxed">
+              Thank you for dining with Ahmed Khan Restaurant. Our pitmasters have received your ticket and are firing up the charcoal grill!
             </p>
           </div>
 

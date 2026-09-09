@@ -114,7 +114,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Three Flames Restaurant API is running'
+    message: 'Ahmed Khan Restaurant API is running'
   });
 });
 

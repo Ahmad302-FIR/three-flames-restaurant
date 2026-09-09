@@ -337,8 +337,8 @@ export const initialMenuItems: MenuItem[] = [
   },
   {
     id: 'rice-biryani-bbq',
-    name: 'Three Flames BBQ Chicken Tikka Biryani',
-    slug: 'three-flames-bbq-chicken-tikka-biryani',
+    name: 'Ahmed Khan BBQ Chicken Tikka Biryani',
+    slug: 'ahmed-khan-bbq-chicken-tikka-biryani',
     category: 'rice',
     description: 'Dum-cooked aromatic basmati rice layered with spicy gravy and crowned with freshly flame-grilled chicken tikka boti pieces and fried brown onions.',
     price: 890,
@@ -434,8 +434,8 @@ export const initialMenuItems: MenuItem[] = [
   },
   {
     id: 'special-grand-platter',
-    name: 'Three Flames Royal BBQ Platter (Grand Feast)',
-    slug: 'three-flames-royal-bbq-platter-grand-feast',
+    name: 'Ahmed Khan Royal BBQ Platter (Grand Feast)',
+    slug: 'ahmed-khan-royal-bbq-platter-grand-feast',
     category: 'specials',
     description: 'The ultimate royal feast: 1/2 Chicken Sajji, 4 Mutton Seekh Kebabs, 4 Malai Boti, 4 Fish Tikka, 2 Chapli Kebabs, served on a giant brass tray over Kabuli Pulao, 4 Roghni Naan, Raita, Salad & Dips.',
     price: 4900,

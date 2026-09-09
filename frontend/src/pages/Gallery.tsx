@@ -41,7 +41,7 @@ export const GalleryPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="VISUAL FEAST"
-          title="THREE FLAMES GALLERY"
+          title="AHMED KHAN GALLERY"
           subtitle="Explore the glowing embers, rooftop sunsets, sizzling platters, and joyful family gatherings in Peshawar."
         />
 

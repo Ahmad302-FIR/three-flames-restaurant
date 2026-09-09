@@ -78,7 +78,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
             <FlameIcon size={26} />
             <div>
               <span className="font-extrabold font-heading text-lg tracking-wider text-white block">
-                THREE FLAMES
+                AHMED KHAN
               </span>
               <span className="text-[10px] text-[#FF8A1F] font-bold tracking-widest uppercase block">
                 Ops & Kitchen Portal
@@ -191,7 +191,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
               <div className="flex items-center justify-between pb-4 border-b border-white/5">
                 <div className="flex items-center gap-2.5">
                   <FlameIcon size={24} />
-                  <span className="font-bold text-white">Three Flames Admin</span>
+                  <span className="font-bold text-white">Ahmed Khan Admin</span>
                 </div>
                 <button
                   onClick={() => setIsMobileNavOpen(false)}

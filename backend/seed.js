@@ -30,8 +30,9 @@ const categoriesSeed = [
 
 const menuItemsSeed = [
   {
-    name: 'Three Flames Royal BBQ Platter',
-    slug: 'three-flames-royal-bbq-platter',
+    id: 'special-grand-platter',
+    name: 'Ahmed Khan Royal BBQ Platter',
+    slug: 'ahmed-khan-royal-bbq-platter',
     category: 'specials',
     description: 'The ultimate royal feast: 1/2 Balochi Sajji, 4 Seekh Kebabs, 6 Malai Boti, 4 Chapli Kebabs, 2 Kandahari Naans, Special Raita, and Grilled Chilis served on a sizzling ember tawa.',
     price: 4950,
@@ -229,8 +230,8 @@ const menuItemsSeed = [
     tags: ['Fiery Spices', 'Classic BBQ', 'Charred Edges']
   },
   {
-    name: 'Three Flames Special Kabuli Pulao',
-    slug: 'three-flames-special-kabuli-pulao',
+    name: 'Ahmed Khan Special Kabuli Pulao',
+    slug: 'ahmed-khan-special-kabuli-pulao',
     category: 'rice',
     description: 'Long-grain aged basmati rice simmered in slow-cooked mutton stock, crowned with glistening caramelized carrots, plump black raisins, roasted almonds, and a tender mutton shank.',
     price: 1350,
@@ -397,7 +398,7 @@ const reviewsSeed = [
     rating: 5,
     date: 'February 18, 2025',
     comment: 'Hosted a 12-person family dinner at their Traditional Dastarkhwan hall. The Royal BBQ Platter and Shinwari Mutton Karahi were magnificent. Fast thermal delivery to our table and hospitable staff. Will definitely return for Eid gatherings!',
-    dishesMentioned: ['Three Flames Royal BBQ Platter', 'Shinwari Mutton Karahi (1 KG)'],
+    dishesMentioned: ['Ahmed Khan Royal BBQ Platter', 'Shinwari Mutton Karahi (1 KG)'],
     verifiedCustomer: true,
     status: 'approved'
   },
@@ -439,7 +440,7 @@ const gallerySeed = [
     description: 'Open air terrace overlooking University Town Peshawar with ember fire pits.'
   },
   {
-    title: 'Grand Three Flames Royal Platter',
+    title: 'Grand Ahmed Khan Royal Platter',
     category: 'specials',
     image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80',
     featured: true,
@@ -471,17 +472,17 @@ const gallerySeed = [
 export const seedDatabase = async () => {
   try {
     await connectDB();
-    logger.info('Starting full Three Flames database seed...');
+    logger.info('Starting full Ahmed Khan Restaurant database seed...');
 
     // 1. Seed Restaurant Settings
     await RestaurantSettings.deleteMany({});
     await RestaurantSettings.create({
-      restaurantName: 'Three Flames Restaurant',
+      restaurantName: 'Ahmed Khan Restaurant',
       tagline: 'WHERE TASTE MEETS FLAME',
       subtagline: 'Authentic Charcoal Sajji, Live Karahi & Premium BBQ in Peshawar',
       phone: '03295664981',
       whatsapp: '923295664981',
-      email: 'info@threeflames.pk',
+      email: 'info.ahmadkhan.com@gmail.com',
       address: {
         street: 'Bilour Chowk, Rehman Baba Road, Abdara Road',
         area: 'University Town',
@@ -541,7 +542,7 @@ export const seedDatabase = async () => {
     // Superadmin
     const adminUser = await User.create({
       name: 'Chef Tariq Afridi (Head Pitmaster)',
-      email: 'admin@threeflames.pk',
+      email: 'info.ahmadkhan.com@gmail.com',
       phone: '03295664981',
       password: 'Admin@123', // Hashed by User model pre-save hook
       role: 'superadmin',
@@ -556,7 +557,7 @@ export const seedDatabase = async () => {
     // Staff
     await User.create({
       name: 'Gulzar Khan (Kitchen Dispatch)',
-      email: 'staff@threeflames.pk',
+      email: 'staff@ahmadkhan.pk',
       phone: '0333-9123456',
       password: 'Staff@123',
       role: 'staff'
@@ -711,9 +712,9 @@ export const seedDatabase = async () => {
     logger.info('✅ Seeded Demo Table Reservations');
 
     logger.info('====================================================');
-    logger.info('🔥 THREE FLAMES DATABASE SEEDED SUCCESSFULLY!');
+    logger.info('🔥 AHMED KHAN RESTAURANT DATABASE SEEDED SUCCESSFULLY!');
     logger.info('Admin Credentials:');
-    logger.info('  Email: admin@threeflames.pk');
+    logger.info('  Email: info.ahmadkhan.com@gmail.com');
     logger.info('  Password: Admin@123');
     logger.info('Customer Credentials:');
     logger.info('  Email: asfandyar@example.com');

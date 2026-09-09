@@ -80,8 +80,8 @@ export const Navbar: React.FC = () => {
             <Link
               to="/"
               className="flex items-center group py-1"
-              aria-label="Three Flames Restaurant Home"
-              title="Three Flames Restaurant"
+              aria-label="Ahmed Khan Restaurant Home"
+              title="Ahmed Khan Restaurant"
             >
               <FlameIcon
                 size={34}

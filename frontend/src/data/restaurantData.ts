@@ -1,11 +1,11 @@
 export const restaurantInfo = {
-  name: "Three Flames Restaurant",
+  name: "Ahmed Khan Restaurant",
   tagline: "WHERE TASTE MEETS FLAME",
   subTagline: "Authentic Pakistani BBQ, Sajji, Karahi & Traditional Flavors",
   phone: "03295664981",
   whatsapp: "923295664981",
   whatsappUrl: "https://wa.me/923295664981",
-  email: "info@threeflamesrestaurant.com",
+  email: "info.ahmadkhan.com@gmail.com",
   address: "Bilour Chowk, Rehman Baba Road, Abdara Road, University Town, Peshawar",
   city: "Peshawar",
   province: "Khyber Pakhtunkhwa",
@@ -52,7 +52,7 @@ export const restaurantInfo = {
   ],
   story: {
     heading: "Where Tradition Meets Fire",
-    body1: "Three Flames Restaurant was born from an unwavering passion for authentic Pakistani BBQ and heritage cooking. Rooted in the rich culinary traditions of Peshawar and the frontier, we celebrate the ancient art of coal-fired roasting, copper Karahi simmering, and aromatic rice crafting.",
+    body1: "Ahmed Khan Restaurant was born from an unwavering passion for authentic Pakistani BBQ and heritage cooking. Rooted in the rich culinary traditions of Peshawar and the frontier, we celebrate the ancient art of coal-fired roasting, copper Karahi simmering, and aromatic rice crafting.",
     body2: "Every skewer, every Sajji roast, and every sizzling wok honors the three elemental flames of true barbecue: Passion, Craftsmanship, and Pure Fire. We invite you to gather with family and friends to experience dining that ignites the senses.",
     signatureBadge: "Peshawar's Premier Flame-Grilled Culinary Destination"
   },

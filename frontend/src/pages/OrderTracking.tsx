@@ -160,7 +160,7 @@ export const OrderTrackingPage: React.FC = () => {
     }, 100);
   };
 
-  // 5-Stage Stepper mapping matching Three Flames live order progression
+  // 5-Stage Stepper mapping matching Ahmed Khan Restaurant live order progression
   const steps: { key: OrderStatus; label: string; icon: React.ReactNode; desc: string }[] = [
     {
       key: 'pending',
@@ -281,7 +281,7 @@ export const OrderTrackingPage: React.FC = () => {
               Locating Order Status...
             </h3>
             <p className="text-xs text-[#B8AAA0]">
-              Connecting to Three Flames kitchen dispatcher and live radar.
+              Connecting to Ahmed Khan Restaurant kitchen dispatcher and live radar.
             </p>
           </div>
         )}
@@ -440,7 +440,7 @@ export const OrderTrackingPage: React.FC = () => {
 
                 {order.orderType === 'pickup' && (
                   <div className="text-xs space-y-1.5 text-[#B8AAA0]">
-                    <p className="font-bold text-white text-sm">Three Flames Restaurant</p>
+                    <p className="font-bold text-white text-sm">Ahmed Khan Restaurant</p>
                     <p>{restaurantInfo.address}</p>
                     <p className="text-[#FF8A1F]">Ready in approx: {order.estimatedTime}</p>
                   </div>

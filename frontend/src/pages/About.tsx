@@ -21,7 +21,7 @@ export const AboutPage: React.FC = () => {
         {/* Top Story Heading */}
         <SectionHeading
           badgeText="OUR ROOTS & PASSION"
-          title="THE THREE FLAMES STORY"
+          title="THE AHMED KHAN STORY"
           subtitle="How a dedication to live wood-fire cooking transformed into Peshawar’s premier culinary destination."
         />
 
@@ -32,7 +32,7 @@ export const AboutPage: React.FC = () => {
               The Art of <span className="text-[#FF8A1F]">The Charcoal Embers</span>
             </h2>
             <p className="text-sm sm:text-base text-[#B8AAA0] leading-relaxed">
-              At Three Flames Restaurant, cooking is not merely preparation—it is a sacred performance of patience, timber, and high-heat alchemy. Born in the heart of Peshawar's historic gastronomy corridor, we set out to preserve centuries of Pashtun and Balochi barbecue mastery.
+              At Ahmed Khan Restaurant, cooking is not merely preparation—it is a sacred performance of patience, timber, and high-heat alchemy. Born in the heart of Peshawar's historic gastronomy corridor, we set out to preserve centuries of Pashtun and Balochi barbecue mastery.
             </p>
             <p className="text-sm sm:text-base text-[#B8AAA0] leading-relaxed">
               Our signature Sajji skewers are suspended perpendicular to red oak embers for up to three hours. Fat renders naturally, the rock salt marinade crystallizes, and the skin acquires an unmistakable golden crunch while locking in pure succulence.
@@ -63,14 +63,14 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
 
-        {/* The Three Flames Philosophy: 3 Pillars */}
+        {/* The Ahmed Khan Philosophy: 3 Pillars */}
         <div className="my-20 p-8 sm:p-14 rounded-3xl bg-[#120B08] border border-[#FF8A1F]/25 space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-[#FF8A1F]">
               OUR THREE PILLARS
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-              Why We Are Named "Three Flames"
+              The Ahmed Khan Culinary Pillars
             </h3>
           </div>
 

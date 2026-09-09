@@ -30,7 +30,7 @@ export const WhyThreeFlames: React.FC = () => {
     <section className="py-20 bg-[#080604] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          badgeText="THE THREE FLAMES PROMISE"
+          badgeText="THE AHMED KHAN PROMISE"
           title="WHY CHOOSE US"
           subtitle="We craft each dish with uncompromising dedication to quality, flavor, and authentic Pakistani hospitality."
         />
@@ -56,7 +56,7 @@ export const WhyThreeFlames: React.FC = () => {
               <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-semibold text-[#D99A32]">
                 <span>Peshawar Heritage</span>
                 <span>•</span>
-                <span>Three Flames</span>
+                <span>Ahmed Khan</span>
               </div>
             </div>
           ))}

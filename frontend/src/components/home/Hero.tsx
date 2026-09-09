@@ -15,18 +15,15 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2000&auto=format&fit=crop"
-          alt="Three Flames Pakistani BBQ & Sajji"
-          className="w-full h-full object-cover object-center scale-105 opacity-30 animate-pulse transition-all duration-1000"
-          referrerPolicy="no-referrer"
+          alt="Ahmed Khan Pakistani BBQ & Sajji"
+          className="w-full h-full object-cover object-center transform scale-105 filter brightness-[0.45] contrast-[1.15]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080604] via-[#080604]/80 to-[#080604]/90" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#080604]/60 to-[#080604]" />
+        {/* Deep coal vignette layers */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080604] via-[#080604]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080604]/80 via-transparent to-[#080604]/80" />
       </div>
 
-      {/* Subtle Glowing Embers Effect */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-96 bg-gradient-to-t from-[#F97316]/15 via-[#D99A32]/5 to-transparent blur-3xl pointer-events-none" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-20">
         {/* Top Trust & Heritage Pill */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A100C]/90 border border-[#FF8A1F]/30 backdrop-blur-md mb-6 shadow-xl shadow-black/40">
           <FlameIcon size={16} />
@@ -41,7 +38,7 @@ export const Hero: React.FC = () => {
 
         {/* Main Grand Title */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-heading tracking-wider text-[#FFF7ED] uppercase leading-[1.05] drop-shadow-2xl">
-          THREE FLAMES
+          AHMED KHAN RESTAURANT
         </h1>
 
         {/* Tagline */}

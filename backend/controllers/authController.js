@@ -105,9 +105,10 @@ export const getMe = async (req, res) => {
 
 export const updateProfile = async (req, res, next) => {
   try {
-    const { name, phone, avatar, savedAddresses } = req.body;
+    const { name, email, phone, avatar, savedAddresses } = req.body;
     const updates = {};
     if (name) updates.name = name;
+    if (email) updates.email = email.trim().toLowerCase();
     if (phone) updates.phone = phone;
     if (avatar !== undefined) updates.avatar = avatar;
     if (savedAddresses) updates.addresses = savedAddresses;
