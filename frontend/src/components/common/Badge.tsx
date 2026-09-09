@@ -21,14 +21,14 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   const variantStyles = {
-    flame: 'bg-[#C97845]/15 text-[#D6A15D] border border-[#C97845]/30',
-    gold: 'bg-[#D6A15D]/15 text-[#D6A15D] border border-[#D6A15D]/30',
-    success: 'bg-[#7FA27A]/15 text-[#7FA27A] border border-[#7FA27A]/30',
-    warning: 'bg-[#D6A15D]/15 text-[#D6A15D] border border-[#D6A15D]/30',
-    danger: 'bg-[#B96F65]/15 text-[#B96F65] border border-[#B96F65]/30',
-    neutral: 'bg-[#28221D] text-[#BDB1A5] border border-[#51463D]',
-    'spice-mild': 'bg-[#7FA27A]/15 text-[#7FA27A] border border-[#7FA27A]/30',
-    'spice-hot': 'bg-[#B96F65]/15 text-[#B96F65] border border-[#B96F65]/30',
+    flame: 'bg-[#F3E4DC] text-[#B85C38] border border-[#E8DED6]',
+    gold: 'bg-[#F3E4DC] text-[#8F432B] border border-[#E8DED6]',
+    success: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    warning: 'bg-amber-50 text-amber-800 border border-amber-200',
+    danger: 'bg-rose-50 text-rose-700 border border-rose-200',
+    neutral: 'bg-[#F7F3EE] text-[#6F6761] border border-[#E8DED6]',
+    'spice-mild': 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    'spice-hot': 'bg-rose-50 text-rose-700 border border-rose-200',
   };
 
   return (

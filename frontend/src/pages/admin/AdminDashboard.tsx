@@ -80,10 +80,10 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#25201D]">
             Operations Dashboard
           </h1>
-          <p className="text-xs text-[#BDB1A5] mt-1">
+          <p className="text-xs text-[#6F6761] mt-1">
             Real-time kitchen orders, reservations, and delivery logistics overview.
           </p>
         </div>
@@ -104,16 +104,16 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* Metrics Row (4 Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-3">
+        <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg space-y-3">
           <div className="flex justify-between items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6F6761]">
               Today's Gross Sales
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#332B25] border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <div className="w-9 h-9 rounded-xl bg-[#F7F3EE] border border-emerald-500/30 flex items-center justify-center text-emerald-400">
               <Banknote size={18} />
             </div>
           </div>
-          <div className="text-2xl font-black font-heading text-white">
+          <div className="text-2xl font-black font-heading text-[#25201D]">
             Rs. {stats?.todayRevenue?.toLocaleString() || '184,500'}
           </div>
           <div className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
@@ -121,50 +121,50 @@ export const AdminDashboardPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-3">
+        <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg space-y-3">
           <div className="flex justify-between items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6F6761]">
               Active Kitchen Orders
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845]">
+            <div className="w-9 h-9 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center text-[#B85C38]">
               <ShoppingBag size={18} />
             </div>
           </div>
-          <div className="text-2xl font-black font-heading text-[#C97845]">
+          <div className="text-2xl font-black font-heading text-[#B85C38]">
             {stats?.todayOrders || '12'} Orders
           </div>
-          <div className="text-[11px] text-[#BDB1A5]">
+          <div className="text-[11px] text-[#6F6761]">
             {stats?.pendingOrders || 3} pending approval, {stats?.preparingOrders || 5} grilling
           </div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-3">
+        <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg space-y-3">
           <div className="flex justify-between items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6F6761]">
               Today's Reservations
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#D6A15D]">
+            <div className="w-9 h-9 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center text-[#B85C38]">
               <Calendar size={18} />
             </div>
           </div>
-          <div className="text-2xl font-black font-heading text-white">
+          <div className="text-2xl font-black font-heading text-[#25201D]">
             {stats?.reservationsCount || '9'} Tables
           </div>
-          <div className="text-[11px] text-[#D6A15D]">
+          <div className="text-[11px] text-[#B85C38]">
             Rooftop & Dastarkhwan 85% occupied tonight
           </div>
         </div>
 
-        <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg space-y-3">
+        <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg space-y-3">
           <div className="flex justify-between items-start">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6F6761]">
               Menu Catalog
             </span>
-            <div className="w-9 h-9 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#BDB1A5]">
+            <div className="w-9 h-9 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center text-[#6F6761]">
               <UtensilsCrossed size={18} />
             </div>
           </div>
-          <div className="text-2xl font-black font-heading text-white">
+          <div className="text-2xl font-black font-heading text-[#25201D]">
             {stats?.menuItemsCount || '20'} Dishes
           </div>
           <div className="text-[11px] text-emerald-400">
@@ -176,15 +176,15 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Main Grid: Recent Orders + Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Recent Orders Table */}
-        <div className="lg:col-span-8 p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-2xl">
-          <div className="flex items-center justify-between pb-4 border-b border-[#51463D]">
-            <h3 className="text-base font-bold font-heading text-white flex items-center gap-2">
-              <ShoppingBag size={18} className="text-[#C97845]" />
+        <div className="lg:col-span-8 p-6 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-5 shadow-2xl">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E8DED6]">
+            <h3 className="text-base font-bold font-heading text-[#25201D] flex items-center gap-2">
+              <ShoppingBag size={18} className="text-[#B85C38]" />
               Active & Recent Orders
             </h3>
             <Link
               to="/admin/orders"
-              className="text-xs text-[#C97845] hover:underline font-bold flex items-center gap-1"
+              className="text-xs text-[#B85C38] hover:underline font-bold flex items-center gap-1"
             >
               View Full Order Desk <ArrowUpRight size={14} />
             </Link>
@@ -192,7 +192,7 @@ export const AdminDashboardPage: React.FC = () => {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="text-[11px] font-bold uppercase text-[#BDB1A5] border-b border-[#51463D] pb-2">
+              <thead className="text-[11px] font-bold uppercase text-[#6F6761] border-b border-[#E8DED6] pb-2">
                 <tr>
                   <th className="pb-3">Order ID</th>
                   <th className="pb-3">Customer</th>
@@ -211,14 +211,14 @@ export const AdminDashboardPage: React.FC = () => {
                   const totalFormatted = typeof ord.total === 'number' ? ord.total.toLocaleString() : (ord.total || 0);
 
                   return (
-                    <tr key={orderKey} className="hover:bg-[#332B25]/50 transition-colors">
-                      <td className="py-3 font-bold text-[#C97845]">#{orderDisplayId}</td>
+                    <tr key={orderKey} className="hover:bg-[#F7F3EE]/50 transition-colors">
+                      <td className="py-3 font-bold text-[#B85C38]">#{orderDisplayId}</td>
                       <td className="py-3 text-white">
                         <div className="font-semibold">{customerName}</div>
-                        <div className="text-[10px] text-[#BDB1A5]">{customerPhone}</div>
+                        <div className="text-[10px] text-[#6F6761]">{customerPhone}</div>
                       </td>
-                      <td className="py-3 capitalize text-[#D6A15D]">{ord.orderType || 'delivery'}</td>
-                      <td className="py-3 font-bold text-white">
+                      <td className="py-3 capitalize text-[#B85C38]">{ord.orderType || 'delivery'}</td>
+                      <td className="py-3 font-bold text-[#25201D]">
                         Rs. {totalFormatted}
                       </td>
                       <td className="py-3">
@@ -240,7 +240,7 @@ export const AdminDashboardPage: React.FC = () => {
                         <select
                           value={ord.status || 'pending'}
                           onChange={(e) => handleUpdateStatus(ord.id || (ord as any).orderNumber || (ord as any)._id, e.target.value as OrderStatus)}
-                          className="bg-[#332B25] border border-[#51463D] text-white rounded-lg px-2 py-1 text-[11px] focus:outline-none focus:border-[#51463D]"
+                          className="bg-[#F7F3EE] border border-[#E8DED6] text-white rounded-lg px-2 py-1 text-[11px] focus:outline-none focus:border-[#E8DED6]"
                         >
                           <option value="pending">Pending</option>
                           <option value="confirmed">Confirmed</option>
@@ -261,8 +261,8 @@ export const AdminDashboardPage: React.FC = () => {
         {/* Right Column: Top BBQ Sellers & Quick Shortcuts */}
         <div className="lg:col-span-4 space-y-6">
           {/* Top Selling Items */}
-          <div className="p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-4 shadow-xl">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#D6A15D] flex items-center gap-2">
+          <div className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-xl">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#B85C38] flex items-center gap-2">
               <FlameIcon size={16} />
               Best-Selling Signature Dishes
             </h3>
@@ -275,44 +275,44 @@ export const AdminDashboardPage: React.FC = () => {
               ].map((dish, i) => (
                 <div
                   key={i}
-                  className="p-3 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-between text-xs"
+                  className="p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-between text-xs"
                 >
                   <div>
-                    <span className="font-bold text-white block">{dish.name}</span>
-                    <span className="text-[10px] text-[#BDB1A5]">{dish.sold}</span>
+                    <span className="font-bold text-[#25201D] block">{dish.name}</span>
+                    <span className="text-[10px] text-[#6F6761]">{dish.sold}</span>
                   </div>
-                  <span className="font-extrabold text-[#C97845]">{dish.revenue}</span>
+                  <span className="font-extrabold text-[#B85C38]">{dish.revenue}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Quick Admin Actions */}
-          <div className="p-6 rounded-3xl bg-[#28221D] border border-[#51463D] space-y-3 shadow-xl">
+          <div className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-3 shadow-xl">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">
               Kitchen Operations Shortcuts
             </h3>
             <div className="space-y-2">
               <Link
                 to="/admin/menu"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#332B25] hover:bg-[#332B25]/80 border border-[#51463D] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
               >
                 <span>➕ Add New Menu Item</span>
-                <ChevronRight size={16} className="text-[#C97845]" />
+                <ChevronRight size={16} className="text-[#B85C38]" />
               </Link>
               <Link
                 to="/admin/delivery-zones"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#332B25] hover:bg-[#332B25]/80 border border-[#51463D] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
               >
                 <span>📍 Update Delivery Zones & Rates</span>
-                <ChevronRight size={16} className="text-[#C97845]" />
+                <ChevronRight size={16} className="text-[#B85C38]" />
               </Link>
               <Link
                 to="/admin/offers"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#332B25] hover:bg-[#332B25]/80 border border-[#51463D] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
               >
                 <span>🏷️ Create Promo Discount Voucher</span>
-                <ChevronRight size={16} className="text-[#C97845]" />
+                <ChevronRight size={16} className="text-[#B85C38]" />
               </Link>
             </div>
           </div>

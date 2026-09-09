@@ -124,11 +124,11 @@ export const AdminGalleryPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <ImageIcon size={24} className="text-[#C97845]" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#25201D] flex items-center gap-2">
+            <ImageIcon size={24} className="text-[#B85C38]" />
             Restaurant Visual Showcase
           </h1>
-          <p className="text-xs text-[#BDB1A5] mt-1">
+          <p className="text-xs text-[#6F6761] mt-1">
             Manage photo memories, rooftop ambiance, charcoal pits, and guest moments. Powered by Cloudinary.
           </p>
         </div>
@@ -139,7 +139,7 @@ export const AdminGalleryPage: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-xs text-[#BDB1A5]">Loading gallery photos...</div>
+        <div className="py-20 text-center text-xs text-[#6F6761]">Loading gallery photos...</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {gallery.map((item) => {
@@ -147,7 +147,7 @@ export const AdminGalleryPage: React.FC = () => {
             return (
               <div
                 key={itemId}
-                className="group relative rounded-2xl bg-[#28221D] border border-[#51463D] overflow-hidden shadow-lg hover:border-[#51463D] transition-all flex flex-col"
+                className="group relative rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] overflow-hidden shadow-lg hover:border-[#E8DED6] transition-all flex flex-col"
               >
                 <div className="relative h-48 overflow-hidden bg-black">
                   <img
@@ -157,7 +157,7 @@ export const AdminGalleryPage: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
 
-                  <span className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-[#28221D]/80 backdrop-blur-md border border-[#51463D] text-[10px] font-bold uppercase text-[#C97845]">
+                  <span className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-[#FFFFFF]/80 backdrop-blur-md border border-[#E8DED6] text-[10px] font-bold uppercase text-[#B85C38]">
                     {item.category}
                   </span>
 
@@ -174,11 +174,11 @@ export const AdminGalleryPage: React.FC = () => {
                   <div>
                     <h3 className="font-bold text-sm text-white line-clamp-1">{item.title}</h3>
                     {item.description && (
-                      <p className="text-[11px] text-[#BDB1A5] line-clamp-2 mt-0.5">{item.description}</p>
+                      <p className="text-[11px] text-[#6F6761] line-clamp-2 mt-0.5">{item.description}</p>
                     )}
                   </div>
 
-                  <div className="pt-2 border-t border-[#51463D] flex items-center justify-between text-[10px] text-[#BDB1A5]">
+                  <div className="pt-2 border-t border-[#E8DED6] flex items-center justify-between text-[10px] text-[#6F6761]">
                     <span>Cloudinary Storage</span>
                     <span className="text-emerald-400 font-semibold">Active</span>
                   </div>
@@ -191,12 +191,12 @@ export const AdminGalleryPage: React.FC = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="max-w-md w-full rounded-3xl bg-[#28221D] border border-[#51463D] p-6 sm:p-8 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#51463D]">
-              <h3 className="text-base font-bold font-heading text-white">Upload New Photo</h3>
+          <div className="max-w-md w-full rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8DED6]">
+              <h3 className="text-base font-bold font-heading text-[#25201D]">Upload New Photo</h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded bg-[#332B25] text-[#BDB1A5] hover:text-white"
+                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={18} />
               </button>
@@ -204,23 +204,23 @@ export const AdminGalleryPage: React.FC = () => {
 
             <form onSubmit={handleUpload} className="space-y-4 text-xs">
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Photo Title *</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Photo Title *</label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Sizzling Charcoal Tikka Skewers"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Category *</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Category *</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 >
                   <option value="food">Food & Delicacies</option>
                   <option value="restaurant">Restaurant & Dining</option>
@@ -230,40 +230,40 @@ export const AdminGalleryPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Select File (Cloudinary)</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Select File (Cloudinary)</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
-                  className="w-full text-xs text-[#BDB1A5] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#C97845]/10 file:text-[#C97845] hover:file:bg-[#C97845]/20 cursor-pointer"
+                  className="w-full text-xs text-[#6F6761] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#B85C38]/10 file:text-[#B85C38] hover:file:bg-[#B85C38]/20 cursor-pointer"
                 />
               </div>
 
               {imagePreview && (
-                <div className="relative h-32 rounded-xl overflow-hidden border border-[#51463D]">
+                <div className="relative h-32 rounded-xl overflow-hidden border border-[#E8DED6]">
                   <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 </div>
               )}
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Or Direct Image URL</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Or Direct Image URL</label>
                 <input
                   type="url"
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Description</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Description</label>
                 <textarea
                   rows={2}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Brief story or background behind the picture..."
-                  className="w-full p-3 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 

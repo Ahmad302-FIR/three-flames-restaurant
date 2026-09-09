@@ -37,7 +37,7 @@ export const GalleryPage: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5]">
+    <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           badgeText="VISUAL FEAST"
@@ -53,8 +53,8 @@ export const GalleryPage: React.FC = () => {
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                 selectedCategory === cat.id
-                  ? 'bg-gradient-to-r from-[#C97845] to-[#C97845] text-black shadow-lg shadow-[#C97845]/20 scale-105'
-                  : 'bg-[#28221D] text-[#BDB1A5] hover:text-white border border-[#51463D]'
+                  ? 'bg-gradient-to-r from-[#B85C38] to-[#B85C38] text-black shadow-lg shadow-[#B85C38]/20 scale-105'
+                  : 'bg-[#FFFFFF] text-[#6F6761] hover:text-[#25201D] border border-[#E8DED6]'
               }`}
             >
               {cat.label}
@@ -68,7 +68,7 @@ export const GalleryPage: React.FC = () => {
             <div
               key={photo.id}
               onClick={() => setActiveItem(photo)}
-              className="group relative rounded-2xl overflow-hidden bg-[#28221D] border border-[#51463D] hover:border-[#51463D] cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-[#C97845]/20 transition-all duration-300 h-64"
+              className="group relative rounded-2xl overflow-hidden bg-[#FFFFFF] border border-[#E8DED6] hover:border-[#E8DED6] cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-[#B85C38]/20 transition-all duration-300 h-64"
             >
               <img
                 src={photo.image}
@@ -78,11 +78,11 @@ export const GalleryPage: React.FC = () => {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                <span className="text-[10px] uppercase font-bold text-[#C97845] tracking-wider">
+                <span className="text-[10px] uppercase font-bold text-[#B85C38] tracking-wider">
                   {photo.category}
                 </span>
-                <h4 className="text-sm font-bold font-heading text-white">{photo.title}</h4>
-                <p className="text-[11px] text-[#BDB1A5] line-clamp-1">{photo.description}</p>
+                <h4 className="text-sm font-bold font-heading text-[#25201D]">{photo.title}</h4>
+                <p className="text-[11px] text-[#6F6761] line-clamp-1">{photo.description}</p>
                 <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white">
                   <ZoomIn size={16} />
                 </div>
@@ -98,7 +98,7 @@ export const GalleryPage: React.FC = () => {
               className="fixed inset-0"
               onClick={() => setActiveItem(null)}
             />
-            <div className="relative z-10 max-w-4xl w-full rounded-3xl bg-[#28221D] border border-[#51463D] overflow-hidden shadow-2xl">
+            <div className="relative z-10 max-w-4xl w-full rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] overflow-hidden shadow-2xl">
               <div className="relative max-h-[75vh] overflow-hidden bg-black flex items-center justify-center">
                 <img
                   src={activeItem.image}
@@ -108,19 +108,19 @@ export const GalleryPage: React.FC = () => {
                 />
                 <button
                   onClick={() => setActiveItem(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-black/70 text-white hover:text-[#C97845] transition-colors"
+                  className="absolute top-4 right-4 p-2 rounded-full bg-black/70 text-white hover:text-[#B85C38] transition-colors"
                 >
                   <X size={22} />
                 </button>
               </div>
 
-              <div className="p-6 bg-[#332B25] border-t border-[#51463D] flex items-center justify-between">
+              <div className="p-6 bg-[#F7F3EE] border-t border-[#E8DED6] flex items-center justify-between">
                 <div>
-                  <span className="text-xs uppercase font-bold text-[#C97845] tracking-wider">
+                  <span className="text-xs uppercase font-bold text-[#B85C38] tracking-wider">
                     {activeItem.category}
                   </span>
-                  <h3 className="text-xl font-bold font-heading text-white">{activeItem.title}</h3>
-                  <p className="text-xs text-[#BDB1A5] mt-1">{activeItem.description}</p>
+                  <h3 className="text-xl font-bold font-heading text-[#25201D]">{activeItem.title}</h3>
+                  <p className="text-xs text-[#6F6761] mt-1">{activeItem.description}</p>
                 </div>
               </div>
             </div>

@@ -134,9 +134,9 @@ export const MenuPage: React.FC = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5]">
+    <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D]">
       {/* Top Banner */}
-      <div className="relative py-12 bg-gradient-to-b from-[#28221D] to-[#1C1815] border-b border-[#C97845]/15 mb-10">
+      <div className="relative py-12 bg-gradient-to-b from-[#FFFFFF] to-[#FFFDFC] border-b border-[#B85C38]/15 mb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionHeading
             badgeText="OUR COMPLETE CULINARY REPERTOIRE"
@@ -149,19 +149,19 @@ export const MenuPage: React.FC = () => {
           <div className="max-w-xl mx-auto relative mt-6">
             <Search
               size={20}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#C97845]"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#B85C38]"
             />
             <input
               type="text"
               placeholder="Search dishes (e.g. Sajji, Karahi, Seekh Kebab, Pulao...)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-[#332B25] border border-[#C97845]/30 text-[#F3EDE5] placeholder-[#BDB1A5] focus:outline-none focus:border-[#C97845] shadow-xl text-sm"
+              className="w-full pl-12 pr-10 py-3.5 rounded-2xl bg-[#F7F3EE] border border-[#B85C38]/30 text-[#25201D] placeholder-[#6F6761] focus:outline-none focus:border-[#B85C38] shadow-xl text-sm"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#BDB1A5] hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={18} />
               </button>
@@ -172,16 +172,16 @@ export const MenuPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Filter Toggle & Quick Bar */}
-        <div className="lg:hidden flex items-center justify-between gap-3 mb-6 p-4 rounded-xl bg-[#28221D] border border-[#C97845]/20">
+        <div className="lg:hidden flex items-center justify-between gap-3 mb-6 p-4 rounded-xl bg-[#FFFFFF] border border-[#B85C38]/20">
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#332B25] border border-[#C97845]/30 text-sm font-semibold text-[#C97845]"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#F7F3EE] border border-[#B85C38]/30 text-sm font-semibold text-[#B85C38]"
           >
             <Filter size={16} />
             <span>Filters & Categories</span>
           </button>
 
-          <span className="text-xs text-[#BDB1A5]">
+          <span className="text-xs text-[#6F6761]">
             Showing <strong className="text-white">{filteredItems.length}</strong> items
           </span>
         </div>
@@ -189,15 +189,15 @@ export const MenuPage: React.FC = () => {
         {/* Main Grid: Sidebar + Product Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Desktop Sidebar Filters */}
-          <aside className="hidden lg:block lg:col-span-3 space-y-6 sticky top-28 bg-[#28221D] p-6 rounded-2xl border border-[#C97845]/20">
-            <div className="flex items-center justify-between pb-4 border-b border-[#C97845]/15">
-              <h3 className="font-bold font-heading text-lg text-[#F3EDE5] flex items-center gap-2">
-                <SlidersHorizontal size={18} className="text-[#C97845]" />
+          <aside className="hidden lg:block lg:col-span-3 space-y-6 sticky top-28 bg-[#FFFFFF] p-6 rounded-2xl border border-[#B85C38]/20">
+            <div className="flex items-center justify-between pb-4 border-b border-[#B85C38]/15">
+              <h3 className="font-bold font-heading text-lg text-[#25201D] flex items-center gap-2">
+                <SlidersHorizontal size={18} className="text-[#B85C38]" />
                 Filters
               </h3>
               <button
                 onClick={resetAllFilters}
-                className="text-xs text-[#D6A15D] hover:text-[#C97845] hover:underline"
+                className="text-xs text-[#B85C38] hover:text-[#B85C38] hover:underline"
               >
                 Reset All
               </button>
@@ -205,7 +205,7 @@ export const MenuPage: React.FC = () => {
 
             {/* Categories List */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] mb-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#6F6761] mb-3">
                 Categories
               </h4>
               <div className="space-y-1">
@@ -215,8 +215,8 @@ export const MenuPage: React.FC = () => {
                     onClick={() => handleCategoryChange(cat.id)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors text-left ${
                       selectedCategory === cat.id
-                        ? 'bg-[#332B25] text-[#C97845] font-bold border border-[#C97845]/30'
-                        : 'text-[#BDB1A5] hover:text-white hover:bg-[#332B25]/50'
+                        ? 'bg-[#F7F3EE] text-[#B85C38] font-bold border border-[#B85C38]/30'
+                        : 'text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]/50'
                     }`}
                   >
                     <span>{cat.name}</span>
@@ -227,12 +227,12 @@ export const MenuPage: React.FC = () => {
             </div>
 
             {/* Price Filter */}
-            <div className="pt-4 border-t border-[#51463D]">
+            <div className="pt-4 border-t border-[#E8DED6]">
               <div className="flex justify-between items-center mb-2">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5]">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#6F6761]">
                   Max Price
                 </h4>
-                <span className="text-xs font-bold text-[#C97845]">
+                <span className="text-xs font-bold text-[#B85C38]">
                   Rs. {priceRange.toLocaleString()}
                 </span>
               </div>
@@ -243,13 +243,13 @@ export const MenuPage: React.FC = () => {
                 step={100}
                 value={priceRange}
                 onChange={(e) => setPriceRange(Number(e.target.value))}
-                className="w-full accent-[#C97845] cursor-pointer"
+                className="w-full accent-[#B85C38] cursor-pointer"
               />
             </div>
 
             {/* Spice Level */}
-            <div className="pt-4 border-t border-[#51463D]">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] mb-2.5">
+            <div className="pt-4 border-t border-[#E8DED6]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#6F6761] mb-2.5">
                 Spice Level
               </h4>
               <div className="grid grid-cols-2 gap-1.5">
@@ -259,8 +259,8 @@ export const MenuPage: React.FC = () => {
                     onClick={() => setSelectedSpice(spice)}
                     className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                       selectedSpice === spice
-                        ? 'bg-[#C97845]/20 text-[#C97845] border border-[#C97845]/40'
-                        : 'bg-[#332B25] text-[#BDB1A5] hover:text-white'
+                        ? 'bg-[#B85C38]/20 text-[#B85C38] border border-[#B85C38]/40'
+                        : 'bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]'
                     }`}
                   >
                     {spice === 'all' ? 'All Spices' : spice}
@@ -270,23 +270,23 @@ export const MenuPage: React.FC = () => {
             </div>
 
             {/* Toggles */}
-            <div className="pt-4 border-t border-[#51463D] space-y-3">
-              <label className="flex items-center gap-2.5 text-xs text-[#F3EDE5] cursor-pointer select-none">
+            <div className="pt-4 border-t border-[#E8DED6] space-y-3">
+              <label className="flex items-center gap-2.5 text-xs text-[#25201D] cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={onlyFeatured}
                   onChange={(e) => setOnlyFeatured(e.target.checked)}
-                  className="rounded border-[#C97845]/40 text-[#C97845] focus:ring-[#C97845] bg-[#332B25]"
+                  className="rounded border-[#B85C38]/40 text-[#B85C38] focus:ring-[#B85C38] bg-[#F7F3EE]"
                 />
                 <span>Featured Specials Only</span>
               </label>
 
-              <label className="flex items-center gap-2.5 text-xs text-[#F3EDE5] cursor-pointer select-none">
+              <label className="flex items-center gap-2.5 text-xs text-[#25201D] cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={onlyAvailable}
                   onChange={(e) => setOnlyAvailable(e.target.checked)}
-                  className="rounded border-[#C97845]/40 text-[#C97845] focus:ring-[#C97845] bg-[#332B25]"
+                  className="rounded border-[#B85C38]/40 text-[#B85C38] focus:ring-[#B85C38] bg-[#F7F3EE]"
                 />
                 <span>In Stock & Ready</span>
               </label>
@@ -296,21 +296,21 @@ export const MenuPage: React.FC = () => {
           {/* Product Items Area */}
           <main className="lg:col-span-9">
             {/* Header / Sort Bar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-[#C97845]/15">
-              <div className="text-sm text-[#BDB1A5]">
-                Showing <span className="font-bold text-white">{filteredItems.length}</span> signature dishes
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-[#B85C38]/15">
+              <div className="text-sm text-[#6F6761]">
+                Showing <span className="font-bold text-[#25201D]">{filteredItems.length}</span> signature dishes
                 {selectedCategory !== 'all' && (
-                  <span className="ml-1 text-[#C97845]">in {selectedCategory.toUpperCase()}</span>
+                  <span className="ml-1 text-[#B85C38]">in {selectedCategory.toUpperCase()}</span>
                 )}
               </div>
 
               {/* Sort By Dropdown */}
               <div className="flex items-center gap-2 text-xs">
-                <span className="text-[#BDB1A5]">Sort by:</span>
+                <span className="text-[#6F6761]">Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e: any) => setSortBy(e.target.value)}
-                  className="bg-[#332B25] border border-[#C97845]/30 text-[#F3EDE5] rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#C97845]"
+                  className="bg-[#F7F3EE] border border-[#B85C38]/30 text-[#25201D] rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#B85C38]"
                 >
                   <option value="recommended">Featured / Chef Picks</option>
                   <option value="rating">Highest Rated (★ 5.0)</option>
@@ -352,12 +352,12 @@ export const MenuPage: React.FC = () => {
             className="fixed inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setIsMobileFilterOpen(false)}
           />
-          <div className="fixed bottom-0 left-0 right-0 max-h-[85vh] bg-[#28221D] border-t border-[#C97845]/40 p-6 rounded-t-3xl overflow-y-auto space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-[#C97845]/20">
-              <h3 className="text-lg font-bold font-heading text-white">Menu Categories & Filters</h3>
+          <div className="fixed bottom-0 left-0 right-0 max-h-[85vh] bg-[#FFFFFF] border-t border-[#B85C38]/40 p-6 rounded-t-3xl overflow-y-auto space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-[#B85C38]/20">
+              <h3 className="text-lg font-bold font-heading text-[#25201D]">Menu Categories & Filters</h3>
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="p-1.5 rounded-lg bg-[#332B25] text-[#BDB1A5] hover:text-white"
+                className="p-1.5 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={20} />
               </button>
@@ -365,7 +365,7 @@ export const MenuPage: React.FC = () => {
 
             {/* Categories */}
             <div>
-              <h4 className="text-xs font-bold text-[#BDB1A5] uppercase tracking-wider mb-2">Category</h4>
+              <h4 className="text-xs font-bold text-[#6F6761] uppercase tracking-wider mb-2">Category</h4>
               <div className="grid grid-cols-2 gap-2">
                 {categories.map((cat) => (
                   <button
@@ -376,8 +376,8 @@ export const MenuPage: React.FC = () => {
                     }}
                     className={`p-2.5 rounded-xl text-xs font-medium text-left transition-colors ${
                       selectedCategory === cat.id
-                        ? 'bg-[#C97845] text-black font-bold'
-                        : 'bg-[#332B25] text-[#F3EDE5] border border-[#51463D]'
+                        ? 'bg-[#B85C38] text-black font-bold'
+                        : 'bg-[#F7F3EE] text-[#25201D] border border-[#E8DED6]'
                     }`}
                   >
                     {cat.name}

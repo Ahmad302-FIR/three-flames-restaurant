@@ -70,8 +70,8 @@ export const Navbar: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#25201C]/95 backdrop-blur-md border-b border-[#463A31] py-3 shadow-xl shadow-black/40'
-            : 'bg-[#25201C]/90 backdrop-blur-md border-b border-[#463A31]/70 py-3.5 shadow-md shadow-black/20'
+            ? 'bg-[#FFFDFC]/95 backdrop-blur-md border-b border-[#E8DED6] py-3 shadow-md shadow-black/5'
+            : 'bg-[#FFFDFC]/90 backdrop-blur-md border-b border-[#E8DED6]/80 py-3.5 shadow-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -102,14 +102,14 @@ export const Navbar: React.FC = () => {
                   className="relative group transition-all duration-200"
                 >
                   {active ? (
-                    <div className="px-3.5 py-1.5 rounded-xl bg-[#332B25] border border-[#51463D] text-[#F0C27B] font-semibold text-sm flex flex-col items-center shadow-inner shadow-black/20">
+                    <div className="px-3.5 py-1.5 rounded-xl bg-[#F3E4DC] border border-[#E8DED6] text-[#B85C38] font-bold text-sm flex flex-col items-center shadow-sm">
                       <span>{link.name}</span>
-                      <span className="w-3.5 h-[2px] bg-[#D6A15D] rounded-full mt-0.5" />
+                      <span className="w-3.5 h-[2px] bg-[#B85C38] rounded-full mt-0.5" />
                     </div>
                   ) : (
-                    <div className="px-3 py-1.5 text-sm font-medium text-[#E6DED5]/85 hover:text-[#F0C27B] transition-colors flex flex-col items-center">
+                    <div className="px-3 py-1.5 text-sm font-medium text-[#25201D] hover:text-[#B85C38] transition-colors flex flex-col items-center">
                       <span>{link.name}</span>
-                      <span className="w-0 group-hover:w-3 h-[2px] bg-[#D6A15D]/60 rounded-full transition-all duration-300 mt-0.5" />
+                      <span className="w-0 group-hover:w-3 h-[2px] bg-[#B85C38]/60 rounded-full transition-all duration-300 mt-0.5" />
                     </div>
                   )}
                 </Link>
@@ -134,7 +134,7 @@ export const Navbar: React.FC = () => {
             <a
               href={`tel:${restaurantInfo.phone}`}
               title={`Call ${restaurantInfo.phone}`}
-              className="hidden lg:flex w-9 h-9 rounded-full bg-[#28221D] border border-[#463A31] text-[#E6DED5] hover:text-[#D6A15D] hover:border-[#D6A15D]/50 items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0"
+              className="hidden lg:flex w-9 h-9 rounded-full bg-[#FFFDFC] border border-[#E8DED6] text-[#25201D] hover:text-[#B85C38] hover:border-[#B85C38]/50 items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
             >
               <Phone size={15} />
             </a>
@@ -143,11 +143,11 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => dispatch(setCartDrawerOpen(true))}
               aria-label="Open Cart"
-              className="w-9 h-9 sm:w-10 sm:h-10 lg:w-9 lg:h-9 rounded-full bg-[#28221D] border border-[#463A31] text-[#E6DED5] hover:border-[#D6A15D] hover:text-[#D6A15D] flex items-center justify-center relative hover:scale-105 active:scale-95 transition-all shrink-0"
+              className="w-9 h-9 sm:w-10 sm:h-10 lg:w-9 lg:h-9 rounded-full bg-[#FFFDFC] border border-[#E8DED6] text-[#25201D] hover:border-[#B85C38] hover:text-[#B85C38] flex items-center justify-center relative hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
             >
               <ShoppingCart size={16} />
               {totalCartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#C97845] text-[#F3EDE5] font-extrabold text-[10px] flex items-center justify-center shadow-md shadow-black/30">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#B85C38] text-white font-extrabold text-[10px] flex items-center justify-center shadow-md">
                   {totalCartCount}
                 </span>
               )}
@@ -156,20 +156,20 @@ export const Navbar: React.FC = () => {
             {/* 4. Subtle Outlined Admin Portal Action */}
             <Link
               to={user && (user.role === 'admin' || user.role === 'superadmin') ? '/admin' : '/login'}
-              className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#28221D] border border-[#463A31] hover:border-[#D6A15D]/50 text-xs font-medium text-[#E6DED5] hover:text-[#D6A15D] hover:bg-[#332B25] transition-all shrink-0"
+              className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDFC] border border-[#E8DED6] hover:border-[#B85C38]/50 text-xs font-medium text-[#6F6761] hover:text-[#B85C38] hover:bg-[#F3E4DC]/50 transition-all shrink-0 shadow-sm"
               title="Admin Portal"
             >
-              <User size={13} className="text-[#BDB1A5]" />
+              <User size={13} className="text-[#6F6761]" />
               <span>Admin Portal</span>
             </Link>
 
-            {/* 5. Muted Terracotta Order Now CTA Pill */}
+            {/* 5. Terracotta Order Now CTA Pill */}
             <button
               type="button"
               onClick={() => navigate('/menu')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full bg-[#C97845] hover:bg-[#E0AE6C] text-[#F3EDE5] font-semibold text-xs uppercase tracking-wider shadow-md shadow-black/25 hover:scale-105 active:scale-95 transition-all shrink-0"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full bg-[#B85C38] hover:bg-[#8F432B] text-white font-semibold text-xs uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer"
             >
-              <Utensils size={13} className="text-[#F3EDE5]" />
+              <Utensils size={13} className="text-white" />
               <span>Order Now</span>
             </button>
 
@@ -177,7 +177,7 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => dispatch(toggleMobileMenu())}
               aria-label="Toggle Menu"
-              className="lg:hidden p-2 rounded-xl bg-[#28221D] border border-[#463A31] text-[#E6DED5] hover:text-[#D6A15D] hover:border-[#D6A15D] transition-all active:scale-95"
+              className="lg:hidden p-2 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] text-[#25201D] hover:text-[#B85C38] hover:border-[#B85C38] transition-all active:scale-95 shadow-sm"
             >
               {isMobileMenuOpen ? <X size={20} /> : <MenuIcon size={20} />}
             </button>
@@ -190,24 +190,24 @@ export const Navbar: React.FC = () => {
         <div className="fixed inset-0 z-50 lg:hidden">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
             onClick={() => dispatch(toggleMobileMenu())}
           />
 
           {/* Drawer Content */}
-          <div className="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-[#25201C] border-l border-[#463A31] p-6 flex flex-col justify-between shadow-2xl z-10 overflow-y-auto">
+          <div className="fixed top-0 right-0 bottom-0 w-4/5 max-w-sm bg-[#FFFDFC] border-l border-[#E8DED6] p-6 flex flex-col justify-between shadow-2xl z-10 overflow-y-auto">
             <div>
               {/* Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-[#463A31] mb-6">
+              <div className="flex items-center justify-between pb-6 border-b border-[#E8DED6] mb-6">
                 <div className="flex items-center gap-2">
                   <FlameIcon size={24} />
-                  <span className="font-heading font-bold text-base text-[#F3EDE5] tracking-wider uppercase">
+                  <span className="font-heading font-bold text-base text-[#25201D] tracking-wider uppercase">
                     Navigation Menu
                   </span>
                 </div>
                 <button
                   onClick={() => dispatch(toggleMobileMenu())}
-                  className="p-2 rounded-lg bg-[#28221D] text-[#BDB1A5] hover:text-[#F3EDE5]"
+                  className="p-2 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
                 >
                   <X size={20} />
                 </button>
@@ -222,18 +222,18 @@ export const Navbar: React.FC = () => {
                     onClick={() => dispatch(toggleMobileMenu())}
                     className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                       isActive(link.path)
-                        ? 'bg-[#332B25] text-[#F0C27B] border border-[#51463D]'
-                        : 'text-[#E6DED5] hover:bg-[#332B25]/60'
+                        ? 'bg-[#F3E4DC] text-[#B85C38] border border-[#E8DED6] font-bold'
+                        : 'text-[#25201D] hover:bg-[#F7F3EE]'
                     }`}
                   >
                     <span>{link.name}</span>
-                    <ChevronRight size={16} className="text-[#BDB1A5]" />
+                    <ChevronRight size={16} className="text-[#6F6761]" />
                   </Link>
                 ))}
               </nav>
 
               {/* Quick Actions */}
-              <div className="mt-8 pt-6 border-t border-[#463A31] space-y-3">
+              <div className="mt-8 pt-6 border-t border-[#E8DED6] space-y-3">
                 <Button
                   variant="primary"
                   size="md"
@@ -255,7 +255,7 @@ export const Navbar: React.FC = () => {
                     dispatch(toggleMobileMenu());
                     navigate('/reservation');
                   }}
-                  leftIcon={<CalendarCheck size={16} className="text-[#D6A15D]" />}
+                  leftIcon={<CalendarCheck size={16} className="text-[#B85C38]" />}
                 >
                   BOOK A TABLE
                 </Button>
@@ -263,20 +263,20 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Footer details in Drawer */}
-            <div className="pt-6 border-t border-[#463A31] text-xs text-[#BDB1A5] space-y-2">
-              <div className="flex items-center gap-2 text-[#D6A15D]">
+            <div className="pt-6 border-t border-[#E8DED6] text-xs text-[#6F6761] space-y-2">
+              <div className="flex items-center gap-2 text-[#B85C38]">
                 <Phone size={14} />
                 <a
                   href={restaurantInfo.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline"
+                  className="hover:underline font-semibold"
                   title="Chat on WhatsApp"
                 >
                   {restaurantInfo.phone}
                 </a>
               </div>
-              <p className="text-[11px] leading-relaxed text-[#BDB1A5]/80">
+              <p className="text-[11px] leading-relaxed text-[#6F6761]/90">
                 {restaurantInfo.address}
               </p>
               <div className="pt-2 flex items-center justify-between text-[11px]">
@@ -284,7 +284,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     to="/admin"
                     onClick={() => dispatch(toggleMobileMenu())}
-                    className="text-[#D6A15D] font-semibold hover:text-[#F3EDE5] flex items-center gap-1.5"
+                    className="text-[#B85C38] font-semibold hover:underline flex items-center gap-1.5"
                   >
                     <ShieldCheck size={14} />
                     <span>Admin Portal</span>
@@ -293,7 +293,7 @@ export const Navbar: React.FC = () => {
                   <Link
                     to="/login"
                     onClick={() => dispatch(toggleMobileMenu())}
-                    className="text-[#BDB1A5] hover:text-[#D6A15D]"
+                    className="text-[#6F6761] hover:text-[#B85C38]"
                   >
                     Staff Login
                   </Link>

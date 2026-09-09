@@ -25,23 +25,23 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   return (
     <div className={`flex flex-col max-w-3xl mb-12 ${alignmentClasses[align]} ${className}`}>
       {badgeText && (
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#332B25] border border-[#51463D] text-[#D6A15D] text-xs font-semibold uppercase tracking-widest mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F3E4DC] border border-[#E8DED6] text-[#B85C38] text-xs font-bold uppercase tracking-widest mb-3">
           <FlameIcon size={14} glow={false} />
           <span>{badgeText}</span>
         </div>
       )}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-[#F3EDE5] font-heading leading-tight">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide text-[#25201D] font-heading leading-tight">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-base sm:text-lg text-[#BDB1A5] max-w-2xl leading-relaxed">
+        <p className="mt-4 text-base sm:text-lg text-[#6F6761] max-w-2xl leading-relaxed">
           {subtitle}
         </p>
       )}
       <div className={`mt-4 flex items-center gap-2 ${align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : 'justify-start'}`}>
-        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#C97845] to-transparent" />
-        <span className="w-1.5 h-1.5 rounded-full bg-[#D6A15D]" />
-        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#C97845] to-transparent" />
+        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#B85C38] to-transparent" />
+        <span className="w-1.5 h-1.5 rounded-full bg-[#B85C38]" />
+        <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#B85C38] to-transparent" />
       </div>
     </div>
   );

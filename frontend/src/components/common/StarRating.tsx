@@ -20,21 +20,21 @@ export const StarRating: React.FC<StarRatingProps> = ({
 }) => {
   return (
     <div className={`inline-flex items-center gap-1.5 ${className}`}>
-      <div className="flex items-center gap-0.5 text-[#D6A15D]">
+      <div className="flex items-center gap-0.5 text-[#B85C38]">
         {Array.from({ length: maxStars }).map((_, index) => {
           const fillPercentage = Math.max(0, Math.min(1, rating - index));
           return (
             <span key={index} className="relative inline-block">
               <Star
                 size={size}
-                className="text-[#332B25] stroke-[#51463D]"
+                className="text-[#E8DED6] stroke-[#E8DED6]"
               />
               {fillPercentage > 0 && (
                 <span
-                  className="absolute inset-0 overflow-hidden text-[#D6A15D]"
+                  className="absolute inset-0 overflow-hidden text-[#B85C38]"
                   style={{ width: `${fillPercentage * 100}%` }}
                 >
-                  <Star size={size} className="fill-[#D6A15D] text-[#D6A15D]" />
+                  <Star size={size} className="fill-[#B85C38] text-[#B85C38]" />
                 </span>
               )}
             </span>
@@ -42,12 +42,12 @@ export const StarRating: React.FC<StarRatingProps> = ({
         })}
       </div>
       {showValue && (
-        <span className="font-semibold text-sm text-[#F3EDE5]">
+        <span className="font-semibold text-sm text-[#25201D]">
           {rating.toFixed(1)}
         </span>
       )}
       {reviewsCount !== undefined && (
-        <span className="text-xs text-[#BDB1A5]">({reviewsCount})</span>
+        <span className="text-xs text-[#6F6761]">({reviewsCount})</span>
       )}
     </div>
   );

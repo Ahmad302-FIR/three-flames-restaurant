@@ -31,17 +31,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-[#C97845] hover:bg-[#E0AE6C] text-[#F3EDE5] font-semibold shadow-md shadow-black/20 hover:shadow-lg transition-all border border-[#C97845]/40',
+      'bg-[#B85C38] hover:bg-[#8F432B] text-white font-semibold shadow-sm hover:shadow-md transition-all border border-[#B85C38]',
     secondary:
-      'bg-[#332B25] text-[#F3EDE5] border border-[#51463D] hover:bg-[#3D332C] hover:border-[#D6A15D]/50 shadow-sm transition-all',
+      'bg-[#FFFDFC] text-[#25201D] border border-[#E8DED6] hover:bg-[#F3E4DC] hover:border-[#B85C38]/40 shadow-sm transition-all',
     outline:
-      'bg-transparent text-[#C97845] border border-[#C97845]/60 hover:bg-[#C97845]/10 hover:border-[#C97845] hover:text-[#E0AE6C] transition-all',
+      'bg-transparent text-[#B85C38] border border-[#B85C38] hover:bg-[#F3E4DC] hover:text-[#8F432B] transition-all',
     gold:
-      'bg-gradient-to-r from-[#C97845] to-[#D6A15D] text-[#1C1815] font-semibold shadow-md shadow-black/20 hover:brightness-105 border border-[#D6A15D]/40 transition-all',
+      'bg-[#F3E4DC] text-[#B85C38] font-semibold shadow-sm hover:bg-[#B85C38] hover:text-white border border-[#E8DED6] transition-all',
     ghost:
-      'bg-transparent text-[#F3EDE5] hover:bg-[#332B25] hover:text-[#D6A15D] transition-all',
+      'bg-transparent text-[#25201D] hover:bg-[#F7F3EE] hover:text-[#B85C38] transition-all',
     danger:
-      'bg-[#B96F65] text-[#F3EDE5] hover:bg-[#A85E54] border border-[#B96F65]/40 shadow-sm transition-all',
+      'bg-[#C24838] text-white hover:bg-[#A8382A] border border-[#C24838] shadow-sm transition-all',
   };
 
   return (

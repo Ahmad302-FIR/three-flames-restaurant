@@ -79,16 +79,16 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5] flex items-center justify-center px-4">
-      <div className="max-w-md w-full p-8 sm:p-10 rounded-3xl bg-[#28221D] border border-[#51463D] shadow-2xl space-y-6">
+    <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D] flex items-center justify-center px-4">
+      <div className="max-w-md w-full p-8 sm:p-10 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] shadow-2xl space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#332B25] border border-[#51463D] flex items-center justify-center mx-auto mb-2 text-[#C97845]">
+          <div className="w-14 h-14 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto mb-2 text-[#B85C38]">
             <ShieldCheck size={30} />
           </div>
-          <h2 className="text-2xl font-extrabold font-heading text-white">
+          <h2 className="text-2xl font-extrabold font-heading text-[#25201D]">
             RESTAURANT ADMIN PORTAL
           </h2>
-          <p className="text-xs text-[#BDB1A5]">
+          <p className="text-xs text-[#6F6761]">
             Sign in with authorized administrator credentials to manage dishes, menu catalog, and restaurant operations.
           </p>
         </div>
@@ -96,11 +96,11 @@ export const LoginPage: React.FC = () => {
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6F6761] block mb-1.5">
               Admin Email Address
             </label>
             <div className="relative">
-              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#BDB1A5]" />
+              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6F6761]" />
               <input
                 type="email"
                 value={email}
@@ -108,17 +108,17 @@ export const LoginPage: React.FC = () => {
                 required
                 autoComplete="username"
                 placeholder="info.ahmadkhan.com@gmail.com"
-                className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
+                className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#BDB1A5] block mb-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#6F6761] block mb-1.5">
               Password
             </label>
             <div className="relative">
-              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#BDB1A5]" />
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6F6761]" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
@@ -126,12 +126,12 @@ export const LoginPage: React.FC = () => {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none focus:border-[#51463D]"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#BDB1A5] hover:text-[#C97845] transition-colors"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6F6761] hover:text-[#B85C38] transition-colors"
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -151,8 +151,8 @@ export const LoginPage: React.FC = () => {
           </Button>
         </form>
 
-        <div className="text-center text-xs text-[#BDB1A5] pt-2">
-          <Link to="/" className="text-[#C97845] hover:underline inline-flex items-center gap-1">
+        <div className="text-center text-xs text-[#6F6761] pt-2">
+          <Link to="/" className="text-[#B85C38] hover:underline inline-flex items-center gap-1">
             <ArrowLeft size={13} /> Return to Public Website
           </Link>
         </div>

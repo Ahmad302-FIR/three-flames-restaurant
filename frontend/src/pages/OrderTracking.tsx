@@ -215,7 +215,7 @@ export const OrderTrackingPage: React.FC = () => {
   const currentStepIdx = getStepIndex(order?.status);
 
   return (
-    <div className="min-h-screen bg-[#1C1815] pt-28 pb-20 text-[#F3EDE5]">
+    <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <SectionHeading
@@ -231,7 +231,7 @@ export const OrderTrackingPage: React.FC = () => {
             <div className="relative flex-1">
               <Search
                 size={18}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C97845]"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#B85C38]"
               />
               <input
                 ref={searchInputRef}
@@ -239,7 +239,7 @@ export const OrderTrackingPage: React.FC = () => {
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
                 placeholder="Enter Order ID (e.g. TF-1048)"
-                className="w-full pl-10 pr-3 py-3 rounded-xl bg-[#28221D] border border-[#51463D] text-xs text-[#F3EDE5] placeholder-[#BDB1A5] focus:outline-none focus:border-[#51463D] transition-colors"
+                className="w-full pl-10 pr-3 py-3 rounded-xl bg-[#FFFFFF] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761] focus:outline-none focus:border-[#E8DED6] transition-colors"
               />
             </div>
             <Button variant="primary" size="md" type="submit" isLoading={loading}>
@@ -249,7 +249,7 @@ export const OrderTrackingPage: React.FC = () => {
 
           {/* Helper / Recent Order Shortcut */}
           {recentOrderId && (!order || order.id !== recentOrderId) ? (
-            <div className="mt-3 flex items-center justify-center gap-2 text-[11px] text-[#BDB1A5]">
+            <div className="mt-3 flex items-center justify-center gap-2 text-[11px] text-[#6F6761]">
               <span>Recent order:</span>
               <button
                 type="button"
@@ -258,29 +258,29 @@ export const OrderTrackingPage: React.FC = () => {
                   navigate(`/track-order/${recentOrderId}`);
                   fetchOrder(recentOrderId);
                 }}
-                className="text-[#C97845] font-bold hover:underline inline-flex items-center gap-1"
+                className="text-[#B85C38] font-bold hover:underline inline-flex items-center gap-1"
               >
                 #{recentOrderId} <ArrowRight size={12} />
               </button>
             </div>
           ) : (
-            <div className="mt-2 text-center text-[11px] text-[#BDB1A5]">
+            <div className="mt-2 text-center text-[11px] text-[#6F6761]">
               Enter the Order ID from your confirmation screen or email (e.g.{' '}
-              <strong className="text-[#C97845]">TF-1048</strong>)
+              <strong className="text-[#B85C38]">TF-1048</strong>)
             </div>
           )}
         </div>
 
         {/* Loading State */}
         {loading && (
-          <div className="p-12 text-center rounded-3xl bg-[#28221D] border border-[#51463D] space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#332B25] border border-[#51463D] flex items-center justify-center mx-auto animate-pulse">
+          <div className="p-12 text-center rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto animate-pulse">
               <FlameIcon size={24} />
             </div>
-            <h3 className="text-base font-bold font-heading text-white">
+            <h3 className="text-base font-bold font-heading text-[#25201D]">
               Locating Order Status...
             </h3>
-            <p className="text-xs text-[#BDB1A5]">
+            <p className="text-xs text-[#6F6761]">
               Connecting to Ahmed Khan Restaurant kitchen dispatcher and live radar.
             </p>
           </div>
@@ -290,29 +290,29 @@ export const OrderTrackingPage: React.FC = () => {
         {!loading && order ? (
           <div className="space-y-8">
             {/* Top Status Card */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#28221D] border border-[#51463D] shadow-2xl space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#51463D]">
+            <div className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] shadow-2xl space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E8DED6]">
                 <div>
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <FlameIcon size={22} />
-                    <span className="text-2xl font-black font-heading text-[#F3EDE5] tracking-wide">
+                    <span className="text-2xl font-black font-heading text-[#25201D] tracking-wide">
                       Order #{order.id}
                     </span>
-                    <span className="px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#C97845]/20 text-[#C97845] border border-[#51463D]">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#B85C38]/20 text-[#B85C38] border border-[#E8DED6]">
                       {order.status.replace(/_/g, ' ')}
                     </span>
                   </div>
-                  <p className="text-xs text-[#BDB1A5] mt-1.5">
+                  <p className="text-xs text-[#6F6761] mt-1.5">
                     Placed on {new Date(order.createdAt).toLocaleString()} • Fulfillment:{' '}
                     <strong className="text-white capitalize">{order.orderType}</strong>
                   </p>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <span className="text-[11px] text-[#BDB1A5] uppercase font-semibold block">
+                  <span className="text-[11px] text-[#6F6761] uppercase font-semibold block">
                     Estimated Time
                   </span>
-                  <span className="text-lg font-bold text-[#D6A15D] flex items-center sm:justify-end gap-1.5 mt-0.5">
+                  <span className="text-lg font-bold text-[#B85C38] flex items-center sm:justify-end gap-1.5 mt-0.5">
                     <Clock size={16} />
                     {order.estimatedTime || '30-40 mins'}
                   </span>
@@ -325,7 +325,7 @@ export const OrderTrackingPage: React.FC = () => {
                   {/* Connecting Line (Desktop) */}
                   <div className="hidden md:block absolute top-6 left-8 right-8 h-0.5 bg-white/10 -z-0">
                     <div
-                      className="h-full bg-gradient-to-r from-[#C97845] to-[#D6A15D] transition-all duration-700"
+                      className="h-full bg-gradient-to-r from-[#B85C38] to-[#B85C38] transition-all duration-700"
                       style={{ width: `${(currentStepIdx / (steps.length - 1)) * 100}%` }}
                     />
                   </div>
@@ -343,10 +343,10 @@ export const OrderTrackingPage: React.FC = () => {
                         <div
                           className={`w-12 h-12 rounded-2xl flex items-center justify-center border-2 transition-all duration-300 shrink-0 ${
                             isCurrent
-                              ? 'bg-[#C97845] border-[#F3EDE5] text-black shadow-lg shadow-[#C97845]/50 scale-110'
+                              ? 'bg-[#B85C38] border-[#25201D] text-black shadow-lg shadow-[#B85C38]/50 scale-110'
                               : isDone
-                              ? 'bg-[#332B25] border-[#51463D] text-[#C97845]'
-                              : 'bg-[#332B25]/60 border-[#51463D] text-white/30'
+                              ? 'bg-[#F7F3EE] border-[#E8DED6] text-[#B85C38]'
+                              : 'bg-[#F7F3EE]/60 border-[#E8DED6] text-white/30'
                           }`}
                         >
                           {step.icon}
@@ -356,12 +356,12 @@ export const OrderTrackingPage: React.FC = () => {
                         <div className="text-left md:text-center">
                           <h4
                             className={`text-xs font-bold uppercase tracking-wider ${
-                              isDone ? 'text-[#F3EDE5]' : 'text-white/40'
+                              isDone ? 'text-[#25201D]' : 'text-white/40'
                             }`}
                           >
                             {step.label}
                           </h4>
-                          <p className="text-[11px] text-[#BDB1A5] mt-0.5 max-w-xs md:max-w-none">
+                          <p className="text-[11px] text-[#6F6761] mt-0.5 max-w-xs md:max-w-none">
                             {step.desc}
                           </p>
                         </div>
@@ -373,9 +373,9 @@ export const OrderTrackingPage: React.FC = () => {
 
               {/* Detailed Live Timeline Logs if available */}
               {order.timeline && order.timeline.length > 0 && (
-                <div className="pt-4 border-t border-[#51463D]">
-                  <h4 className="text-xs uppercase font-bold tracking-wider text-[#D6A15D] mb-3 flex items-center gap-2">
-                    <Clock size={14} className="text-[#C97845]" />
+                <div className="pt-4 border-t border-[#E8DED6]">
+                  <h4 className="text-xs uppercase font-bold tracking-wider text-[#B85C38] mb-3 flex items-center gap-2">
+                    <Clock size={14} className="text-[#B85C38]" />
                     <span>Kitchen & Delivery Milestones</span>
                   </h4>
                   <div className="space-y-2">
@@ -384,24 +384,24 @@ export const OrderTrackingPage: React.FC = () => {
                         key={i}
                         className={`flex items-center justify-between text-xs p-2.5 rounded-xl border ${
                           event.completed
-                            ? 'bg-[#332B25] border-[#51463D] text-white'
-                            : 'bg-[#28221D] border-[#51463D] text-[#BDB1A5]/60'
+                            ? 'bg-[#F7F3EE] border-[#E8DED6] text-white'
+                            : 'bg-[#FFFFFF] border-[#E8DED6] text-[#6F6761]/60'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
                           <span
                             className={`w-2 h-2 rounded-full ${
-                              event.completed ? 'bg-[#C97845]' : 'bg-white/20'
+                              event.completed ? 'bg-[#B85C38]' : 'bg-white/20'
                             }`}
                           />
                           <span className="font-semibold">{event.title}</span>
                           {event.note && (
-                            <span className="text-[11px] text-[#BDB1A5] hidden sm:inline">
+                            <span className="text-[11px] text-[#6F6761] hidden sm:inline">
                               — {event.note}
                             </span>
                           )}
                         </div>
-                        <span className="text-[11px] font-mono text-[#D6A15D]">
+                        <span className="text-[11px] font-mono text-[#B85C38]">
                           {event.timestamp || (event.completed ? 'Completed' : 'Pending')}
                         </span>
                       </div>
@@ -414,9 +414,9 @@ export const OrderTrackingPage: React.FC = () => {
             {/* Order Content Summary Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Delivery / Pickup Address */}
-              <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#D6A15D] flex items-center gap-2">
-                  <MapPin size={16} className="text-[#C97845]" />
+              <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#B85C38] flex items-center gap-2">
+                  <MapPin size={16} className="text-[#B85C38]" />
                   {order.orderType === 'delivery'
                     ? 'Delivery Destination'
                     : order.orderType === 'pickup'
@@ -425,10 +425,10 @@ export const OrderTrackingPage: React.FC = () => {
                 </h3>
 
                 {order.orderType === 'delivery' && order.deliveryDetails && (
-                  <div className="text-xs space-y-1.5 text-[#BDB1A5]">
-                    <p className="font-bold text-white text-sm">{order.deliveryDetails.fullName}</p>
+                  <div className="text-xs space-y-1.5 text-[#6F6761]">
+                    <p className="font-bold text-[#25201D] text-sm">{order.deliveryDetails.fullName}</p>
                     <p>{order.deliveryDetails.address}</p>
-                    <p className="text-[#C97845]">Area: {order.deliveryDetails.area}</p>
+                    <p className="text-[#B85C38]">Area: {order.deliveryDetails.area}</p>
                     {order.deliveryDetails.landmark && (
                       <p>Landmark: {order.deliveryDetails.landmark}</p>
                     )}
@@ -439,28 +439,28 @@ export const OrderTrackingPage: React.FC = () => {
                 )}
 
                 {order.orderType === 'pickup' && (
-                  <div className="text-xs space-y-1.5 text-[#BDB1A5]">
-                    <p className="font-bold text-white text-sm">Ahmed Khan Restaurant</p>
+                  <div className="text-xs space-y-1.5 text-[#6F6761]">
+                    <p className="font-bold text-[#25201D] text-sm">Ahmed Khan Restaurant</p>
                     <p>{restaurantInfo.address}</p>
-                    <p className="text-[#C97845]">Ready in approx: {order.estimatedTime}</p>
+                    <p className="text-[#B85C38]">Ready in approx: {order.estimatedTime}</p>
                   </div>
                 )}
 
                 {order.orderType === 'dine-in' && order.dineInDetails && (
-                  <div className="text-xs space-y-1.5 text-[#BDB1A5]">
-                    <p className="font-bold text-white text-sm">
+                  <div className="text-xs space-y-1.5 text-[#6F6761]">
+                    <p className="font-bold text-[#25201D] text-sm">
                       Guests: {order.dineInDetails.guests} People
                     </p>
                     <p>Table/Area: {order.dineInDetails.tableNumber}</p>
-                    <p className="text-[#C97845]">Time: {order.dineInDetails.preferredTime}</p>
+                    <p className="text-[#B85C38]">Time: {order.dineInDetails.preferredTime}</p>
                   </div>
                 )}
               </div>
 
               {/* Items & Payment */}
-              <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#D6A15D] flex items-center gap-2">
-                  <Utensils size={16} className="text-[#C97845]" />
+              <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#B85C38] flex items-center gap-2">
+                  <Utensils size={16} className="text-[#B85C38]" />
                   Ordered Items & Bill
                 </h3>
 
@@ -470,14 +470,14 @@ export const OrderTrackingPage: React.FC = () => {
                       <span className="text-white">
                         {item.quantity}x {item.name}
                       </span>
-                      <span className="font-semibold text-[#D6A15D]">
+                      <span className="font-semibold text-[#B85C38]">
                         Rs. {item.itemTotal.toLocaleString()}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="pt-3 border-t border-[#51463D] flex justify-between text-sm font-bold text-[#C97845]">
+                <div className="pt-3 border-t border-[#E8DED6] flex justify-between text-sm font-bold text-[#B85C38]">
                   <span>Total Amount</span>
                   <span>Rs. {order.total.toLocaleString()}</span>
                 </div>
@@ -485,14 +485,14 @@ export const OrderTrackingPage: React.FC = () => {
             </div>
 
             {/* Need Help Support Banner */}
-            <div className="p-6 rounded-2xl bg-[#332B25] border border-[#51463D] flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#1C1815] border border-[#51463D] flex items-center justify-center text-[#C97845] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] flex items-center justify-center text-[#B85C38] shrink-0">
                   <Phone size={20} />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white">Need an urgent update?</h4>
-                  <p className="text-xs text-[#BDB1A5]">
+                  <h4 className="text-sm font-bold text-[#25201D]">Need an urgent update?</h4>
+                  <p className="text-xs text-[#6F6761]">
                     Speak directly with our Peshawar restaurant dispatch manager.
                   </p>
                 </div>
@@ -503,7 +503,7 @@ export const OrderTrackingPage: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Chat on WhatsApp"
-                className="px-5 py-2.5 rounded-xl bg-[#1C1815] border border-[#51463D] text-[#C97845] hover:text-white hover:bg-[#C97845]/20 font-bold text-xs transition-colors shrink-0"
+                className="px-5 py-2.5 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] text-[#B85C38] hover:text-[#25201D] hover:bg-[#B85C38]/20 font-bold text-xs transition-colors shrink-0"
               >
                 CALL {restaurantInfo.phone}
               </a>
@@ -511,18 +511,18 @@ export const OrderTrackingPage: React.FC = () => {
           </div>
         ) : searched && !loading ? (
           /* Friendly Order Not Found Error Card */
-          <div className="p-8 sm:p-12 text-center rounded-3xl bg-[#28221D] border border-[#51463D] space-y-5 shadow-2xl max-w-lg mx-auto">
-            <div className="w-14 h-14 rounded-2xl bg-[#332B25] border border-[#51463D] flex items-center justify-center mx-auto text-[#C97845]">
+          <div className="p-8 sm:p-12 text-center rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-5 shadow-2xl max-w-lg mx-auto">
+            <div className="w-14 h-14 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto text-[#B85C38]">
               <AlertCircle size={28} />
             </div>
 
-            <h3 className="text-xl font-bold font-heading text-white">
+            <h3 className="text-xl font-bold font-heading text-[#25201D]">
               Order #{searchId} Not Found
             </h3>
 
-            <p className="text-xs text-[#BDB1A5] leading-relaxed">
+            <p className="text-xs text-[#6F6761] leading-relaxed">
               We could not locate an active order matching this ID. Please make sure you typed the complete code from your confirmation screen or email (e.g.{' '}
-              <strong className="text-[#C97845]">TF-1048</strong>).
+              <strong className="text-[#B85C38]">TF-1048</strong>).
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
@@ -539,7 +539,7 @@ export const OrderTrackingPage: React.FC = () => {
                 href={restaurantInfo.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs font-semibold text-[#C97845] hover:bg-[#C97845]/10 transition-colors flex items-center gap-1.5"
+                className="px-4 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs font-semibold text-[#B85C38] hover:bg-[#B85C38]/10 transition-colors flex items-center gap-1.5"
               >
                 <Phone size={14} />
                 <span>Help via WhatsApp</span>
@@ -549,32 +549,32 @@ export const OrderTrackingPage: React.FC = () => {
         ) : !loading ? (
           /* Initial Landing Guide when opening /track-order without an ID */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-            <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] space-y-2 text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] text-[#C97845] flex items-center justify-center mx-auto font-bold font-heading">
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-2 text-center">
+              <div className="w-10 h-10 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#B85C38] flex items-center justify-center mx-auto font-bold font-heading">
                 1
               </div>
-              <h4 className="text-sm font-bold text-white">Find Your Order ID</h4>
-              <p className="text-xs text-[#BDB1A5] leading-relaxed">
+              <h4 className="text-sm font-bold text-[#25201D]">Find Your Order ID</h4>
+              <p className="text-xs text-[#6F6761] leading-relaxed">
                 Check the confirmation screen or email you received when placing your order.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] space-y-2 text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] text-[#C97845] flex items-center justify-center mx-auto font-bold font-heading">
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-2 text-center">
+              <div className="w-10 h-10 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#B85C38] flex items-center justify-center mx-auto font-bold font-heading">
                 2
               </div>
-              <h4 className="text-sm font-bold text-white">Enter & Submit</h4>
-              <p className="text-xs text-[#BDB1A5] leading-relaxed">
+              <h4 className="text-sm font-bold text-[#25201D]">Enter & Submit</h4>
+              <p className="text-xs text-[#6F6761] leading-relaxed">
                 Type your Order ID in the box above (e.g. TF-1048) and click <strong className="text-white">TRACK</strong>.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#28221D] border border-[#51463D] space-y-2 text-center">
-              <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] text-[#C97845] flex items-center justify-center mx-auto font-bold font-heading">
+            <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-2 text-center">
+              <div className="w-10 h-10 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#B85C38] flex items-center justify-center mx-auto font-bold font-heading">
                 3
               </div>
-              <h4 className="text-sm font-bold text-white">Live Kitchen Updates</h4>
-              <p className="text-xs text-[#BDB1A5] leading-relaxed">
+              <h4 className="text-sm font-bold text-[#25201D]">Live Kitchen Updates</h4>
+              <p className="text-xs text-[#6F6761] leading-relaxed">
                 Watch real-time live charcoal grilling, thermal packaging, and dispatch updates.
               </p>
             </div>

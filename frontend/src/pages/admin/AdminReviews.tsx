@@ -89,21 +89,21 @@ export const AdminReviewsPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <MessageSquare size={24} className="text-[#C97845]" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#25201D] flex items-center gap-2">
+            <MessageSquare size={24} className="text-[#B85C38]" />
             Customer Reviews Moderation
           </h1>
-          <p className="text-xs text-[#BDB1A5] mt-1">
+          <p className="text-xs text-[#6F6761] mt-1">
             Approve verified dining experiences, monitor star ratings, and manage public testimonials.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-[#BDB1A5]">Filter:</span>
+          <span className="text-xs text-[#6F6761]">Filter:</span>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none"
           >
             <option value="all">All Reviews ({reviews.length})</option>
             <option value="approved">Approved</option>
@@ -113,26 +113,26 @@ export const AdminReviewsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-4 rounded-2xl bg-[#28221D] border border-[#51463D] flex items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] flex items-center justify-between gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#BDB1A5]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6F6761]" />
           <input
             type="text"
             placeholder="Search by diner name, dish, or keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-xs text-white placeholder-[#BDB1A5]/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none"
           />
         </div>
-        <span className="text-xs text-[#BDB1A5]">Showing <strong className="text-white">{filtered.length}</strong> reviews</span>
+        <span className="text-xs text-[#6F6761]">Showing <strong className="text-white">{filtered.length}</strong> reviews</span>
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-xs text-[#BDB1A5]">Loading customer reviews...</div>
+        <div className="py-20 text-center text-xs text-[#6F6761]">Loading customer reviews...</div>
       ) : filtered.length === 0 ? (
-        <div className="py-20 text-center bg-[#28221D] rounded-2xl border border-[#51463D] space-y-2">
-          <p className="text-sm font-bold text-white">No reviews found matching criteria</p>
-          <p className="text-xs text-[#BDB1A5]">Try clearing your search or status filter</p>
+        <div className="py-20 text-center bg-[#FFFFFF] rounded-2xl border border-[#E8DED6] space-y-2">
+          <p className="text-sm font-bold text-[#25201D]">No reviews found matching criteria</p>
+          <p className="text-xs text-[#6F6761]">Try clearing your search or status filter</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -141,35 +141,35 @@ export const AdminReviewsPage: React.FC = () => {
             return (
               <div
                 key={revId}
-                className="p-5 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg flex flex-col justify-between space-y-4 hover:border-[#51463D] transition-colors"
+                className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg flex flex-col justify-between space-y-4 hover:border-[#E8DED6] transition-colors"
               >
                 <div className="space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
                       <h4 className="font-bold text-sm text-white">{rev.customerName}</h4>
-                      <span className="text-[10px] text-[#BDB1A5]">{rev.date || 'Recent Guest'}</span>
+                      <span className="text-[10px] text-[#6F6761]">{rev.date || 'Recent Guest'}</span>
                     </div>
 
-                    <div className="flex items-center gap-1 text-[#D6A15D]">
+                    <div className="flex items-center gap-1 text-[#B85C38]">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
                           size={13}
-                          fill={i < rev.rating ? '#D6A15D' : 'none'}
-                          className={i < rev.rating ? 'text-[#D6A15D]' : 'text-zinc-700'}
+                          fill={i < rev.rating ? '#B85C38' : 'none'}
+                          className={i < rev.rating ? 'text-[#B85C38]' : 'text-zinc-700'}
                         />
                       ))}
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#F3EDE5] italic leading-relaxed">
+                  <p className="text-xs text-[#25201D] italic leading-relaxed">
                     "{rev.comment}"
                   </p>
 
                   {rev.dishesMentioned && rev.dishesMentioned.length > 0 && (
                     <div className="flex flex-wrap gap-1 pt-1">
                       {rev.dishesMentioned.map((d, i) => (
-                        <span key={i} className="px-2 py-0.5 rounded-full bg-[#332B25] text-[10px] text-[#C97845] border border-[#51463D]">
+                        <span key={i} className="px-2 py-0.5 rounded-full bg-[#F7F3EE] text-[10px] text-[#B85C38] border border-[#E8DED6]">
                           {d}
                         </span>
                       ))}
@@ -177,14 +177,14 @@ export const AdminReviewsPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="pt-3 border-t border-[#51463D] flex items-center justify-between">
+                <div className="pt-3 border-t border-[#E8DED6] flex items-center justify-between">
                   <span
                     className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                       rev.status === 'approved'
                         ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
                         : rev.status === 'pending'
                         ? 'bg-amber-950 text-amber-400 border border-amber-500/30'
-                        : 'bg-zinc-900 text-zinc-400 border border-[#51463D]'
+                        : 'bg-zinc-900 text-zinc-400 border border-[#E8DED6]'
                     }`}
                   >
                     {rev.status || 'approved'}
@@ -203,7 +203,7 @@ export const AdminReviewsPage: React.FC = () => {
                     {rev.status !== 'hidden' && (
                       <button
                         onClick={() => handleStatusUpdate(revId, 'hidden')}
-                        className="px-2.5 py-1 rounded-lg bg-[#332B25] text-[#BDB1A5] border border-[#51463D] text-[11px] hover:text-white"
+                        className="px-2.5 py-1 rounded-lg bg-[#F7F3EE] text-[#6F6761] border border-[#E8DED6] text-[11px] hover:text-[#25201D]"
                         title="Hide from public page"
                       >
                         Hide

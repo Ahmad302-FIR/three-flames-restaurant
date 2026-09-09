@@ -79,18 +79,18 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
   };
 
   return (
-    <div className="min-h-screen bg-[#1C1815] text-[#F3EDE5] flex">
+    <div className="min-h-screen bg-[#F7F3EE] text-[#25201D] flex">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col w-64 bg-[#28221D] border-r border-[#51463D] fixed inset-y-0 z-30 justify-between overflow-y-auto">
+      <aside className="hidden lg:flex lg:flex-col w-64 bg-[#FFFFFF] border-r border-[#E8DED6] fixed inset-y-0 z-30 justify-between overflow-y-auto">
         <div className="p-6 space-y-6">
           {/* Brand Header */}
           <Link to="/" className="flex items-center gap-3">
             <FlameIcon size={26} />
             <div>
-              <span className="font-extrabold font-heading text-lg tracking-wider text-white block">
+              <span className="font-extrabold font-heading text-lg tracking-wider text-[#25201D] block">
                 AHMED KHAN
               </span>
-              <span className="text-[10px] text-[#C97845] font-bold tracking-widest uppercase block">
+              <span className="text-[10px] text-[#B85C38] font-bold tracking-widest uppercase block">
                 Ops & Kitchen Portal
               </span>
             </div>
@@ -106,8 +106,8 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                   to={item.path}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
                     isActive
-                      ? 'bg-[#332B25] text-[#C97845] border border-[#51463D] shadow-lg shadow-[#C97845]/10'
-                      : 'text-[#BDB1A5] hover:text-white hover:bg-[#332B25]/50'
+                      ? 'bg-[#F3E4DC] text-[#B85C38] border border-[#B85C38]/30 shadow-sm'
+                      : 'text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]'
                   }`}
                 >
                   {item.icon}
@@ -119,10 +119,10 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
         </div>
 
         {/* Bottom User / Store Info */}
-        <div className="p-6 border-t border-[#51463D] space-y-4">
+        <div className="p-6 border-t border-[#E8DED6] space-y-4">
           <Link
             to="/"
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#332B25] text-xs font-bold text-[#D6A15D] border border-[#51463D] hover:text-white transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#F7F3EE] text-xs font-bold text-[#B85C38] border border-[#E8DED6] hover:bg-[#F3E4DC] transition-colors"
           >
             <Store size={14} />
             <span>Open Diner Storefront</span>
@@ -130,11 +130,11 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
 
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#332B25] border border-[#51463D] flex items-center justify-center font-bold text-xs text-[#C97845]">
+              <div className="w-8 h-8 rounded-lg bg-[#F3E4DC] border border-[#E8DED6] flex items-center justify-center font-bold text-xs text-[#B85C38]">
                 {activeUser?.name?.charAt(0) || 'A'}
               </div>
               <div className="text-left">
-                <span className="text-xs font-bold text-white block truncate max-w-[100px]">
+                <span className="text-xs font-bold text-[#25201D] block truncate max-w-[100px]">
                   {activeUser?.name || 'Administrator'}
                 </span>
                 <span className="text-[10px] text-emerald-400 block font-semibold">Online</span>
@@ -143,7 +143,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
 
             <button
               onClick={handleLogout}
-              className="p-2 text-[#BDB1A5] hover:text-rose-400 rounded-lg hover:bg-white/5"
+              className="p-2 text-[#6F6761] hover:text-[#C24838] rounded-lg hover:bg-[#F7F3EE]"
               title="Sign Out"
             >
               <LogOut size={16} />
@@ -155,28 +155,28 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
       {/* Main Content Area */}
       <div className="flex-1 lg:pl-64 flex flex-col min-h-screen">
         {/* Top Navbar */}
-        <header className="h-16 bg-[#28221D]/90 backdrop-blur-md border-b border-[#51463D] sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between">
+        <header className="h-16 bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E8DED6] sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileNavOpen(true)}
-              className="lg:hidden p-2 text-[#BDB1A5] hover:text-white"
+              className="lg:hidden p-2 text-[#6F6761] hover:text-[#25201D]"
             >
               <MenuIcon size={22} />
             </button>
-            <h2 className="text-sm sm:text-base font-bold font-heading text-white">
+            <h2 className="text-sm sm:text-base font-bold font-heading text-[#25201D]">
               Restaurant Management Console
             </h2>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#332B25] border border-[#51463D] text-[11px] text-[#D6A15D]">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F7F3EE] border border-[#E8DED6] text-[11px] text-[#25201D]">
               <ShieldCheck size={14} className="text-emerald-400" />
               <span>Peshawar Kitchen Live</span>
             </div>
 
             <Link
               to="/"
-              className="px-3 py-1.5 rounded-lg bg-[#C97845]/10 hover:bg-[#C97845]/20 text-xs font-bold text-[#C97845] border border-[#51463D]"
+              className="px-3 py-1.5 rounded-lg bg-[#F3E4DC] hover:bg-[#E8DED6] text-xs font-bold text-[#B85C38] border border-[#E8DED6]"
             >
               View Site
             </Link>
@@ -184,7 +184,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
         </header>
 
         {/* Subpage View */}
-        <main className="flex-1 p-4 sm:p-8 bg-[#1C1815]">
+        <main className="flex-1 p-4 sm:p-8 bg-[#F7F3EE]">
           {children || <Outlet />}
         </main>
       </div>
@@ -196,16 +196,16 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
             className="fixed inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setIsMobileNavOpen(false)}
           />
-          <div className="fixed inset-y-0 left-0 w-72 bg-[#28221D] p-6 border-r border-[#51463D] flex flex-col justify-between overflow-y-auto">
+          <div className="fixed inset-y-0 left-0 w-72 bg-[#FFFFFF] p-6 border-r border-[#E8DED6] flex flex-col justify-between overflow-y-auto">
             <div className="space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-[#51463D]">
+              <div className="flex items-center justify-between pb-4 border-b border-[#E8DED6]">
                 <div className="flex items-center gap-2.5">
                   <FlameIcon size={24} />
-                  <span className="font-bold text-white">Ahmed Khan Admin</span>
+                  <span className="font-bold text-[#25201D]">Ahmed Khan Admin</span>
                 </div>
                 <button
                   onClick={() => setIsMobileNavOpen(false)}
-                  className="p-1.5 text-[#BDB1A5] hover:text-white"
+                  className="p-1.5 text-[#6F6761] hover:text-[#25201D]"
                 >
                   <X size={20} />
                 </button>
@@ -217,7 +217,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMobileNavOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-[#BDB1A5] hover:text-white hover:bg-[#332B25]"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]"
                   >
                     {item.icon}
                     <span>{item.label}</span>
@@ -226,10 +226,10 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
               </nav>
             </div>
 
-            <div className="pt-4 border-t border-[#51463D]">
+            <div className="pt-4 border-t border-[#E8DED6]">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-950/30"
+                className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-[#C24838] hover:bg-[#F3E4DC]/50"
               >
                 <LogOut size={16} />
                 <span>Logout</span>

@@ -82,28 +82,28 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (this.state.hasError) {
       return (
         <div className="min-h-[60vh] flex items-center justify-center px-4 py-16 text-center">
-          <div className="max-w-md w-full p-8 rounded-3xl bg-[#28221D] border border-[#51463D] shadow-2xl space-y-5">
-            <div className="w-14 h-14 rounded-2xl bg-[#332B25] border border-[#51463D] flex items-center justify-center mx-auto">
+          <div className="max-w-md w-full p-8 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] shadow-2xl space-y-5">
+            <div className="w-14 h-14 rounded-2xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center mx-auto">
               <FlameIcon size={28} />
             </div>
-            <h2 className="text-xl font-extrabold font-heading text-[#F3EDE5]">
+            <h2 className="text-xl font-extrabold font-heading text-[#25201D]">
               Something Went Wrong
             </h2>
-            <p className="text-xs text-[#BDB1A5] leading-relaxed">
+            <p className="text-xs text-[#6F6761] leading-relaxed">
               An unexpected error occurred while loading this view.
             </p>
             <div className="flex gap-3 justify-center pt-2">
               <button
                 type="button"
                 onClick={() => { this.setState({ hasError: false }); window.location.reload(); }}
-                className="px-4 py-2.5 rounded-xl bg-[#C97845] text-[#F3EDE5] text-xs font-bold hover:bg-[#E0AE6C] transition-colors"
+                className="px-4 py-2.5 rounded-xl bg-[#B85C38] text-white text-xs font-bold hover:bg-[#8F432B] transition-colors shadow-sm"
               >
                 Refresh Page
               </button>
               <button
                 type="button"
                 onClick={() => { this.setState({ hasError: false }); window.location.href = '/'; }}
-                className="px-4 py-2.5 rounded-xl bg-[#332B25] border border-[#51463D] text-xs font-semibold text-[#F3EDE5] hover:bg-[#3D332C] transition-colors"
+                className="px-4 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs font-semibold text-[#25201D] hover:bg-[#F3E4DC] transition-colors"
               >
                 Go to Home
               </button>
@@ -122,7 +122,7 @@ const AppContent: React.FC = () => {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="min-h-screen bg-[#1C1815] text-[#F3EDE5] flex flex-col font-sans selection:bg-[#C97845]/30 selection:text-[#D6A15D]">
+    <div className="min-h-screen bg-[#FFFDFC] text-[#25201D] flex flex-col font-sans selection:bg-[#F3E4DC] selection:text-[#B85C38]">
       <ScrollToTop />
       <ToastContainer />
       <CartDrawer />

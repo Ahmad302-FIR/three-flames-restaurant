@@ -28,21 +28,21 @@ export const CartDrawer: React.FC = () => {
 
       {/* Drawer */}
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#28221D] border-l border-[#51463D] shadow-2xl flex flex-col justify-between">
+        <div className="w-screen max-w-md bg-[#FFFFFF] border-l border-[#E8DED6] shadow-2xl flex flex-col justify-between">
           {/* Header */}
-          <div className="p-6 border-b border-[#51463D] flex items-center justify-between bg-[#332B25]">
+          <div className="p-6 border-b border-[#E8DED6] flex items-center justify-between bg-[#F7F3EE]">
             <div className="flex items-center gap-2.5">
               <FlameIcon size={22} />
               <div>
-                <h2 className="text-lg font-bold font-heading text-[#F3EDE5]">YOUR ORDER CART</h2>
-                <p className="text-xs text-[#D6A15D] uppercase tracking-wider font-semibold">
+                <h2 className="text-lg font-bold font-heading text-[#25201D]">YOUR ORDER CART</h2>
+                <p className="text-xs text-[#B85C38] uppercase tracking-wider font-semibold">
                   Mode: {orderType}
                 </p>
               </div>
             </div>
             <button
               onClick={() => dispatch(setCartDrawerOpen(false))}
-              className="p-2 rounded-lg bg-[#1C1815] text-[#BDB1A5] hover:text-white transition-colors"
+              className="p-2 rounded-lg bg-[#FFFDFC] text-[#6F6761] hover:text-[#25201D] border border-[#E8DED6] transition-colors"
             >
               <X size={20} />
             </button>
@@ -52,11 +52,11 @@ export const CartDrawer: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cartItems.length === 0 ? (
               <div className="flex flex-col items-center justify-center text-center py-16 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845]">
+                <div className="w-16 h-16 rounded-full bg-[#F3E4DC] border border-[#E8DED6] flex items-center justify-center text-[#B85C38]">
                   <ShoppingBag size={28} />
                 </div>
-                <h3 className="text-lg font-bold font-heading text-[#F3EDE5]">Your Cart is Empty</h3>
-                <p className="text-xs text-[#BDB1A5] max-w-xs">
+                <h3 className="text-lg font-bold font-heading text-[#25201D]">Your Cart is Empty</h3>
+                <p className="text-xs text-[#6F6761] max-w-xs">
                   Discover Peshawar’s finest charcoal Sajji, Shinwari Karahi, and flame skewers.
                 </p>
                 <Button
@@ -75,27 +75,27 @@ export const CartDrawer: React.FC = () => {
               cartItems.map((item) => (
                 <div
                   key={item.id}
-                  className="p-4 rounded-xl bg-[#332B25] border border-[#51463D] flex gap-3.5 items-start group hover:border-[#51463D] transition-colors"
+                  className="p-4 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] flex gap-3.5 items-start group hover:border-[#B85C38]/40 transition-colors shadow-sm"
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-16 h-16 rounded-lg object-cover border border-[#51463D] shrink-0"
+                    className="w-16 h-16 rounded-lg object-cover border border-[#E8DED6] shrink-0"
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1">
-                      <h4 className="font-semibold text-sm text-[#F3EDE5] truncate">{item.name}</h4>
+                      <h4 className="font-semibold text-sm text-[#25201D] truncate">{item.name}</h4>
                       <button
                         onClick={() => dispatch(removeFromCart(item.id))}
-                        className="text-[#BDB1A5] hover:text-rose-400 transition-colors p-1"
+                        className="text-[#6F6761] hover:text-rose-600 transition-colors p-1"
                         title="Remove item"
                       >
                         <Trash2 size={15} />
                       </button>
                     </div>
 
-                    <div className="text-xs text-[#C97845] font-bold mt-0.5">
+                    <div className="text-xs text-[#B85C38] font-bold mt-0.5">
                       Rs. {item.price.toLocaleString()}
                     </div>
 
@@ -104,7 +104,7 @@ export const CartDrawer: React.FC = () => {
                         {item.selectedAddOns.map((addon) => (
                           <span
                             key={addon.id}
-                            className="text-[10px] bg-[#1C1815] text-[#BDB1A5] px-1.5 py-0.5 rounded border border-[#51463D]"
+                            className="text-[10px] bg-[#F7F3EE] text-[#6F6761] px-1.5 py-0.5 rounded border border-[#E8DED6]"
                           >
                             + {addon.name}
                           </span>
@@ -112,30 +112,30 @@ export const CartDrawer: React.FC = () => {
                       </div>
                     )}
 
-                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#51463D]">
-                      <div className="flex items-center border border-[#51463D] rounded-lg bg-[#1C1815]">
+                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#E8DED6]">
+                      <div className="flex items-center border border-[#E8DED6] rounded-lg bg-[#F7F3EE]">
                         <button
                           onClick={() =>
                             dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }))
                           }
-                          className="p-1 text-[#BDB1A5] hover:text-[#F3EDE5]"
+                          className="p-1 text-[#6F6761] hover:text-[#25201D]"
                         >
                           <Minus size={13} />
                         </button>
-                        <span className="px-2 text-xs font-bold text-[#F3EDE5]">
+                        <span className="px-2 text-xs font-bold text-[#25201D]">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() =>
                             dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }))
                           }
-                          className="p-1 text-[#BDB1A5] hover:text-[#F3EDE5]"
+                          className="p-1 text-[#6F6761] hover:text-[#25201D]"
                         >
                           <Plus size={13} />
                         </button>
                       </div>
 
-                      <span className="text-xs font-extrabold text-[#D6A15D]">
+                      <span className="text-xs font-extrabold text-[#B85C38]">
                         Rs. {item.itemTotal.toLocaleString()}
                       </span>
                     </div>
@@ -147,14 +147,14 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer Subtotal & Checkout */}
           {cartItems.length > 0 && (
-            <div className="p-6 border-t border-[#51463D] bg-[#332B25] space-y-4">
+            <div className="p-6 border-t border-[#E8DED6] bg-[#F7F3EE] space-y-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#BDB1A5]">Subtotal</span>
-                <span className="text-xl font-bold font-heading text-[#F3EDE5]">
+                <span className="text-[#6F6761]">Subtotal</span>
+                <span className="text-xl font-bold font-heading text-[#25201D]">
                   Rs. {subtotal.toLocaleString()}
                 </span>
               </div>
-              <p className="text-[11px] text-[#BDB1A5]/80">
+              <p className="text-[11px] text-[#6F6761]/90">
                 Delivery fees & discounts are calculated during checkout.
               </p>
 
@@ -187,7 +187,7 @@ export const CartDrawer: React.FC = () => {
 
               <button
                 onClick={() => dispatch(clearCart())}
-                className="w-full text-center text-xs text-[#BDB1A5] hover:text-rose-400 transition-colors"
+                className="w-full text-center text-xs text-[#6F6761] hover:text-rose-600 transition-colors cursor-pointer"
               >
                 Clear Cart
               </button>

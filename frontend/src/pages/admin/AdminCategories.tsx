@@ -132,11 +132,11 @@ export const AdminCategoriesPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-white flex items-center gap-2">
-            <FolderTree size={24} className="text-[#C97845]" />
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#25201D] flex items-center gap-2">
+            <FolderTree size={24} className="text-[#B85C38]" />
             Menu Category Management
           </h1>
-          <p className="text-xs text-[#BDB1A5] mt-1">
+          <p className="text-xs text-[#6F6761] mt-1">
             Organize live restaurant sections: Sajji, BBQ, Live Karahi, Rice, and Chef Specials.
           </p>
         </div>
@@ -147,36 +147,36 @@ export const AdminCategoriesPage: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="py-20 text-center text-xs text-[#BDB1A5]">Loading categories...</div>
+        <div className="py-20 text-center text-xs text-[#6F6761]">Loading categories...</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {categories.map((cat) => (
             <div
               key={cat.id || (cat as any)._id}
-              className="p-5 rounded-2xl bg-[#28221D] border border-[#51463D] shadow-lg flex flex-col justify-between space-y-4 hover:border-[#51463D] transition-colors"
+              className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] shadow-lg flex flex-col justify-between space-y-4 hover:border-[#E8DED6] transition-colors"
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#332B25] border border-[#51463D] flex items-center justify-center text-[#C97845]">
+                  <div className="w-10 h-10 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] flex items-center justify-center text-[#B85C38]">
                     <Flame size={20} />
                   </div>
                   <div>
-                    <h3 className="font-bold font-heading text-white text-sm">{cat.name}</h3>
-                    <span className="text-[10px] text-[#C97845] font-mono">/{cat.slug || cat.id}</span>
+                    <h3 className="font-bold font-heading text-[#25201D] text-sm">{cat.name}</h3>
+                    <span className="text-[10px] text-[#B85C38] font-mono">/{cat.slug || cat.id}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(cat)}
-                    className="p-1.5 rounded-lg bg-white/5 text-[#BDB1A5] hover:text-white hover:bg-white/10"
+                    className="p-1.5 rounded-lg bg-white/5 text-[#6F6761] hover:text-[#25201D] hover:bg-white/10"
                     title="Edit Category"
                   >
                     <Edit2 size={14} />
                   </button>
                   <button
                     onClick={() => handleDelete(cat)}
-                    className="p-1.5 rounded-lg bg-white/5 text-[#BDB1A5] hover:text-rose-400 hover:bg-rose-950/30"
+                    className="p-1.5 rounded-lg bg-white/5 text-[#6F6761] hover:text-rose-400 hover:bg-rose-950/30"
                     title="Delete Category"
                   >
                     <Trash2 size={14} />
@@ -184,11 +184,11 @@ export const AdminCategoriesPage: React.FC = () => {
                 </div>
               </div>
 
-              <p className="text-xs text-[#BDB1A5] line-clamp-2">
+              <p className="text-xs text-[#6F6761] line-clamp-2">
                 {cat.description || 'Traditional wood-fire recipe collection.'}
               </p>
 
-              <div className="pt-3 border-t border-[#51463D] flex items-center justify-between text-[11px] text-[#BDB1A5]">
+              <div className="pt-3 border-t border-[#E8DED6] flex items-center justify-between text-[11px] text-[#6F6761]">
                 <span>Key: <strong className="text-white">{cat.id}</strong></span>
                 <span className="text-emerald-400 font-semibold">MongoDB Synced</span>
               </div>
@@ -199,14 +199,14 @@ export const AdminCategoriesPage: React.FC = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="max-w-md w-full rounded-3xl bg-[#28221D] border border-[#51463D] p-6 sm:p-8 space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-[#51463D]">
-              <h3 className="text-base font-bold font-heading text-white">
+          <div className="max-w-md w-full rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8DED6]">
+              <h3 className="text-base font-bold font-heading text-[#25201D]">
                 {editingCategory ? 'Edit Menu Category' : 'Add New Category'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded bg-[#332B25] text-[#BDB1A5] hover:text-white"
+                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={18} />
               </button>
@@ -214,7 +214,7 @@ export const AdminCategoriesPage: React.FC = () => {
 
             <form onSubmit={handleSave} className="space-y-4 text-xs">
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Category Name *</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Category Name *</label>
                 <input
                   type="text"
                   value={name}
@@ -226,30 +226,30 @@ export const AdminCategoriesPage: React.FC = () => {
                   }}
                   placeholder="e.g. Mutton Shinwari Karahi"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">URL Slug / Key *</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">URL Slug / Key *</label>
                 <input
                   type="text"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="e.g. karahi"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold uppercase text-[#BDB1A5] block mb-1">Description</label>
+                <label className="font-bold uppercase text-[#6F6761] block mb-1">Description</label>
                 <textarea
                   rows={2}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="A brief summary of dishes under this category..."
-                  className="w-full p-3 rounded-xl bg-[#332B25] border border-[#51463D] text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
                 />
               </div>
 
