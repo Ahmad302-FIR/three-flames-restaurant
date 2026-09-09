@@ -59,8 +59,8 @@ export const Navbar: React.FC = () => {
             : 'bg-gradient-to-b from-[#080604]/95 via-[#080604]/70 to-transparent py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Mobile Left: Menu Toggle Button */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Mobile Left: Menu Toggle Button (Preserved) */}
           <div className="flex lg:hidden items-center">
             <button
               onClick={() => dispatch(toggleMobileMenu())}
@@ -72,37 +72,52 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Desktop Left Spacer: Balances right-side actions to keep center navigation perfectly aligned */}
-          <div className="hidden lg:block lg:flex-1" />
+          {/* Desktop Left: Restored Elegant Flame Logo (No Text Branding) */}
+          <div className="hidden lg:flex items-center shrink-0">
+            <Link
+              to="/"
+              className="group relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[#1E110A] via-[#140C08] to-[#0A0503] border border-[#FF8A1F]/35 p-2 transition-all duration-300 hover:border-[#FF8A1F] hover:shadow-[0_0_20px_rgba(249,115,22,0.45)] hover:scale-105 active:scale-95"
+              title="Three Flames Restaurant - Home"
+              aria-label="Three Flames Restaurant Home"
+            >
+              <FlameIcon size={24} />
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive(link.path)
-                    ? 'text-[#FF8A1F] bg-[#1A100C] border border-[#FF8A1F]/30 shadow-sm'
-                    : 'text-[#B8AAA0] hover:text-[#FFF7ED] hover:bg-[#1A100C]/50'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+          {/* Desktop Center: Refined & Centered Navigation Links */}
+          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 px-3 py-1.5 rounded-2xl bg-[#120B08]/60 backdrop-blur-md border border-[#FF8A1F]/15 shadow-inner shadow-black/40">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`relative px-3.5 xl:px-4 py-2 rounded-xl text-xs xl:text-sm font-medium tracking-wide transition-all duration-200 ${
+                    active
+                      ? 'text-[#FF8A1F] bg-[#1F120A] border border-[#FF8A1F]/40 shadow-[0_0_12px_rgba(249,115,22,0.25)] font-semibold'
+                      : 'text-[#C9BAAF] hover:text-[#FFF7ED] hover:bg-[#1A100C]/70 hover:border-white/10'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {active && (
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#FF8A1F] to-transparent shadow-[0_0_8px_#FF8A1F]" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Right Action Icons & Buttons */}
-          <div className="flex items-center justify-end gap-2.5 sm:gap-3 lg:flex-1">
+          {/* Right Action Icons & Buttons (Preserved) */}
+          <div className="flex items-center justify-end gap-2.5 sm:gap-3 shrink-0">
             {/* Quick WhatsApp / Call Button (Desktop) */}
             <a
               href={restaurantInfo.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               title="Chat on WhatsApp"
-              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-[#D99A32] bg-[#1A100C] border border-[#D99A32]/30 hover:border-[#D99A32] transition-colors"
+              className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#D99A32] bg-[#140D09] border border-[#D99A32]/30 hover:border-[#D99A32] hover:text-[#F59E0B] hover:bg-[#1C120C] hover:shadow-[0_0_15px_rgba(217,154,50,0.2)] transition-all"
             >
-              <Phone size={14} className="text-[#FF8A1F]" />
+              <Phone size={13} className="text-[#FF8A1F]" />
               <span>{restaurantInfo.phone}</span>
             </a>
 
@@ -110,11 +125,11 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => dispatch(setCartDrawerOpen(true))}
               aria-label="Open Cart"
-              className="relative p-2.5 rounded-xl bg-[#1A100C] border border-[#FF8A1F]/30 text-[#FFF7ED] hover:border-[#FF8A1F] hover:text-[#FF8A1F] transition-all hover:scale-105 active:scale-95"
+              className="relative p-2.5 rounded-xl bg-[#140D09] border border-[#FF8A1F]/30 text-[#FFF7ED] hover:border-[#FF8A1F] hover:text-[#FF8A1F] hover:shadow-[0_0_15px_rgba(249,115,22,0.25)] transition-all hover:scale-105 active:scale-95"
             >
-              <ShoppingBag size={20} />
+              <ShoppingBag size={19} />
               {totalCartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gradient-to-r from-[#F97316] to-[#DC2626] text-black font-extrabold text-[11px] flex items-center justify-center shadow-lg shadow-[#F97316]/50 animate-bounce">
+                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gradient-to-r from-[#F97316] to-[#DC2626] text-black font-black text-[10px] flex items-center justify-center shadow-lg shadow-[#F97316]/50 animate-bounce">
                   {totalCartCount}
                 </span>
               )}
@@ -136,7 +151,7 @@ export const Navbar: React.FC = () => {
             <Button
               variant="primary"
               size="sm"
-              className="hidden sm:inline-flex text-xs uppercase"
+              className="hidden sm:inline-flex text-xs uppercase tracking-wider font-bold shadow-lg shadow-[#F97316]/20 hover:shadow-[#F97316]/40"
               onClick={() => navigate('/menu')}
               leftIcon={<FlameIcon size={14} glow={false} />}
             >
