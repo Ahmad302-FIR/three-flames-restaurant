@@ -109,6 +109,43 @@ export const getReservationById = async (req, res, next) => {
   }
 };
 
+export const trackReservationByNumber = async (req, res, next) => {
+  try {
+    const { reservationNumber } = req.params;
+    if (!reservationNumber) {
+      return sendError(res, 400, 'Reservation reference number is required.');
+    }
+
+    const clean = reservationNumber.trim().toUpperCase();
+    let reservation = await Reservation.findOne({ reservationNumber: clean });
+    if (!reservation && clean.match(/^[0-9a-fA-F]{24}$/)) {
+      reservation = await Reservation.findById(clean);
+    }
+
+    if (!reservation) {
+      return sendError(res, 404, `No reservation found with reference #${clean}.`);
+    }
+
+    return sendSuccess(res, 200, 'Reservation status retrieved successfully', {
+      id: reservation.reservationNumber,
+      reservationNumber: reservation.reservationNumber,
+      fullName: reservation.fullName,
+      phone: reservation.phone,
+      email: reservation.email,
+      date: reservation.date,
+      time: reservation.time,
+      guests: reservation.guests,
+      seatingArea: reservation.seatingArea,
+      specialRequest: reservation.specialRequest,
+      status: reservation.status,
+      adminNotes: reservation.adminNotes,
+      createdAt: reservation.createdAt
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAdminReservations = async (req, res, next) => {
   try {
     const { status, search } = req.query;

@@ -3,6 +3,7 @@ import {
   createReservation,
   getMyReservations,
   getReservationById,
+  trackReservationByNumber,
   getAdminReservations,
   updateAdminReservationStatus
 } from '../controllers/reservationController.js';
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router.post('/', optionalAuthenticate, validate(createReservationValidation), createReservation);
 router.get('/my-reservations', authenticate, getMyReservations);
+router.get('/track/:reservationNumber', trackReservationByNumber);
 router.get('/:id', optionalAuthenticate, getReservationById);
 
 // Admin subroutes

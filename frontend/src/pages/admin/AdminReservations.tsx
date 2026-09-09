@@ -77,13 +77,13 @@ export const AdminReservationsPage: React.FC = () => {
       {/* Filter and Search */}
       <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0">
-          {['all', 'pending', 'confirmed', 'completed', 'cancelled'].map((st) => (
+          {['all', 'pending', 'confirmed', 'rejected', 'completed', 'cancelled'].map((st) => (
             <button
               key={st}
               onClick={() => setSelectedStatus(st)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                 selectedStatus === st
-                  ? 'bg-[#B85C38] text-black shadow-md'
+                  ? 'bg-[#B85C38] text-white shadow-md'
                   : 'bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D] border border-[#E8DED6]'
               }`}
             >
@@ -96,7 +96,7 @@ export const AdminReservationsPage: React.FC = () => {
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6F6761]" />
           <input
             type="text"
-            placeholder="Search guest or phone..."
+            placeholder="Search guest, phone, or ref..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
@@ -112,7 +112,7 @@ export const AdminReservationsPage: React.FC = () => {
               <tr>
                 <th className="p-4">Ref #</th>
                 <th className="p-4">Guest Name</th>
-                <th className="p-4">Contact</th>
+                <th className="p-4">Contact (Click to Call)</th>
                 <th className="p-4">Date & Slot</th>
                 <th className="p-4">Party Size</th>
                 <th className="p-4">Seating Area</th>
@@ -127,12 +127,26 @@ export const AdminReservationsPage: React.FC = () => {
                   <td className="p-4 font-semibold text-[#25201D]">
                     {res.fullName}
                     {res.specialRequest && (
-                      <span className="text-[10px] text-[#B85C38] block">
+                      <span className="text-[10px] text-[#B85C38] block mt-0.5">
                         Note: {res.specialRequest}
                       </span>
                     )}
                   </td>
-                  <td className="p-4 text-[#6F6761]">{res.phone}</td>
+                  <td className="p-4 text-[#6F6761]">
+                    <a
+                      href={`tel:${res.phone}`}
+                      className="font-bold text-[#B85C38] hover:underline inline-flex items-center gap-1.5"
+                      title="Call customer to verify availability"
+                    >
+                      <Phone size={12} />
+                      {res.phone}
+                    </a>
+                    {res.email && (
+                      <span className="text-[10px] text-[#6F6761] block mt-0.5 truncate max-w-[160px]">
+                        {res.email}
+                      </span>
+                    )}
+                  </td>
                   <td className="p-4">
                     <span className="font-bold text-[#25201D] block">{res.date}</span>
                     <span className="text-[10px] text-[#B85C38]">{res.time}</span>
@@ -147,8 +161,10 @@ export const AdminReservationsPage: React.FC = () => {
                           : res.status === 'completed'
                           ? 'bg-blue-50 text-blue-800 border border-blue-200'
                           : res.status === 'pending'
-                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
-                          : 'bg-rose-50 text-rose-700 border border-rose-200'
+                          ? 'bg-amber-50 text-amber-800 border border-amber-200 animate-pulse'
+                          : res.status === 'rejected'
+                          ? 'bg-rose-50 text-rose-800 border border-rose-200'
+                          : 'bg-zinc-100 text-zinc-700 border border-zinc-300'
                       }`}
                     >
                       {res.status}
@@ -157,12 +173,22 @@ export const AdminReservationsPage: React.FC = () => {
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       {res.status === 'pending' && (
-                        <button
-                          onClick={() => handleUpdateStatus(res.id, 'confirmed')}
-                          className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 text-[11px] font-bold transition-colors"
-                        >
-                          Confirm
-                        </button>
+                        <>
+                          <button
+                            onClick={() => handleUpdateStatus(res.id, 'confirmed')}
+                            className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 text-[11px] font-bold transition-colors"
+                            title="Confirm reservation after calling guest"
+                          >
+                            Confirm
+                          </button>
+                          <button
+                            onClick={() => handleUpdateStatus(res.id, 'rejected')}
+                            className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 hover:bg-rose-100 border border-rose-300 text-[11px] font-bold transition-colors"
+                            title="Reject request (no tables available)"
+                          >
+                            Reject
+                          </button>
+                        </>
                       )}
                       {res.status === 'confirmed' && (
                         <button
@@ -172,10 +198,19 @@ export const AdminReservationsPage: React.FC = () => {
                           Complete
                         </button>
                       )}
+                      {res.status === 'rejected' && (
+                        <button
+                          onClick={() => handleUpdateStatus(res.id, 'confirmed')}
+                          className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 text-[11px] font-bold transition-colors"
+                          title="Reopen and confirm"
+                        >
+                          Reopen
+                        </button>
+                      )}
                       {res.status !== 'cancelled' && (
                         <button
                           onClick={() => handleUpdateStatus(res.id, 'cancelled')}
-                          className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-300 text-[11px] font-bold transition-colors"
+                          className="px-2.5 py-1 rounded-lg bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border border-zinc-300 text-[11px] font-bold transition-colors"
                         >
                           Cancel
                         </button>

@@ -49,5 +49,11 @@ export const reservationService = {
   ): Promise<Reservation> => {
     const res = await api.patch(`/reservations/admin/${id}/status`, { status, adminNotes });
     return res.data.data;
+  },
+
+  trackReservation: async (reservationNumber: string): Promise<Reservation> => {
+    const cleanNumber = reservationNumber.trim().toUpperCase();
+    const res = await api.get(`/reservations/track/${encodeURIComponent(cleanNumber)}`);
+    return res.data.data;
   }
 };

@@ -94,15 +94,16 @@ export const sendReservationConfirmationEmail = async (reservation) => {
       <h1 style="color: #FF8A1F; text-align: center; margin-bottom: 4px;">AHMED KHAN RESTAURANT</h1>
       <p style="text-align: center; color: #D99A32; margin-top: 0; font-size: 12px; letter-spacing: 2px;">WHERE TASTE MEETS FLAME</p>
       <hr style="border: 0; border-top: 1px solid #332014; margin: 20px 0;" />
-      <h2 style="color: #FFF7ED;">Table Reservation Received #${reservation.reservationNumber}</h2>
+      <h2 style="color: #FFF7ED;">Reservation Request Received #${reservation.reservationNumber}</h2>
       <p>Dear ${reservation.fullName},</p>
-      <p>We look forward to hosting you for an extraordinary wood-fire culinary experience.</p>
+      <p>Thank you for your table reservation request. <strong>Please note: Your table is not confirmed yet.</strong> Our reservation team will contact you on your provided phone number to confirm availability.</p>
       <div style="background: #1A100C; padding: 16px; border-radius: 8px; margin: 20px 0;">
+        <p><strong>Booking Reference:</strong> #${reservation.reservationNumber}</p>
         <p><strong>Date:</strong> ${reservation.date}</p>
         <p><strong>Time:</strong> ${reservation.time}</p>
         <p><strong>Party Size:</strong> ${reservation.guests} Guests</p>
-        <p><strong>Seating Preference:</strong> ${reservation.seatingArea}</p>
-        <p><strong>Status:</strong> ${reservation.status.toUpperCase()}</p>
+        <p><strong>Seating Atmosphere:</strong> ${reservation.seatingArea}</p>
+        <p><strong>Status:</strong> <span style="color: #F59E0B; font-weight: bold;">PENDING REVIEW</span></p>
       </div>
       <p style="font-size: 13px; color: #9CA3AF;">Ahmed Khan Restaurant — Bilour Chowk, Rehman Baba Road, University Town, Peshawar | Phone: 03295664981</p>
     </div>
@@ -110,7 +111,7 @@ export const sendReservationConfirmationEmail = async (reservation) => {
 
   return sendMailSafely({
     to: reservation.email,
-    subject: `Table Booking #${reservation.reservationNumber} — Ahmed Khan Restaurant`,
+    subject: `Reservation Request Received: #${reservation.reservationNumber} — Ahmed Khan Restaurant`,
     html
   });
 };
