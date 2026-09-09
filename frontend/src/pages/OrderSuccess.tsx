@@ -84,7 +84,7 @@ export const OrderSuccessPage: React.FC = () => {
               <img src="/akr-logo.png" alt="AKR" className="h-14 w-auto object-contain" />
             </div>
 
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
               <CheckCircle2 size={14} />
               <span>Order Successfully Received</span>
             </div>
@@ -129,7 +129,7 @@ export const OrderSuccessPage: React.FC = () => {
               <Link to="/track-order" className="text-[#B85C38] font-semibold underline hover:text-[#25201D]">
                 Track Order
               </Link>{' '}
-              link in the top menu or website footer by entering <strong className="text-white">#{orderNumber}</strong>.
+              link in the top menu or website footer by entering <strong className="text-[#25201D]">#{orderNumber}</strong>.
             </p>
           </div>
 
@@ -158,7 +158,7 @@ export const OrderSuccessPage: React.FC = () => {
               <span className="text-[10px] uppercase font-bold text-[#6F6761] tracking-wider block">
                 Payment Method
               </span>
-              <span className="text-sm font-bold text-amber-300 capitalize mt-1 block">
+              <span className="text-sm font-bold text-[#25201D] capitalize mt-1 block">
                 {order?.paymentMethod.replace(/_/g, ' ') || 'Cash on Delivery'}
               </span>
             </div>
@@ -170,10 +170,10 @@ export const OrderSuccessPage: React.FC = () => {
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#B85C38] pb-2 border-b border-[#E8DED6]">
                 Ordered Items ({order.items.length})
               </h3>
-              <div className="divide-y divide-white/5 text-xs space-y-2">
+              <div className="divide-y divide-[#E8DED6] text-xs space-y-2">
                 {order.items.map((item) => (
                   <div key={item.id} className="pt-2 first:pt-0 flex justify-between">
-                    <span>
+                    <span className="text-[#25201D] font-medium">
                       {item.quantity}x {item.name}
                     </span>
                     <span className="font-bold text-[#25201D]">Rs. {item.itemTotal.toLocaleString()}</span>

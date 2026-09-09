@@ -169,17 +169,17 @@ export const AdminOffersPage: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleToggleOffer(offer)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold ${
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-colors ${
                     offer.isActive
-                      ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-rose-950 text-rose-300 border border-rose-500/30'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                   }`}
                 >
                   {offer.isActive ? 'Active' : 'Disabled'}
                 </button>
                 <button
                   onClick={() => handleDeleteOffer(offer)}
-                  className="p-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-500/20 hover:bg-rose-900/50"
+                  className="p-1 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#C24838] hover:bg-rose-50 border border-[#E8DED6] transition-colors"
                   title="Delete Coupon"
                 >
                   <Trash2 size={13} />
@@ -221,7 +221,7 @@ export const AdminOffersPage: React.FC = () => {
               <h3 className="text-base font-bold font-heading text-[#25201D]">Create Promo Voucher</h3>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761]"
+                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={18} />
               </button>
@@ -236,7 +236,7 @@ export const AdminOffersPage: React.FC = () => {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="e.g. FESTIVE20"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white uppercase font-bold focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] uppercase font-bold focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export const AdminOffersPage: React.FC = () => {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. 20% Off Weekend BBQ"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -258,10 +258,10 @@ export const AdminOffersPage: React.FC = () => {
                   <select
                     value={discountType}
                     onChange={(e: any) => setDiscountType(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] font-medium focus:outline-none focus:border-[#B85C38]"
                   >
-                    <option value="percentage">Percentage (%)</option>
-                    <option value="fixed">Fixed PKR (Rs.)</option>
+                    <option value="percentage" className="bg-[#FFFFFF] text-[#25201D]">Percentage (%)</option>
+                    <option value="fixed" className="bg-[#FFFFFF] text-[#25201D]">Fixed PKR (Rs.)</option>
                   </select>
                 </div>
 
@@ -272,7 +272,7 @@ export const AdminOffersPage: React.FC = () => {
                     value={discountValue}
                     onChange={(e) => setDiscountValue(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -285,7 +285,7 @@ export const AdminOffersPage: React.FC = () => {
                     value={minOrder}
                     onChange={(e) => setMinOrder(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -296,7 +296,7 @@ export const AdminOffersPage: React.FC = () => {
                     value={maxDiscount || ''}
                     onChange={(e) => setMaxDiscount(e.target.value ? Number(e.target.value) : undefined)}
                     placeholder="e.g. 500"
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>

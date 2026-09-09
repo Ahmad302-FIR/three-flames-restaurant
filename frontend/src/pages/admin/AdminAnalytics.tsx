@@ -121,7 +121,7 @@ export const AdminAnalyticsPage: React.FC = () => {
             {categoryBreakdown.map((cat, i) => (
               <div key={i} className="space-y-1.5">
                 <div className="flex justify-between text-xs font-medium">
-                  <span className="text-white">{cat.category}</span>
+                  <span className="text-[#25201D] font-semibold">{cat.category}</span>
                   <span className="font-bold text-[#B85C38]">{cat.percentage}%</span>
                 </div>
                 <div className="h-2 rounded-full bg-[#F7F3EE] overflow-hidden">

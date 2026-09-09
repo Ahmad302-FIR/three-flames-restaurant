@@ -254,11 +254,11 @@ export const AdminMenuPage: React.FC = () => {
             placeholder="Search menu items by name or category..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none focus:border-[#E8DED6]"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#E8DED6]"
           />
         </div>
         <span className="text-xs text-[#6F6761]">
-          Total: <strong className="text-white">{filteredItems.length}</strong> items
+          Total: <strong className="text-[#25201D]">{filteredItems.length}</strong> items
         </span>
       </div>
 
@@ -277,7 +277,7 @@ export const AdminMenuPage: React.FC = () => {
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[#E8DED6]">
               {filteredItems.map((item) => (
                 <tr key={item.id} className="hover:bg-[#F7F3EE]/60 transition-colors">
                   <td className="p-4">
@@ -307,8 +307,8 @@ export const AdminMenuPage: React.FC = () => {
                       onClick={() => handleToggleStock(item)}
                       className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-colors ${
                         item.available
-                          ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-rose-950/80 text-rose-300 border border-rose-500/30'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                       }`}
                     >
                       {item.available ? 'In Stock' : 'Sold Out'}
@@ -366,7 +366,7 @@ export const AdminMenuPage: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Peshawar Namak Mandi Tikka"
                   required
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -378,14 +378,14 @@ export const AdminMenuPage: React.FC = () => {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] font-medium focus:outline-none focus:border-[#B85C38]"
                   >
-                    <option value="sajji">Sajji Specialties</option>
-                    <option value="bbq">Charcoal BBQ Skewers</option>
-                    <option value="karahi">Shinwari & Handi</option>
-                    <option value="rice">Kabuli Pulao & Rice</option>
-                    <option value="platters">Family Platters</option>
-                    <option value="sides">Naan & Beverages</option>
+                    <option value="sajji" className="bg-[#FFFFFF] text-[#25201D]">Sajji Specialties</option>
+                    <option value="bbq" className="bg-[#FFFFFF] text-[#25201D]">Charcoal BBQ Skewers</option>
+                    <option value="karahi" className="bg-[#FFFFFF] text-[#25201D]">Shinwari & Handi</option>
+                    <option value="rice" className="bg-[#FFFFFF] text-[#25201D]">Kabuli Pulao & Rice</option>
+                    <option value="platters" className="bg-[#FFFFFF] text-[#25201D]">Family Platters</option>
+                    <option value="sides" className="bg-[#FFFFFF] text-[#25201D]">Naan & Beverages</option>
                   </select>
                 </div>
 
@@ -398,7 +398,7 @@ export const AdminMenuPage: React.FC = () => {
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -460,7 +460,7 @@ export const AdminMenuPage: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe secret marinades, coal roasting method, and taste profile..."
-                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -474,7 +474,7 @@ export const AdminMenuPage: React.FC = () => {
                     value={serving}
                     onChange={(e) => setServing(e.target.value)}
                     placeholder="e.g. 2-3 Persons / 1kg"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -485,11 +485,11 @@ export const AdminMenuPage: React.FC = () => {
                   <select
                     value={spiceLevel}
                     onChange={(e: any) => setSpiceLevel(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] font-medium focus:outline-none focus:border-[#B85C38]"
                   >
-                    <option value="Mild">Mild</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Hot">Hot</option>
+                    <option value="Mild" className="bg-[#FFFFFF] text-[#25201D]">Mild</option>
+                    <option value="Medium" className="bg-[#FFFFFF] text-[#25201D]">Medium</option>
+                    <option value="Hot" className="bg-[#FFFFFF] text-[#25201D]">Hot</option>
                   </select>
                 </div>
               </div>

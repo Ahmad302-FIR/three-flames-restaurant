@@ -130,7 +130,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={restaurantName}
                 onChange={(e) => setRestaurantName(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -141,7 +141,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
           </div>
@@ -162,7 +162,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -173,7 +173,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -184,7 +184,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
           </div>
@@ -197,7 +197,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={streetAddress}
                 onChange={(e) => setStreetAddress(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -208,7 +208,7 @@ export const AdminSettingsPage: React.FC = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
           </div>
@@ -217,7 +217,7 @@ export const AdminSettingsPage: React.FC = () => {
         {/* Operating Hours & Ordering Rules */}
         <div className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-xl">
           <h3 className="font-bold font-heading text-[#25201D] text-sm flex items-center gap-2 border-b border-[#E8DED6] pb-3">
-            <Clock size={16} className="text-emerald-400" />
+            <Clock size={16} className="text-[#4E8A57]" />
             Operating Hours & Thresholds
           </h3>
 
@@ -228,7 +228,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={weekdaysHours}
                 onChange={(e) => setWeekdaysHours(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -238,7 +238,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={weekendsHours}
                 onChange={(e) => setWeekendsHours(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -248,7 +248,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="number"
                 value={minOrder}
                 onChange={(e) => setMinOrder(Number(e.target.value))}
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -258,7 +258,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="number"
                 value={freeDeliveryThreshold}
                 onChange={(e) => setFreeDeliveryThreshold(Number(e.target.value))}
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
           </div>

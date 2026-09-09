@@ -182,7 +182,7 @@ export const MenuPage: React.FC = () => {
           </button>
 
           <span className="text-xs text-[#6F6761]">
-            Showing <strong className="text-white">{filteredItems.length}</strong> items
+            Showing <strong className="text-[#25201D]">{filteredItems.length}</strong> items
           </span>
         </div>
 

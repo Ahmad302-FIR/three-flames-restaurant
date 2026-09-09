@@ -163,7 +163,7 @@ export const AdminGalleryPage: React.FC = () => {
 
                   <button
                     onClick={() => handleDelete(itemId, item.title)}
-                    className="absolute top-3 right-3 p-1.5 rounded-lg bg-black/60 text-rose-400 hover:bg-rose-950/80 transition-colors"
+                    className="absolute top-3 right-3 p-1.5 rounded-lg bg-black/60 text-white hover:bg-rose-600 transition-colors"
                     title="Delete Image"
                   >
                     <Trash2 size={14} />
@@ -172,7 +172,7 @@ export const AdminGalleryPage: React.FC = () => {
 
                 <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                   <div>
-                    <h3 className="font-bold text-sm text-white line-clamp-1">{item.title}</h3>
+                    <h3 className="font-bold text-sm text-[#25201D] line-clamp-1">{item.title}</h3>
                     {item.description && (
                       <p className="text-[11px] text-[#6F6761] line-clamp-2 mt-0.5">{item.description}</p>
                     )}
@@ -180,7 +180,7 @@ export const AdminGalleryPage: React.FC = () => {
 
                   <div className="pt-2 border-t border-[#E8DED6] flex items-center justify-between text-[10px] text-[#6F6761]">
                     <span>Cloudinary Storage</span>
-                    <span className="text-emerald-400 font-semibold">Active</span>
+                    <span className="text-emerald-700 font-semibold">Active</span>
                   </div>
                 </div>
               </div>
@@ -211,7 +211,7 @@ export const AdminGalleryPage: React.FC = () => {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Sizzling Charcoal Tikka Skewers"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -220,12 +220,12 @@ export const AdminGalleryPage: React.FC = () => {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] font-medium focus:outline-none focus:border-[#B85C38]"
                 >
-                  <option value="food">Food & Delicacies</option>
-                  <option value="restaurant">Restaurant & Dining</option>
-                  <option value="ambiance">Wood-Fire Ambiance</option>
-                  <option value="events">Celebrations & Rooftop</option>
+                  <option value="food" className="bg-[#FFFFFF] text-[#25201D]">Food & Delicacies</option>
+                  <option value="restaurant" className="bg-[#FFFFFF] text-[#25201D]">Restaurant & Dining</option>
+                  <option value="ambiance" className="bg-[#FFFFFF] text-[#25201D]">Wood-Fire Ambiance</option>
+                  <option value="events" className="bg-[#FFFFFF] text-[#25201D]">Celebrations & Rooftop</option>
                 </select>
               </div>
 
@@ -252,7 +252,7 @@ export const AdminGalleryPage: React.FC = () => {
                   value={imageUrl}
                   onChange={(e) => setImageUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -263,7 +263,7 @@ export const AdminGalleryPage: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Brief story or background behind the picture..."
-                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 

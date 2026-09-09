@@ -137,7 +137,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                 <span className="text-xs font-bold text-[#25201D] block truncate max-w-[100px]">
                   {activeUser?.name || 'Administrator'}
                 </span>
-                <span className="text-[10px] text-emerald-400 block font-semibold">Online</span>
+                <span className="text-[10px] text-emerald-700 block font-bold">Online</span>
               </div>
             </div>
 

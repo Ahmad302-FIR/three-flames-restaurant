@@ -285,7 +285,7 @@ export const CheckoutPage: React.FC = () => {
             {/* Step 1: Order Type */}
             <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
               <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                   1
                 </span>
                 <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -346,7 +346,7 @@ export const CheckoutPage: React.FC = () => {
             {/* Step 2: Customer Contact Information */}
             <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
               <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                   2
                 </span>
                 <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -415,7 +415,7 @@ export const CheckoutPage: React.FC = () => {
             {orderType === 'delivery' && (
               <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
                 <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                     3
                   </span>
                   <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -492,7 +492,7 @@ export const CheckoutPage: React.FC = () => {
             {orderType === 'pickup' && (
               <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
                 <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                     3
                   </span>
                   <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -532,7 +532,7 @@ export const CheckoutPage: React.FC = () => {
             {orderType === 'dine-in' && (
               <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
                 <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                     3
                   </span>
                   <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -590,7 +590,7 @@ export const CheckoutPage: React.FC = () => {
             {/* Step 4: Payment Method */}
             <div className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] space-y-4 shadow-lg">
               <div className="flex items-center gap-2.5 pb-3 border-b border-[#E8DED6]">
-                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-black font-extrabold text-xs flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#B85C38] text-white font-extrabold text-xs flex items-center justify-center">
                   4
                 </span>
                 <h3 className="text-base font-bold font-heading text-[#25201D]">
@@ -734,7 +734,7 @@ export const CheckoutPage: React.FC = () => {
               </h3>
 
               {/* Items Compact Preview */}
-              <div className="space-y-3 max-h-56 overflow-y-auto pr-1 divide-y divide-white/5">
+              <div className="space-y-3 max-h-56 overflow-y-auto pr-1 divide-y divide-[#E8DED6]">
                 {cartItems.map((item) => (
                   <div key={item.id} className="pt-2 first:pt-0 flex items-center justify-between text-xs">
                     <div className="flex-1 pr-2">

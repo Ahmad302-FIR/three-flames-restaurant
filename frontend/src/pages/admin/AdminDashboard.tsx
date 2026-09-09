@@ -202,7 +202,7 @@ export const AdminDashboardPage: React.FC = () => {
                   <th className="pb-3 text-right">Quick Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-[#E8DED6]">
                 {recentOrders.map((ord) => {
                   const orderKey = ord.id || (ord as any).orderNumber || (ord as any)._id || Math.random().toString();
                   const orderDisplayId = ord.id || (ord as any).orderNumber || (ord as any)._id?.toString()?.slice(-6) || 'N/A';
@@ -213,7 +213,7 @@ export const AdminDashboardPage: React.FC = () => {
                   return (
                     <tr key={orderKey} className="hover:bg-[#F7F3EE]/50 transition-colors">
                       <td className="py-3 font-bold text-[#B85C38]">#{orderDisplayId}</td>
-                      <td className="py-3 text-white">
+                      <td className="py-3 text-[#25201D]">
                         <div className="font-semibold">{customerName}</div>
                         <div className="text-[10px] text-[#6F6761]">{customerPhone}</div>
                       </td>
@@ -223,14 +223,14 @@ export const AdminDashboardPage: React.FC = () => {
                       </td>
                       <td className="py-3">
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                          className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
                             ord.status === 'delivered'
-                              ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
+                              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                               : ord.status === 'preparing'
-                              ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30'
+                              ? 'bg-[#F3E4DC] text-[#B85C38] border border-[#E8DED6]'
                               : ord.status === 'out_for_delivery'
-                              ? 'bg-blue-950/80 text-blue-300 border border-blue-500/30'
-                              : 'bg-rose-950/80 text-rose-300 border border-rose-500/30'
+                              ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                              : 'bg-amber-50 text-amber-800 border border-amber-200'
                           }`}
                         >
                           {(ord.status || 'pending').replace(/_/g, ' ')}
@@ -240,14 +240,14 @@ export const AdminDashboardPage: React.FC = () => {
                         <select
                           value={ord.status || 'pending'}
                           onChange={(e) => handleUpdateStatus(ord.id || (ord as any).orderNumber || (ord as any)._id, e.target.value as OrderStatus)}
-                          className="bg-[#F7F3EE] border border-[#E8DED6] text-white rounded-lg px-2 py-1 text-[11px] focus:outline-none focus:border-[#E8DED6]"
+                          className="bg-[#FFFFFF] hover:bg-[#F7F3EE] border border-[#E8DED6] focus:border-[#B85C38] text-[#25201D] font-semibold rounded-lg px-2.5 py-1 text-[11px] focus:outline-none transition-colors cursor-pointer shadow-sm"
                         >
-                          <option value="pending">Pending</option>
-                          <option value="confirmed">Confirmed</option>
-                          <option value="preparing">On Flame Grill</option>
-                          <option value="out_for_delivery">Out for Delivery</option>
-                          <option value="delivered">Delivered</option>
-                          <option value="cancelled">Cancelled</option>
+                          <option value="pending" className="bg-[#FFFFFF] text-[#25201D]">Pending</option>
+                          <option value="confirmed" className="bg-[#FFFFFF] text-[#25201D]">Confirmed</option>
+                          <option value="preparing" className="bg-[#FFFFFF] text-[#25201D]">On Flame Grill</option>
+                          <option value="out_for_delivery" className="bg-[#FFFFFF] text-[#25201D]">Out for Delivery</option>
+                          <option value="delivered" className="bg-[#FFFFFF] text-[#25201D]">Delivered</option>
+                          <option value="cancelled" className="bg-[#FFFFFF] text-[#25201D]">Cancelled</option>
                         </select>
                       </td>
                     </tr>
@@ -289,27 +289,27 @@ export const AdminDashboardPage: React.FC = () => {
 
           {/* Quick Admin Actions */}
           <div className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E8DED6] space-y-3 shadow-xl">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#25201D]">
               Kitchen Operations Shortcuts
             </h3>
             <div className="space-y-2">
               <Link
                 to="/admin/menu"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#E8DED6]/60 border border-[#E8DED6] text-xs font-semibold text-[#25201D] transition-colors"
               >
                 <span>➕ Add New Menu Item</span>
                 <ChevronRight size={16} className="text-[#B85C38]" />
               </Link>
               <Link
                 to="/admin/delivery-zones"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#E8DED6]/60 border border-[#E8DED6] text-xs font-semibold text-[#25201D] transition-colors"
               >
                 <span>📍 Update Delivery Zones & Rates</span>
                 <ChevronRight size={16} className="text-[#B85C38]" />
               </Link>
               <Link
                 to="/admin/offers"
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#F7F3EE]/80 border border-[#E8DED6] text-xs text-white transition-colors"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-[#F7F3EE] hover:bg-[#E8DED6]/60 border border-[#E8DED6] text-xs font-semibold text-[#25201D] transition-colors"
               >
                 <span>🏷️ Create Promo Discount Voucher</span>
                 <ChevronRight size={16} className="text-[#B85C38]" />

@@ -103,12 +103,12 @@ export const AdminReviewsPage: React.FC = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] font-medium focus:outline-none focus:border-[#B85C38]"
           >
-            <option value="all">All Reviews ({reviews.length})</option>
-            <option value="approved">Approved</option>
-            <option value="pending">Pending</option>
-            <option value="hidden">Hidden / Archived</option>
+            <option value="all" className="bg-[#FFFFFF] text-[#25201D]">All Reviews ({reviews.length})</option>
+            <option value="approved" className="bg-[#FFFFFF] text-[#25201D]">Approved</option>
+            <option value="pending" className="bg-[#FFFFFF] text-[#25201D]">Pending</option>
+            <option value="hidden" className="bg-[#FFFFFF] text-[#25201D]">Hidden / Archived</option>
           </select>
         </div>
       </div>
@@ -121,10 +121,10 @@ export const AdminReviewsPage: React.FC = () => {
             placeholder="Search by diner name, dish, or keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
           />
         </div>
-        <span className="text-xs text-[#6F6761]">Showing <strong className="text-white">{filtered.length}</strong> reviews</span>
+        <span className="text-xs text-[#6F6761]">Showing <strong className="text-[#25201D]">{filtered.length}</strong> reviews</span>
       </div>
 
       {loading ? (
@@ -146,7 +146,7 @@ export const AdminReviewsPage: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-white">{rev.customerName}</h4>
+                      <h4 className="font-bold text-sm text-[#25201D]">{rev.customerName}</h4>
                       <span className="text-[10px] text-[#6F6761]">{rev.date || 'Recent Guest'}</span>
                     </div>
 
@@ -156,7 +156,7 @@ export const AdminReviewsPage: React.FC = () => {
                           key={i}
                           size={13}
                           fill={i < rev.rating ? '#B85C38' : 'none'}
-                          className={i < rev.rating ? 'text-[#B85C38]' : 'text-zinc-700'}
+                          className={i < rev.rating ? 'text-[#B85C38]' : 'text-[#E8DED6]'}
                         />
                       ))}
                     </div>
@@ -179,12 +179,12 @@ export const AdminReviewsPage: React.FC = () => {
 
                 <div className="pt-3 border-t border-[#E8DED6] flex items-center justify-between">
                   <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
                       rev.status === 'approved'
-                        ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
+                        ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                         : rev.status === 'pending'
-                        ? 'bg-amber-950 text-amber-400 border border-amber-500/30'
-                        : 'bg-zinc-900 text-zinc-400 border border-[#E8DED6]'
+                        ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                        : 'bg-[#F7F3EE] text-[#6F6761] border border-[#E8DED6]'
                     }`}
                   >
                     {rev.status || 'approved'}
@@ -194,7 +194,7 @@ export const AdminReviewsPage: React.FC = () => {
                     {rev.status !== 'approved' && (
                       <button
                         onClick={() => handleStatusUpdate(revId, 'approved')}
-                        className="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold hover:bg-emerald-900/50"
+                        className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11px] font-bold hover:bg-emerald-100 transition-colors"
                         title="Approve for public showcase"
                       >
                         Approve
@@ -203,7 +203,7 @@ export const AdminReviewsPage: React.FC = () => {
                     {rev.status !== 'hidden' && (
                       <button
                         onClick={() => handleStatusUpdate(revId, 'hidden')}
-                        className="px-2.5 py-1 rounded-lg bg-[#F7F3EE] text-[#6F6761] border border-[#E8DED6] text-[11px] hover:text-[#25201D]"
+                        className="px-2.5 py-1 rounded-lg bg-[#F7F3EE] text-[#6F6761] border border-[#E8DED6] text-[11px] hover:text-[#25201D] transition-colors"
                         title="Hide from public page"
                       >
                         Hide
@@ -211,7 +211,7 @@ export const AdminReviewsPage: React.FC = () => {
                     )}
                     <button
                       onClick={() => handleDelete(revId)}
-                      className="p-1.5 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-500/20 hover:bg-rose-900/50"
+                      className="p-1.5 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#C24838] hover:bg-rose-50 border border-[#E8DED6] transition-colors"
                       title="Permanently delete"
                     >
                       <Trash2 size={13} />

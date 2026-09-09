@@ -108,7 +108,7 @@ export const LoginPage: React.FC = () => {
                 required
                 autoComplete="username"
                 placeholder="info.ahmadkhan.com@gmail.com"
-                className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
               />
             </div>
           </div>
@@ -126,7 +126,7 @@ export const LoginPage: React.FC = () => {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
               />
               <button
                 type="button"

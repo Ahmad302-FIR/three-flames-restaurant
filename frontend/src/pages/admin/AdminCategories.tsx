@@ -169,14 +169,14 @@ export const AdminCategoriesPage: React.FC = () => {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(cat)}
-                    className="p-1.5 rounded-lg bg-white/5 text-[#6F6761] hover:text-[#25201D] hover:bg-white/10"
+                    className="p-1.5 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D] hover:bg-[#E8DED6]/60 transition-colors"
                     title="Edit Category"
                   >
                     <Edit2 size={14} />
                   </button>
                   <button
                     onClick={() => handleDelete(cat)}
-                    className="p-1.5 rounded-lg bg-white/5 text-[#6F6761] hover:text-rose-400 hover:bg-rose-950/30"
+                    className="p-1.5 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#C24838] hover:bg-rose-50 transition-colors"
                     title="Delete Category"
                   >
                     <Trash2 size={14} />
@@ -189,8 +189,8 @@ export const AdminCategoriesPage: React.FC = () => {
               </p>
 
               <div className="pt-3 border-t border-[#E8DED6] flex items-center justify-between text-[11px] text-[#6F6761]">
-                <span>Key: <strong className="text-white">{cat.id}</strong></span>
-                <span className="text-emerald-400 font-semibold">MongoDB Synced</span>
+                <span>Key: <strong className="text-[#25201D]">{cat.id}</strong></span>
+                <span className="text-emerald-700 font-semibold">MongoDB Synced</span>
               </div>
             </div>
           ))}
@@ -226,7 +226,7 @@ export const AdminCategoriesPage: React.FC = () => {
                   }}
                   placeholder="e.g. Mutton Shinwari Karahi"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -238,7 +238,7 @@ export const AdminCategoriesPage: React.FC = () => {
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="e.g. karahi"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -249,7 +249,7 @@ export const AdminCategoriesPage: React.FC = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="A brief summary of dishes under this category..."
-                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 

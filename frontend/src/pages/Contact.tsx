@@ -146,15 +146,15 @@ export const ContactPage: React.FC = () => {
                     <div className="text-xs text-[#6F6761] space-y-1">
                       <div className="flex items-center justify-between gap-2 border-b border-[#E8DED6] pb-1">
                         <span>Monday – Thursday:</span>
-                        <span className="text-white font-medium">{restaurantInfo.openingHours.monday_thursday}</span>
+                        <span className="text-[#25201D] font-bold">{restaurantInfo.openingHours.monday_thursday}</span>
                       </div>
                       <div className="flex items-center justify-between gap-2 border-b border-[#E8DED6] pb-1">
                         <span>Friday:</span>
-                        <span className="text-white font-medium">{restaurantInfo.openingHours.friday}</span>
+                        <span className="text-[#25201D] font-bold">{restaurantInfo.openingHours.friday}</span>
                       </div>
                       <div className="flex items-center justify-between gap-2">
                         <span>Saturday – Sunday:</span>
-                        <span className="text-white font-medium">{restaurantInfo.openingHours.saturday_sunday}</span>
+                        <span className="text-[#25201D] font-bold">{restaurantInfo.openingHours.saturday_sunday}</span>
                       </div>
                     </div>
                   </div>
@@ -211,7 +211,7 @@ export const ContactPage: React.FC = () => {
                     required
                     autoComplete="name"
                     placeholder="e.g. Asadullah Durrani"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -226,7 +226,7 @@ export const ContactPage: React.FC = () => {
                     required
                     autoComplete="email"
                     placeholder="name@example.com"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -242,7 +242,7 @@ export const ContactPage: React.FC = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     autoComplete="tel"
                     placeholder="03xx-xxxxxxx"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -255,7 +255,7 @@ export const ContactPage: React.FC = () => {
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. Banquet Catering, Feedback..."
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -270,7 +270,7 @@ export const ContactPage: React.FC = () => {
                   onChange={(e) => setMessage(e.target.value)}
                   required
                   placeholder="Share your experience, catering requirements, or any question..."
-                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full p-3 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 

@@ -220,7 +220,7 @@ export const FoodDetailsPage: React.FC = () => {
                     Rs. {item.originalPrice.toLocaleString()}
                   </span>
                 )}
-                <span className="text-xs text-emerald-400 font-medium px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/20">
+                <span className="text-xs text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
                   Tax Included
                 </span>
               </div>

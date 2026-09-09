@@ -56,10 +56,10 @@ export const AdminCustomersPage: React.FC = () => {
             placeholder="Search by customer name, email, or phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
           />
         </div>
-        <span className="text-xs text-[#6F6761]">Total: <strong className="text-white">{filtered.length}</strong> customers</span>
+        <span className="text-xs text-[#6F6761]">Total: <strong className="text-[#25201D]">{filtered.length}</strong> customers</span>
       </div>
 
       {loading ? (
@@ -78,7 +78,7 @@ export const AdminCustomersPage: React.FC = () => {
                   <th className="p-4">Tier Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-[#E8DED6]">
                 {filtered.map((cust) => (
                   <tr key={cust.id} className="hover:bg-[#F7F3EE]/60 transition-colors">
                     <td className="p-4">
@@ -96,11 +96,11 @@ export const AdminCustomersPage: React.FC = () => {
                     <td className="p-4 space-y-0.5">
                       <div className="flex items-center gap-1 text-[#6F6761]">
                         <Mail size={12} className="text-[#B85C38]" />
-                        <span>{cust.email}</span>
+                        <span className="text-[#25201D]">{cust.email}</span>
                       </div>
                       <div className="flex items-center gap-1 text-[#6F6761]">
-                        <Phone size={12} className="text-emerald-400" />
-                        <span>{cust.phone}</span>
+                        <Phone size={12} className="text-emerald-700" />
+                        <span className="text-[#25201D]">{cust.phone}</span>
                       </div>
                     </td>
 
@@ -123,8 +123,8 @@ export const AdminCustomersPage: React.FC = () => {
                       <span
                         className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase inline-flex items-center gap-1 ${
                           cust.status === 'vip'
-                            ? 'bg-amber-950 text-amber-300 border border-amber-500/40'
-                            : 'bg-emerald-950 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                            : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                         }`}
                       >
                         {cust.status === 'vip' ? <Award size={12} /> : <Shield size={12} />}

@@ -135,7 +135,7 @@ export const AdminOrdersPage: React.FC = () => {
             placeholder="Search order ID or phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none focus:border-[#E8DED6]"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#E8DED6]"
           />
         </div>
       </div>
@@ -155,7 +155,7 @@ export const AdminOrdersPage: React.FC = () => {
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[#E8DED6]">
               {filteredOrders.map((ord) => (
                 <tr key={ord.id} className="hover:bg-[#F7F3EE]/60 transition-colors">
                   <td className="p-4 font-bold text-[#B85C38]">#{ord.id}</td>
@@ -177,7 +177,7 @@ export const AdminOrdersPage: React.FC = () => {
                     )}
                   </td>
                   <td className="p-4 max-w-xs">
-                    <div className="text-white line-clamp-2">
+                    <div className="text-[#25201D] line-clamp-2">
                       {ord.items.map((i) => `${i.quantity}x ${i.name}`).join(', ')}
                     </div>
                   </td>
@@ -188,14 +188,14 @@ export const AdminOrdersPage: React.FC = () => {
                     <select
                       value={ord.status}
                       onChange={(e) => handleUpdateStatus(ord.id, e.target.value as OrderStatus)}
-                      className="bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#E8DED6]"
+                      className="bg-[#FFFFFF] hover:bg-[#F7F3EE] border border-[#E8DED6] focus:border-[#B85C38] text-xs text-[#25201D] font-semibold rounded-lg px-2.5 py-1.5 focus:outline-none transition-colors cursor-pointer shadow-sm"
                     >
-                      <option value="pending">Pending</option>
-                      <option value="confirmed">Confirmed</option>
-                      <option value="preparing">On Flame Grill</option>
-                      <option value="out_for_delivery">Out for Delivery</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="cancelled">Cancelled</option>
+                      <option value="pending" className="bg-[#FFFFFF] text-[#25201D]">Pending</option>
+                      <option value="confirmed" className="bg-[#FFFFFF] text-[#25201D]">Confirmed</option>
+                      <option value="preparing" className="bg-[#FFFFFF] text-[#25201D]">On Flame Grill</option>
+                      <option value="out_for_delivery" className="bg-[#FFFFFF] text-[#25201D]">Out for Delivery</option>
+                      <option value="delivered" className="bg-[#FFFFFF] text-[#25201D]">Delivered</option>
+                      <option value="cancelled" className="bg-[#FFFFFF] text-[#25201D]">Cancelled</option>
                     </select>
                   </td>
                   <td className="p-4 text-right">
@@ -204,7 +204,7 @@ export const AdminOrdersPage: React.FC = () => {
                         setActiveOrder(ord);
                         setIsReceiptModalOpen(true);
                       }}
-                      className="px-3 py-1.5 rounded-lg bg-[#F7F3EE] border border-[#E8DED6] hover:border-[#E8DED6] text-white hover:text-[#B85C38] text-xs font-semibold flex items-center gap-1 ml-auto"
+                      className="px-3 py-1.5 rounded-lg bg-[#F7F3EE] border border-[#E8DED6] hover:border-[#B85C38]/40 text-[#25201D] hover:text-[#B85C38] text-xs font-semibold flex items-center gap-1 ml-auto transition-colors"
                     >
                       <Eye size={13} /> Details
                     </button>
@@ -243,7 +243,7 @@ export const AdminOrdersPage: React.FC = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6F6761]">Phone:</span>
-                <span className="text-white">{activeOrder.customer.phone}</span>
+                <span className="text-[#25201D] font-semibold">{activeOrder.customer.phone}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#6F6761]">Order Type:</span>
@@ -252,7 +252,7 @@ export const AdminOrdersPage: React.FC = () => {
               {activeOrder.deliveryDetails && (
                 <div className="pt-2 border-t border-[#E8DED6]">
                   <span className="text-[#6F6761] block">Address:</span>
-                  <span className="text-white">
+                  <span className="text-[#25201D] font-medium">
                     {activeOrder.deliveryDetails.address}, {activeOrder.deliveryDetails.area}
                   </span>
                 </div>
@@ -264,7 +264,7 @@ export const AdminOrdersPage: React.FC = () => {
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#B85C38]">
                 Ordered Culinary Items
               </h4>
-              <div className="divide-y divide-white/5 text-xs">
+              <div className="divide-y divide-[#E8DED6] text-xs">
                 {activeOrder.items.map((it) => (
                   <div key={it.id} className="py-2.5 flex justify-between items-start">
                     <div>
@@ -294,16 +294,16 @@ export const AdminOrdersPage: React.FC = () => {
             <div className="pt-4 border-t border-[#E8DED6] text-xs space-y-1.5">
               <div className="flex justify-between text-[#6F6761]">
                 <span>Subtotal</span>
-                <span className="text-white">Rs. {activeOrder.subtotal.toLocaleString()}</span>
+                <span className="text-[#25201D] font-bold">Rs. {activeOrder.subtotal.toLocaleString()}</span>
               </div>
               {activeOrder.deliveryFee > 0 && (
                 <div className="flex justify-between text-[#6F6761]">
                   <span>Delivery Fee</span>
-                  <span className="text-white">Rs. {activeOrder.deliveryFee.toLocaleString()}</span>
+                  <span className="text-[#25201D] font-bold">Rs. {activeOrder.deliveryFee.toLocaleString()}</span>
                 </div>
               )}
               {activeOrder.discount > 0 && (
-                <div className="flex justify-between text-emerald-400">
+                <div className="flex justify-between text-emerald-700 font-bold">
                   <span>Discount</span>
                   <span>- Rs. {activeOrder.discount.toLocaleString()}</span>
                 </div>

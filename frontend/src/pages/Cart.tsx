@@ -183,7 +183,7 @@ export const CartPage: React.FC = () => {
                 </button>
               </div>
 
-              <div className="divide-y divide-white/5 space-y-4">
+              <div className="divide-y divide-[#E8DED6] space-y-4">
                 {cartItems.map((item) => (
                   <div
                     key={item.id}
@@ -296,9 +296,9 @@ export const CartPage: React.FC = () => {
               </h3>
 
               {appliedCoupon ? (
-                <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between">
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
                   <div>
-                    <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                    <div className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
                       <Check size={14} />
                       {appliedCoupon.code} APPLIED
                     </div>
@@ -308,7 +308,7 @@ export const CartPage: React.FC = () => {
                   </div>
                   <button
                     onClick={handleRemoveCoupon}
-                    className="text-xs text-rose-400 hover:underline"
+                    className="text-xs text-rose-600 hover:underline font-semibold"
                   >
                     Remove
                   </button>
@@ -328,7 +328,7 @@ export const CartPage: React.FC = () => {
                     </Button>
                   </div>
                   {couponError && (
-                    <p className="text-[11px] text-rose-400 leading-tight">{couponError}</p>
+                    <p className="text-[11px] text-[#C24838] leading-tight font-medium">{couponError}</p>
                   )}
                   <div className="text-[11px] text-[#B85C38]">
                     Tip: Try code <strong>FLAME10</strong> for 10% off

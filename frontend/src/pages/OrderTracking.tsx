@@ -304,7 +304,7 @@ export const OrderTrackingPage: React.FC = () => {
                   </div>
                   <p className="text-xs text-[#6F6761] mt-1.5">
                     Placed on {new Date(order.createdAt).toLocaleString()} • Fulfillment:{' '}
-                    <strong className="text-white capitalize">{order.orderType}</strong>
+                    <strong className="text-[#25201D] capitalize">{order.orderType}</strong>
                   </p>
                 </div>
 
@@ -323,7 +323,7 @@ export const OrderTrackingPage: React.FC = () => {
               <div className="py-4">
                 <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-0">
                   {/* Connecting Line (Desktop) */}
-                  <div className="hidden md:block absolute top-6 left-8 right-8 h-0.5 bg-white/10 -z-0">
+                  <div className="hidden md:block absolute top-6 left-8 right-8 h-0.5 bg-[#E8DED6] -z-0">
                     <div
                       className="h-full bg-gradient-to-r from-[#B85C38] to-[#B85C38] transition-all duration-700"
                       style={{ width: `${(currentStepIdx / (steps.length - 1)) * 100}%` }}
@@ -343,10 +343,10 @@ export const OrderTrackingPage: React.FC = () => {
                         <div
                           className={`w-12 h-12 rounded-2xl flex items-center justify-center border-2 transition-all duration-300 shrink-0 ${
                             isCurrent
-                              ? 'bg-[#B85C38] border-[#25201D] text-black shadow-lg shadow-[#B85C38]/50 scale-110'
+                              ? 'bg-[#B85C38] border-[#B85C38] text-white shadow-lg shadow-[#B85C38]/40 scale-110'
                               : isDone
                               ? 'bg-[#F7F3EE] border-[#E8DED6] text-[#B85C38]'
-                              : 'bg-[#F7F3EE]/60 border-[#E8DED6] text-white/30'
+                              : 'bg-[#F7F3EE]/60 border-[#E8DED6] text-[#6F6761]/40'
                           }`}
                         >
                           {step.icon}
@@ -356,7 +356,7 @@ export const OrderTrackingPage: React.FC = () => {
                         <div className="text-left md:text-center">
                           <h4
                             className={`text-xs font-bold uppercase tracking-wider ${
-                              isDone ? 'text-[#25201D]' : 'text-white/40'
+                              isDone ? 'text-[#25201D]' : 'text-[#6F6761]'
                             }`}
                           >
                             {step.label}
@@ -384,14 +384,14 @@ export const OrderTrackingPage: React.FC = () => {
                         key={i}
                         className={`flex items-center justify-between text-xs p-2.5 rounded-xl border ${
                           event.completed
-                            ? 'bg-[#F7F3EE] border-[#E8DED6] text-white'
-                            : 'bg-[#FFFFFF] border-[#E8DED6] text-[#6F6761]/60'
+                            ? 'bg-[#F7F3EE] border-[#E8DED6] text-[#25201D]'
+                            : 'bg-[#FFFFFF] border-[#E8DED6] text-[#6F6761]/70'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
                           <span
                             className={`w-2 h-2 rounded-full ${
-                              event.completed ? 'bg-[#B85C38]' : 'bg-white/20'
+                              event.completed ? 'bg-[#B85C38]' : 'bg-[#E8DED6]'
                             }`}
                           />
                           <span className="font-semibold">{event.title}</span>
@@ -433,7 +433,7 @@ export const OrderTrackingPage: React.FC = () => {
                       <p>Landmark: {order.deliveryDetails.landmark}</p>
                     )}
                     {order.deliveryDetails.phone && (
-                      <p className="text-white/60">Phone: {order.deliveryDetails.phone}</p>
+                      <p className="text-[#25201D] font-medium">Phone: {order.deliveryDetails.phone}</p>
                     )}
                   </div>
                 )}
@@ -464,10 +464,10 @@ export const OrderTrackingPage: React.FC = () => {
                   Ordered Items & Bill
                 </h3>
 
-                <div className="divide-y divide-white/5 text-xs space-y-2 max-h-40 overflow-y-auto pr-1">
+                <div className="divide-y divide-[#E8DED6] text-xs space-y-2 max-h-40 overflow-y-auto pr-1">
                   {order.items.map((item, idx) => (
                     <div key={item.id || idx} className="pt-2 first:pt-0 flex justify-between">
-                      <span className="text-white">
+                      <span className="text-[#25201D] font-medium">
                         {item.quantity}x {item.name}
                       </span>
                       <span className="font-semibold text-[#B85C38]">
@@ -565,7 +565,7 @@ export const OrderTrackingPage: React.FC = () => {
               </div>
               <h4 className="text-sm font-bold text-[#25201D]">Enter & Submit</h4>
               <p className="text-xs text-[#6F6761] leading-relaxed">
-                Type your Order ID in the box above (e.g. TF-1048) and click <strong className="text-white">TRACK</strong>.
+                Type your Order ID in the box above (e.g. TF-1048) and click <strong className="text-[#25201D]">TRACK</strong>.
               </p>
             </div>
 

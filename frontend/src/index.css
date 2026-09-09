@@ -54,6 +54,35 @@
   .font-sans-modern {
     font-family: 'Plus Jakarta Sans', sans-serif;
   }
+
+  /* Global readable form controls & native dropdowns */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+  textarea {
+    color: #25201D;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #8E857E;
+    opacity: 1;
+  }
+
+  select {
+    color: #25201D;
+    background-color: #FFFFFF;
+  }
+
+  select option {
+    background-color: #FFFFFF;
+    color: #25201D;
+    font-weight: 500;
+  }
+
+  select option:checked {
+    background-color: #F3E4DC;
+    color: #B85C38;
+    font-weight: 700;
+  }
 }
 
 /* Subtle clean terracotta glow accents */

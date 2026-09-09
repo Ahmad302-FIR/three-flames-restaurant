@@ -276,7 +276,7 @@ export const ReservationPage: React.FC = () => {
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -288,7 +288,7 @@ export const ReservationPage: React.FC = () => {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -301,7 +301,7 @@ export const ReservationPage: React.FC = () => {
                     value={occasion}
                     onChange={(e) => setOccasion(e.target.value)}
                     placeholder="e.g. Birthday, Anniversary"
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -316,7 +316,7 @@ export const ReservationPage: React.FC = () => {
                   value={specialRequests}
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   placeholder="e.g. High chair needed, cake arrangement, quiet corner..."
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 

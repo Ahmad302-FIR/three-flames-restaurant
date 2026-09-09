@@ -157,7 +157,7 @@ export const AdminProfilePage: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -168,7 +168,7 @@ export const AdminProfilePage: React.FC = () => {
                 value={user?.email || ''}
                 disabled
                 placeholder="Admin Email"
-                className="w-full px-3 py-2.5 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] text-zinc-400 cursor-not-allowed"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#FFFDFC] border border-[#E8DED6] text-[#6F6761] cursor-not-allowed"
               />
             </div>
 
@@ -179,7 +179,7 @@ export const AdminProfilePage: React.FC = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
               />
             </div>
 
@@ -207,7 +207,7 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="current-password"
                   placeholder="Enter current password"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
                 <button
                   type="button"
@@ -229,7 +229,7 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="new-password"
                   placeholder="Minimum 6 characters"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
                 <button
                   type="button"
@@ -251,7 +251,7 @@ export const AdminProfilePage: React.FC = () => {
                   required
                   autoComplete="new-password"
                   placeholder="Confirm password match"
-                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none focus:border-[#E8DED6]"
+                  className="w-full pl-3 pr-10 py-2.5 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
                 <button
                   type="button"

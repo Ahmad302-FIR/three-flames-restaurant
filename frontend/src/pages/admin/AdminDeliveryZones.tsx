@@ -146,17 +146,17 @@ export const AdminDeliveryZonesPage: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleToggleZone(zone)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold ${
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-colors ${
                     zone.active
-                      ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-rose-950 text-rose-300 border border-rose-500/30'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'
                   }`}
                 >
                   {zone.active ? 'Active' : 'Paused'}
                 </button>
                 <button
                   onClick={() => handleDeleteZone(zone)}
-                  className="p-1 rounded-lg bg-rose-950/40 text-rose-400 border border-rose-500/20 hover:bg-rose-900/50"
+                  className="p-1 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#C24838] hover:bg-rose-50 border border-[#E8DED6] transition-colors"
                   title="Delete Sector"
                 >
                   <Trash2 size={13} />
@@ -193,7 +193,7 @@ export const AdminDeliveryZonesPage: React.FC = () => {
               <h3 className="text-base font-bold font-heading text-[#25201D]">Add Delivery Sector</h3>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761]"
+                className="p-1 rounded bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
               >
                 <X size={18} />
               </button>
@@ -208,7 +208,7 @@ export const AdminDeliveryZonesPage: React.FC = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Ring Road & Gulbahar"
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 
@@ -220,7 +220,7 @@ export const AdminDeliveryZonesPage: React.FC = () => {
                     value={fee}
                     onChange={(e) => setFee(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
 
@@ -231,7 +231,7 @@ export const AdminDeliveryZonesPage: React.FC = () => {
                     value={minOrder}
                     onChange={(e) => setMinOrder(Number(e.target.value))}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                    className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                   />
                 </div>
               </div>
@@ -243,7 +243,7 @@ export const AdminDeliveryZonesPage: React.FC = () => {
                   value={estimatedMinutes}
                   onChange={(e) => setEstimatedMinutes(e.target.value)}
                   placeholder="35-45 mins"
-                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-[#25201D] focus:outline-none focus:border-[#B85C38]"
                 />
               </div>
 

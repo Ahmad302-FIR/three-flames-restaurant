@@ -99,7 +99,7 @@ export const AdminReservationsPage: React.FC = () => {
             placeholder="Search guest or phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-white placeholder-[#6F6761]/60 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#F7F3EE] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
           />
         </div>
       </div>
@@ -120,7 +120,7 @@ export const AdminReservationsPage: React.FC = () => {
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[#E8DED6]">
               {filtered.map((res) => (
                 <tr key={res.id} className="hover:bg-[#F7F3EE]/60 transition-colors">
                   <td className="p-4 font-bold text-[#B85C38]">#{res.id}</td>
@@ -141,14 +141,14 @@ export const AdminReservationsPage: React.FC = () => {
                   <td className="p-4 uppercase text-[#B85C38] font-semibold">{res.seatingArea}</td>
                   <td className="p-4">
                     <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                      className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase ${
                         res.status === 'confirmed'
-                          ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                           : res.status === 'completed'
-                          ? 'bg-blue-950/80 text-blue-300 border border-blue-500/30'
+                          ? 'bg-blue-50 text-blue-800 border border-blue-200'
                           : res.status === 'pending'
-                          ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30'
-                          : 'bg-rose-950/80 text-rose-300 border border-rose-500/30'
+                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200'
                       }`}
                     >
                       {res.status}
@@ -159,7 +159,7 @@ export const AdminReservationsPage: React.FC = () => {
                       {res.status === 'pending' && (
                         <button
                           onClick={() => handleUpdateStatus(res.id, 'confirmed')}
-                          className="px-2.5 py-1 rounded bg-[#F7F3EE] text-emerald-400 hover:bg-emerald-950 border border-emerald-500/30 text-[11px] font-bold"
+                          className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 text-[11px] font-bold transition-colors"
                         >
                           Confirm
                         </button>
@@ -167,7 +167,7 @@ export const AdminReservationsPage: React.FC = () => {
                       {res.status === 'confirmed' && (
                         <button
                           onClick={() => handleUpdateStatus(res.id, 'completed')}
-                          className="px-2.5 py-1 rounded bg-[#F7F3EE] text-blue-400 hover:bg-blue-950 border border-blue-500/30 text-[11px] font-bold"
+                          className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-300 text-[11px] font-bold transition-colors"
                         >
                           Complete
                         </button>
@@ -175,7 +175,7 @@ export const AdminReservationsPage: React.FC = () => {
                       {res.status !== 'cancelled' && (
                         <button
                           onClick={() => handleUpdateStatus(res.id, 'cancelled')}
-                          className="px-2.5 py-1 rounded bg-[#F7F3EE] text-rose-400 hover:bg-rose-950 border border-rose-500/30 text-[11px] font-bold"
+                          className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-300 text-[11px] font-bold transition-colors"
                         >
                           Cancel
                         </button>
