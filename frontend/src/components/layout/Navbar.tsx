@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FlameIcon } from '../common/FlameIcon';
 import { Button } from '../common/Button';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { toggleMobileMenu, setCartDrawerOpen } from '../../store/slices/uiSlice';
@@ -68,31 +67,31 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 flex items-center ${
           isScrolled
-            ? 'bg-[#FFFDFC]/95 backdrop-blur-md border-b border-[#E8DED6] py-3 shadow-md shadow-black/5'
-            : 'bg-[#FFFDFC]/90 backdrop-blur-md border-b border-[#E8DED6]/80 py-3.5 shadow-sm'
+            ? 'bg-[#FFFDFC]/98 backdrop-blur-md border-b border-[#E8DED6] h-[86px] sm:h-[92px] shadow-md shadow-black/5'
+            : 'bg-[#FFFDFC]/95 backdrop-blur-md border-b border-[#E8DED6]/90 h-[88px] sm:h-[96px] shadow-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Left: Flame Logo */}
-          <div className="flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between w-full">
+          {/* Left: Original AKR Logo */}
+          <div className="flex items-center shrink-0">
             <Link
               to="/"
               className="flex items-center group py-1"
               aria-label="Ahmed Khan Restaurant Home"
-              title="Ahmed Khan Restaurant"
+              title="Ahmed Khan Restaurant - Pakistani BBQ & Sajji"
             >
-              <FlameIcon
-                size={34}
-                glow={true}
-                className="transition-transform duration-300 group-hover:scale-105"
+              <img
+                src="/akr-logo.png"
+                alt="AKR Pakistani BBQ & Sajji"
+                className="h-[62px] sm:h-[70px] lg:h-[76px] w-auto object-contain hover:opacity-95 transition-opacity"
               />
             </Link>
           </div>
 
           {/* Center: Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-6">
+          <nav className="hidden lg:flex items-center justify-center gap-1.5 xl:gap-4">
             {navLinks.map((link) => {
               const active = isActive(link.path);
               return (
@@ -102,14 +101,12 @@ export const Navbar: React.FC = () => {
                   className="relative group transition-all duration-200"
                 >
                   {active ? (
-                    <div className="px-3.5 py-1.5 rounded-xl bg-[#F3E4DC] border border-[#E8DED6] text-[#B85C38] font-bold text-sm flex flex-col items-center shadow-sm">
+                    <div className="px-4 py-1.5 rounded-full bg-[#F3E4DC] text-[#25201D] font-semibold text-sm shadow-sm flex items-center justify-center">
                       <span>{link.name}</span>
-                      <span className="w-3.5 h-[2px] bg-[#B85C38] rounded-full mt-0.5" />
                     </div>
                   ) : (
-                    <div className="px-3 py-1.5 text-sm font-medium text-[#25201D] hover:text-[#B85C38] transition-colors flex flex-col items-center">
+                    <div className="px-3 py-1.5 text-sm font-medium text-[#25201D] hover:text-[#B85C38] transition-colors flex items-center justify-center">
                       <span>{link.name}</span>
-                      <span className="w-0 group-hover:w-3 h-[2px] bg-[#B85C38]/60 rounded-full transition-all duration-300 mt-0.5" />
                     </div>
                   )}
                 </Link>
@@ -118,14 +115,14 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Right Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
             {/* 1. Circular WhatsApp Action */}
             <a
               href={restaurantInfo.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               title="Chat on WhatsApp"
-              className="hidden lg:flex w-9 h-9 rounded-full bg-[#25D366] text-white items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-md shadow-[#25D366]/20 hover:brightness-105 shrink-0"
+              className="hidden lg:flex w-9 h-9 rounded-full bg-[#25D366] text-white items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-sm hover:brightness-105 shrink-0"
             >
               <WhatsAppIcon size={18} />
             </a>
@@ -134,7 +131,7 @@ export const Navbar: React.FC = () => {
             <a
               href={`tel:${restaurantInfo.phone}`}
               title={`Call ${restaurantInfo.phone}`}
-              className="hidden lg:flex w-9 h-9 rounded-full bg-[#FFFDFC] border border-[#E8DED6] text-[#25201D] hover:text-[#B85C38] hover:border-[#B85C38]/50 items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
+              className="hidden lg:flex w-9 h-9 rounded-full bg-[#25201D] text-white items-center justify-center hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
             >
               <Phone size={15} />
             </a>
@@ -143,7 +140,7 @@ export const Navbar: React.FC = () => {
             <button
               onClick={() => dispatch(setCartDrawerOpen(true))}
               aria-label="Open Cart"
-              className="w-9 h-9 sm:w-10 sm:h-10 lg:w-9 lg:h-9 rounded-full bg-[#FFFDFC] border border-[#E8DED6] text-[#25201D] hover:border-[#B85C38] hover:text-[#B85C38] flex items-center justify-center relative hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
+              className="w-9 h-9 sm:w-10 sm:h-10 lg:w-9 lg:h-9 rounded-full bg-[#25201D] text-white flex items-center justify-center relative hover:scale-105 active:scale-95 transition-all shrink-0 shadow-sm"
             >
               <ShoppingCart size={16} />
               {totalCartCount > 0 && (
@@ -153,13 +150,13 @@ export const Navbar: React.FC = () => {
               )}
             </button>
 
-            {/* 4. Subtle Outlined Admin Portal Action */}
+            {/* 4. Rounded Pill Admin Portal Action */}
             <Link
               to={user && (user.role === 'admin' || user.role === 'superadmin') ? '/admin' : '/login'}
-              className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDFC] border border-[#E8DED6] hover:border-[#B85C38]/50 text-xs font-medium text-[#6F6761] hover:text-[#B85C38] hover:bg-[#F3E4DC]/50 transition-all shrink-0 shadow-sm"
+              className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDFC] border border-[#B85C38]/50 hover:border-[#B85C38] text-xs font-semibold text-[#25201D] hover:text-[#B85C38] hover:bg-[#F3E4DC]/40 transition-all shrink-0 shadow-sm"
               title="Admin Portal"
             >
-              <User size={13} className="text-[#6F6761]" />
+              <User size={13} className="text-[#25201D]" />
               <span>Admin Portal</span>
             </Link>
 
@@ -167,10 +164,10 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/menu')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full bg-[#B85C38] hover:bg-[#8F432B] text-white font-semibold text-xs uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 xl:px-5 py-2 rounded-full bg-[#B85C38] hover:bg-[#8F432B] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer"
             >
               <Utensils size={13} className="text-white" />
-              <span>Order Now</span>
+              <span>ORDER NOW</span>
             </button>
 
             {/* Mobile Menu Toggle Button */}
@@ -199,12 +196,17 @@ export const Navbar: React.FC = () => {
             <div>
               {/* Header */}
               <div className="flex items-center justify-between pb-6 border-b border-[#E8DED6] mb-6">
-                <div className="flex items-center gap-2">
-                  <FlameIcon size={24} />
-                  <span className="font-heading font-bold text-base text-[#25201D] tracking-wider uppercase">
-                    Navigation Menu
-                  </span>
-                </div>
+                <Link
+                  to="/"
+                  onClick={() => dispatch(toggleMobileMenu())}
+                  className="flex items-center"
+                >
+                  <img
+                    src="/akr-logo.png"
+                    alt="AKR Pakistani BBQ & Sajji"
+                    className="h-12 w-auto object-contain"
+                  />
+                </Link>
                 <button
                   onClick={() => dispatch(toggleMobileMenu())}
                   className="p-2 rounded-lg bg-[#F7F3EE] text-[#6F6761] hover:text-[#25201D]"
@@ -242,7 +244,7 @@ export const Navbar: React.FC = () => {
                     dispatch(toggleMobileMenu());
                     navigate('/menu');
                   }}
-                  leftIcon={<FlameIcon size={16} glow={false} />}
+                  leftIcon={<Utensils size={16} />}
                 >
                   ORDER FOOD ONLINE
                 </Button>
