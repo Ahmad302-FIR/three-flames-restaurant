@@ -18,6 +18,12 @@ const reviewSchema = new mongoose.Schema(
       required: [true, 'Customer name is required'],
       trim: true
     },
+    customerEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      default: ''
+    },
     avatar: {
       type: String,
       default: ''
@@ -41,12 +47,12 @@ const reviewSchema = new mongoose.Schema(
     dishesMentioned: [{ type: String, trim: true }],
     verifiedCustomer: {
       type: Boolean,
-      default: true
+      default: false
     },
     status: {
       type: String,
-      enum: ['approved', 'pending', 'hidden'],
-      default: 'approved',
+      enum: ['approved', 'pending', 'rejected', 'hidden'],
+      default: 'pending',
       index: true
     }
   },

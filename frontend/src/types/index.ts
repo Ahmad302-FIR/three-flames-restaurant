@@ -135,14 +135,17 @@ export interface Reservation {
 
 export interface Review {
   id: string;
+  _id?: string;
   customerName: string;
+  customerEmail?: string;
   avatar?: string;
   rating: number;
   date: string;
   comment: string;
   dishesMentioned?: string[];
   verifiedCustomer: boolean;
-  status: 'approved' | 'pending' | 'hidden';
+  status: 'approved' | 'pending' | 'rejected' | 'hidden';
+  createdAt?: string;
 }
 
 export interface GalleryItem {

@@ -2,8 +2,9 @@ import { body } from 'express-validator';
 
 export const createReviewValidation = [
   body('customerName').trim().notEmpty().withMessage('Customer name is required'),
+  body('customerEmail').trim().notEmpty().withMessage('Email address is required').isEmail().withMessage('Please provide a valid email address'),
   body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be an integer between 1 and 5'),
-  body('comment').trim().notEmpty().withMessage('Review comment is required').isLength({ max: 1000 }).withMessage('Comment cannot exceed 1000 characters')
+  body('comment').trim().notEmpty().withMessage('Review comment is required').isLength({ min: 5, max: 1000 }).withMessage('Comment must be between 5 and 1000 characters')
 ];
 
 export const createDeliveryZoneValidation = [

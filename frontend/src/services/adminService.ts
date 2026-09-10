@@ -3,7 +3,6 @@ import { DeliveryZone, Offer, Customer, Review, GalleryItem } from '../types';
 import { initialDeliveryZones } from '../data/deliveryZonesData';
 import { initialOffers } from '../data/offersData';
 import { initialCustomers } from '../data/customersData';
-import { reviewsData } from '../data/reviewsData';
 import { galleryData } from '../data/galleryData';
 
 export const adminService = {
@@ -180,32 +179,38 @@ export const adminService = {
   getPublicReviews: async (): Promise<Review[]> => {
     try {
       const res = await api.get('/reviews');
-      return res.data.data;
+      return res.data.data || [];
     } catch {
-      return reviewsData;
+      return [];
     }
+  },
+
+  submitReview: async (data: {
+    customerName: string;
+    customerEmail: string;
+    rating: number;
+    comment: string;
+    dishesMentioned?: string[];
+  }): Promise<Review> => {
+    const res = await api.post('/reviews', data);
+    return res.data.data;
   },
 
   getReviews: async (): Promise<Review[]> => {
     try {
       const res = await api.get('/reviews/admin/all');
-      return res.data.data;
+      return res.data.data || [];
     } catch (err: any) {
       if (err.status === 401 || err.status === 403 || err.statusCode === 401 || err.statusCode === 403) {
         throw err;
       }
-      return reviewsData;
+      return [];
     }
   },
 
-  updateReviewStatus: async (id: string, status: 'approved' | 'pending' | 'hidden'): Promise<Review[]> => {
-    try {
-      await api.patch(`/reviews/admin/${id}/status`, { status });
-      return await adminService.getReviews();
-    } catch {
-      const reviews = reviewsData.map((r) => (r.id === id ? { ...r, status } : r));
-      return reviews;
-    }
+  updateReviewStatus: async (id: string, status: 'approved' | 'pending' | 'rejected' | 'hidden'): Promise<Review[]> => {
+    await api.patch(`/reviews/admin/${id}/status`, { status });
+    return await adminService.getReviews();
   },
 
   deleteReview: async (id: string): Promise<boolean> => {
