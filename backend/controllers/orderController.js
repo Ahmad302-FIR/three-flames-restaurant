@@ -54,12 +54,31 @@ export const createOrder = async (req, res, next) => {
     }
 
     const isOnlinePayment = paymentMethod === 'online';
+    let cleanTxId = '';
+    let normalizedProvider = '';
+
     if (isOnlinePayment) {
       if (!paymentScreenshot || typeof paymentScreenshot !== 'string' || !paymentScreenshot.trim()) {
-        return sendError(res, 400, 'A payment screenshot proof is required for online payment verification.');
+        return sendError(res, 400, 'Payment screenshot is required.');
       }
       if (!paymentProvider || !['easypaisa', 'nayapay'].includes(paymentProvider.toLowerCase())) {
         return sendError(res, 400, 'Please select a valid payment account (Easypaisa or NayaPay).');
+      }
+      if (!transactionId || typeof transactionId !== 'string' || !transactionId.trim()) {
+        return sendError(res, 400, 'Transaction ID is required.');
+      }
+
+      cleanTxId = transactionId.trim();
+      normalizedProvider = paymentProvider.toLowerCase();
+
+      // Fraud protection: check for duplicate transaction ID with the same provider
+      const existingTxOrder = await Order.findOne({
+        paymentProvider: normalizedProvider,
+        transactionId: cleanTxId
+      });
+
+      if (existingTxOrder) {
+        return sendError(res, 409, 'This Transaction ID has already been submitted. Please enter a valid Transaction ID.');
       }
     }
 
@@ -242,9 +261,9 @@ export const createOrder = async (req, res, next) => {
       tax: 0,
       total,
       paymentMethod: isOnlinePayment ? 'online' : (paymentMethod || (orderType === 'delivery' ? 'cash_on_delivery' : 'cash_on_pickup')),
-      paymentProvider: isOnlinePayment ? paymentProvider.toLowerCase() : (paymentMethod === 'cash_on_delivery' ? 'cod' : 'counter'),
-      paymentScreenshot: isOnlinePayment ? paymentScreenshot : undefined,
-      transactionId: isOnlinePayment && transactionId ? transactionId.trim() : undefined,
+      paymentProvider: isOnlinePayment ? normalizedProvider : (paymentMethod === 'cash_on_delivery' ? 'cod' : 'counter'),
+      paymentScreenshot: isOnlinePayment ? paymentScreenshot.trim() : undefined,
+      transactionId: isOnlinePayment ? cleanTxId : undefined,
       paymentStatus: isOnlinePayment ? 'submitted' : 'unpaid',
       status: isOnlinePayment ? 'payment_verification' : 'pending',
       estimatedTime,
@@ -262,6 +281,9 @@ export const createOrder = async (req, res, next) => {
 
     return sendSuccess(res, 201, isOnlinePayment ? 'Payment proof submitted. Order is awaiting verification.' : 'Order created successfully', newOrder);
   } catch (error) {
+    if (error.code === 11000 && (error.keyPattern?.transactionId || (error.message && error.message.includes('transactionId')))) {
+      return sendError(res, 409, 'This Transaction ID has already been submitted. Please enter a valid Transaction ID.');
+    }
     next(error);
   }
 };

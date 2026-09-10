@@ -225,19 +225,37 @@ export const CheckoutPage: React.FC = () => {
 
     const isOnline = paymentMethod === 'online' || (paymentMethod as any) === 'online_easypaisa_jazzcash';
 
-    if (isOnline && !paymentProofFile) {
-      setErrors((prev) => ({
-        ...prev,
-        paymentScreenshot: 'Please upload your payment transfer screenshot to proceed.',
-      }));
-      dispatch(
-        addToast({
-          type: 'error',
-          title: 'Payment Screenshot Required',
-          message: 'Please attach your payment screenshot proof before placing your order.',
-        })
-      );
-      return;
+    if (isOnline) {
+      const cleanTxId = transactionId.trim();
+      if (!cleanTxId) {
+        setErrors((prev) => ({
+          ...prev,
+          transactionId: 'Transaction ID is required.',
+        }));
+        dispatch(
+          addToast({
+            type: 'error',
+            title: 'Transaction ID Required',
+            message: 'Transaction ID is required.',
+          })
+        );
+        return;
+      }
+
+      if (!paymentProofFile) {
+        setErrors((prev) => ({
+          ...prev,
+          paymentScreenshot: 'Payment screenshot is required.',
+        }));
+        dispatch(
+          addToast({
+            type: 'error',
+            title: 'Payment Screenshot Required',
+            message: 'Payment screenshot is required.',
+          })
+        );
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -344,11 +362,29 @@ export const CheckoutPage: React.FC = () => {
       navigate(`/order-success/${finalOrderId}`);
     } catch (err: any) {
       console.error('Failed to place order', err);
+      const isDuplicateTx =
+        err.statusCode === 409 ||
+        err.status === 409 ||
+        err.response?.status === 409 ||
+        err.message?.includes('already been submitted') ||
+        err.response?.data?.message?.includes('already been submitted');
+
+      const errorMessage = isDuplicateTx
+        ? 'This Transaction ID has already been submitted. Please enter a valid Transaction ID.'
+        : (err.response?.data?.message || err.message || 'Unable to process order. Please try again.');
+
+      if (isDuplicateTx) {
+        setErrors((prev) => ({
+          ...prev,
+          transactionId: 'This Transaction ID has already been submitted. Please enter a valid Transaction ID.',
+        }));
+      }
+
       dispatch(
         addToast({
           type: 'error',
-          title: 'Order Failed',
-          message: err.message || 'Unable to process order. Please try again.',
+          title: isDuplicateTx ? 'Duplicate Transaction ID' : 'Order Failed',
+          message: errorMessage,
         })
       );
     } finally {
@@ -1005,18 +1041,36 @@ export const CheckoutPage: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Transaction ID / Ref Optional Field */}
+                  {/* Transaction ID Required Field */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-[#25201D] mb-1">
-                      Transaction ID / Reference Number (Optional)
+                      Transaction ID / Reference Number <span className="text-[#B85C38]">*</span>
                     </label>
                     <input
                       type="text"
                       value={transactionId}
-                      onChange={(e) => setTransactionId(e.target.value)}
-                      placeholder="e.g., TRX-9823412 or 12-digit transaction ID"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
+                      onChange={(e) => {
+                        setTransactionId(e.target.value);
+                        if (errors.transactionId) {
+                          setErrors((prev) => {
+                            const u = { ...prev };
+                            delete u.transactionId;
+                            return u;
+                          });
+                        }
+                      }}
+                      placeholder="e.g., TRX-9823412 or 11-digit TID"
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] border text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none transition-colors ${
+                        errors.transactionId
+                          ? 'border-red-400 bg-red-50/20 focus:border-red-500'
+                          : 'border-[#E8DED6] focus:border-[#B85C38]'
+                      }`}
                     />
+                    {errors.transactionId && (
+                      <span className="text-xs font-semibold text-red-600 mt-1 block">
+                        ⚠️ {errors.transactionId}
+                      </span>
+                    )}
                   </div>
 
                   {/* Process note */}

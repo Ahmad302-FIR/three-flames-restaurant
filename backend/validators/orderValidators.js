@@ -10,5 +10,17 @@ export const createOrderValidation = [
   
   // Conditional checks
   body('deliveryDetails.address').if(body('orderType').equals('delivery')).trim().notEmpty().withMessage('Delivery address is required for delivery orders'),
-  body('deliveryDetails.area').if(body('orderType').equals('delivery')).trim().notEmpty().withMessage('Delivery zone/area is required for delivery orders')
+  body('deliveryDetails.area').if(body('orderType').equals('delivery')).trim().notEmpty().withMessage('Delivery zone/area is required for delivery orders'),
+
+  // Conditional checks for online payment
+  body('transactionId')
+    .if(body('paymentMethod').equals('online'))
+    .trim()
+    .notEmpty()
+    .withMessage('Transaction ID is required.'),
+  body('paymentScreenshot')
+    .if(body('paymentMethod').equals('online'))
+    .trim()
+    .notEmpty()
+    .withMessage('Payment screenshot is required.')
 ];

@@ -214,4 +214,16 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
+// Enforce unique transaction IDs per payment provider for online payments
+orderSchema.index(
+  { paymentProvider: 1, transactionId: 1 },
+  {
+    unique: true,
+    partialFilterExpression: {
+      paymentMethod: 'online',
+      transactionId: { $type: 'string', $gt: '' }
+    }
+  }
+);
+
 export const Order = mongoose.model('Order', orderSchema);

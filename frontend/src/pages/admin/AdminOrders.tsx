@@ -22,6 +22,8 @@ import {
   AlertCircle,
   FileText,
   Image as ImageIcon,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { joinAdminKitchen, onAdminOrderUpdate } from '../../services/socketService';
 
@@ -38,6 +40,15 @@ export const AdminOrdersPage: React.FC = () => {
   const [verifyingAction, setVerifyingAction] = useState<'approve' | 'reject' | null>(null);
   const [rejectReason, setRejectReason] = useState('');
   const [isRejecting, setIsRejecting] = useState(false);
+  const [copiedTxId, setCopiedTxId] = useState<string | null>(null);
+
+  const handleCopyTxId = (txId: string) => {
+    try {
+      navigator.clipboard.writeText(txId);
+      setCopiedTxId(txId);
+      setTimeout(() => setCopiedTxId(null), 2500);
+    } catch {}
+  };
 
   const fetchOrders = async (showLoading = true) => {
     if (showLoading) setLoading(true);
@@ -400,9 +411,29 @@ export const AdminOrdersPage: React.FC = () => {
                   <span className="font-bold text-[#25201D] capitalize">{activeOrder.paymentProvider || 'Online'}</span>
                 </div>
                 {activeOrder.transactionId && (
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span className="text-[#6F6761]">Transaction ID:</span>
-                    <span className="font-mono font-bold text-[#25201D]">{activeOrder.transactionId}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-mono font-bold text-[#25201D]">{activeOrder.transactionId}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTxId(activeOrder.transactionId!)}
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#F1E8DF] hover:bg-[#E5D7C8] text-[#554B45] transition-colors"
+                        title="Copy Transaction ID"
+                      >
+                        {copiedTxId === activeOrder.transactionId ? (
+                          <>
+                            <Check size={11} className="text-emerald-600" />
+                            <span className="text-emerald-700 font-bold">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={11} />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
                   </div>
                 )}
                 {activeOrder.paymentScreenshot && (
@@ -547,9 +578,31 @@ export const AdminOrdersPage: React.FC = () => {
               </div>
               <div>
                 <span className="text-[#6F6761] block text-[10px] uppercase font-semibold">Transaction ID</span>
-                <span className="font-mono font-bold text-[#25201D] text-xs block break-all">
-                  {proofOrder.transactionId || 'None'}
-                </span>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="font-mono font-bold text-[#25201D] text-xs block break-all">
+                    {proofOrder.transactionId || 'None'}
+                  </span>
+                  {proofOrder.transactionId && (
+                    <button
+                      type="button"
+                      onClick={() => handleCopyTxId(proofOrder.transactionId!)}
+                      className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#F1E8DF] hover:bg-[#E5D7C8] text-[#554B45] transition-colors shrink-0"
+                      title="Copy Transaction ID"
+                    >
+                      {copiedTxId === proofOrder.transactionId ? (
+                        <>
+                          <Check size={11} className="text-emerald-600" />
+                          <span className="text-emerald-700 font-bold">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy size={11} />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
