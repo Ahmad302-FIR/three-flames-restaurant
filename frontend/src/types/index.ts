@@ -55,8 +55,10 @@ export interface CartItem {
 }
 
 export type OrderType = 'delivery' | 'pickup' | 'dine-in';
-export type OrderStatus = 'pending' | 'confirmed' | 'preparing' | 'ready' | 'out_for_delivery' | 'delivered' | 'cancelled';
-export type PaymentMethod = 'cash_on_delivery' | 'cash_on_pickup' | 'card_at_counter' | 'online_easypaisa_jazzcash';
+export type OrderStatus = 'pending' | 'pending_payment' | 'payment_verification' | 'confirmed' | 'preparing' | 'ready' | 'out_for_delivery' | 'delivered' | 'cancelled';
+export type PaymentMethod = 'cash_on_delivery' | 'cash_on_pickup' | 'card_at_counter' | 'online' | 'online_easypaisa_jazzcash';
+export type PaymentStatus = 'unpaid' | 'paid' | 'pending' | 'submitted' | 'verified' | 'rejected';
+export type PaymentProvider = 'easypaisa' | 'nayapay' | 'cod' | 'counter';
 
 export interface DeliveryAddress {
   fullName: string;
@@ -86,6 +88,8 @@ export interface DineInDetails {
 
 export interface Order {
   id: string; // e.g. TF-1042
+  _id?: string;
+  orderNumber?: string;
   createdAt: string;
   customer: {
     name: string;
@@ -104,7 +108,11 @@ export interface Order {
   tax: number;
   total: number;
   paymentMethod: PaymentMethod;
-  paymentStatus: 'unpaid' | 'paid';
+  paymentProvider?: PaymentProvider;
+  paymentScreenshot?: string;
+  transactionId?: string;
+  paymentStatus: PaymentStatus;
+  paymentRejectionReason?: string;
   status: OrderStatus;
   estimatedTime: string;
   timeline: {

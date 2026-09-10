@@ -71,6 +71,11 @@ export const OrderSuccessPage: React.FC = () => {
     );
   }
 
+  const isVerificationPending =
+    order?.status === 'payment_verification' ||
+    order?.paymentStatus === 'submitted' ||
+    (order?.paymentMethod === 'online' && order?.paymentStatus !== 'verified');
+
   return (
     <div className="min-h-screen bg-[#FFFDFC] pt-28 pb-20 text-[#25201D]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,24 +83,47 @@ export const OrderSuccessPage: React.FC = () => {
           {/* Subtle Background Flare */}
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-80 bg-[#B85C38]/15 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Success Header Icon */}
+          {/* Header Icon & Status Banner */}
           <div className="relative z-10 flex flex-col items-center">
             <div className="w-20 h-20 rounded-full bg-[#F7F3EE] border-2 border-[#E8DED6] flex items-center justify-center mb-4 shadow-md">
               <img src="/akr-logo.png" alt="AKR" className="h-14 w-auto object-contain" />
             </div>
 
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
-              <CheckCircle2 size={14} />
-              <span>Order Successfully Received</span>
-            </div>
+            {isVerificationPending ? (
+              <>
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider mb-2">
+                  <Clock size={14} className="text-amber-700" />
+                  <span>Payment Verification Pending</span>
+                </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-[#25201D] uppercase tracking-wide">
-              ORDER CONFIRMED!
-            </h1>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-[#25201D] uppercase tracking-wide">
+                  PAYMENT SUBMITTED!
+                </h1>
 
-            <p className="text-xs sm:text-sm text-[#6F6761] max-w-lg mx-auto leading-relaxed">
-              Thank you for dining with Ahmed Khan Restaurant. Our pitmasters have received your ticket and are firing up the charcoal grill!
-            </p>
+                <p className="text-xs sm:text-sm text-[#6F6761] max-w-lg mx-auto leading-relaxed">
+                  Thank you! Your payment proof has been received. Our team will verify your transfer shortly. Your order will be confirmed and sent to the charcoal grill once verified.
+                </p>
+
+                <div className="mt-4 p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 text-xs sm:text-sm text-center leading-relaxed max-w-lg">
+                  ⏳ <strong>Awaiting Verification:</strong> This order is not yet in preparation. Once verified by our manager, your ticket will be confirmed immediately.
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
+                  <CheckCircle2 size={14} />
+                  <span>Order Successfully Received</span>
+                </div>
+
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-heading text-[#25201D] uppercase tracking-wide">
+                  ORDER CONFIRMED!
+                </h1>
+
+                <p className="text-xs sm:text-sm text-[#6F6761] max-w-lg mx-auto leading-relaxed">
+                  Thank you for dining with Ahmed Khan Restaurant. Our pitmasters have received your ticket and are firing up the charcoal grill!
+                </p>
+              </>
+            )}
           </div>
 
           {/* Prominently Featured Order Number Card */}
@@ -156,10 +184,16 @@ export const OrderSuccessPage: React.FC = () => {
 
             <div>
               <span className="text-[10px] uppercase font-bold text-[#6F6761] tracking-wider block">
-                Payment Method
+                Payment Status
               </span>
-              <span className="text-sm font-bold text-[#25201D] capitalize mt-1 block">
-                {order?.paymentMethod.replace(/_/g, ' ') || 'Cash on Delivery'}
+              <span className={`text-sm font-bold capitalize mt-1 block ${
+                isVerificationPending
+                  ? 'text-amber-800'
+                  : 'text-[#25201D]'
+              }`}>
+                {isVerificationPending
+                  ? `Verification Pending (${order?.paymentProvider ? order.paymentProvider.toUpperCase() : 'Online'})`
+                  : (order?.paymentMethod.replace(/_/g, ' ') || 'Cash on Delivery')}
               </span>
             </div>
           </div>

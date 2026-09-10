@@ -6,6 +6,31 @@ import { getNextSequence } from '../models/Counter.js';
 import { sendSuccess, sendError } from '../utils/apiResponse.js';
 import { emitNewOrder } from '../sockets/orderSocket.js';
 import { sendOrderConfirmationEmail } from '../services/emailService.js';
+import { uploadToCloudinary, isCloudinaryConfigured } from '../services/cloudinaryService.js';
+
+export const uploadPaymentProof = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return sendError(res, 400, 'Please provide a valid payment screenshot file.');
+    }
+
+    let proofUrl = '';
+    if (isCloudinaryConfigured()) {
+      try {
+        const uploadResult = await uploadToCloudinary(req.file.buffer, 'three-flames/payment_proofs');
+        proofUrl = uploadResult.secure_url;
+      } catch (err) {
+        proofUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+      }
+    } else {
+      proofUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+    }
+
+    return sendSuccess(res, 200, 'Payment proof uploaded successfully', { url: proofUrl });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const createOrder = async (req, res, next) => {
   try {
@@ -18,11 +43,24 @@ export const createOrder = async (req, res, next) => {
       items,
       couponCode,
       paymentMethod,
+      paymentProvider,
+      paymentScreenshot,
+      transactionId,
       specialInstructions
     } = req.body;
 
     if (!items || !items.length) {
       return sendError(res, 400, 'Cannot place an empty order. Please select at least one dish.');
+    }
+
+    const isOnlinePayment = paymentMethod === 'online';
+    if (isOnlinePayment) {
+      if (!paymentScreenshot || typeof paymentScreenshot !== 'string' || !paymentScreenshot.trim()) {
+        return sendError(res, 400, 'A payment screenshot proof is required for online payment verification.');
+      }
+      if (!paymentProvider || !['easypaisa', 'nayapay'].includes(paymentProvider.toLowerCase())) {
+        return sendError(res, 400, 'Please select a valid payment account (Easypaisa or NayaPay).');
+      }
     }
 
     // 1. Fetch menu items from DB and verify availability & prices
@@ -160,14 +198,29 @@ export const createOrder = async (req, res, next) => {
 
     // 6. Build Initial Timeline
     const currentTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const timeline = [
-      { status: 'pending', title: 'Order Received & Queued', timestamp: currentTimeStr, completed: true, note: 'Order placed by diner' },
-      { status: 'confirmed', title: 'Order Confirmed by Pitmaster', timestamp: '', completed: false },
-      { status: 'preparing', title: 'Grilling on Live Charcoal Flame', timestamp: '', completed: false },
-      { status: 'ready', title: orderType === 'delivery' ? 'Packed in Insulated Thermal Box' : 'Ready for Pickup / Dine-in', timestamp: '', completed: false },
-      { status: 'out_for_delivery', title: orderType === 'delivery' ? 'Out for Delivery (Rider Dispatched)' : 'Serving at Table', timestamp: '', completed: false },
-      { status: 'delivered', title: orderType === 'delivery' ? 'Delivered & Savored' : 'Completed', timestamp: '', completed: false }
-    ];
+    let timeline = [];
+
+    if (isOnlinePayment) {
+      const providerLabel = paymentProvider.toLowerCase() === 'easypaisa' ? 'Easypaisa (03295664981)' : 'NayaPay (03190561694)';
+      timeline = [
+        { status: 'pending', title: 'Order Placed & Queued', timestamp: currentTimeStr, completed: true, note: 'Order placed by customer' },
+        { status: 'payment_verification', title: 'Payment Verification Pending', timestamp: currentTimeStr, completed: true, note: `Payment screenshot submitted via ${providerLabel}. Awaiting restaurant verification.` },
+        { status: 'confirmed', title: 'Order Confirmed by Pitmaster', timestamp: '', completed: false },
+        { status: 'preparing', title: 'Grilling on Live Charcoal Flame', timestamp: '', completed: false },
+        { status: 'ready', title: orderType === 'delivery' ? 'Packed in Insulated Thermal Box' : 'Ready for Pickup / Dine-in', timestamp: '', completed: false },
+        { status: 'out_for_delivery', title: orderType === 'delivery' ? 'Out for Delivery (Rider Dispatched)' : 'Serving at Table', timestamp: '', completed: false },
+        { status: 'delivered', title: orderType === 'delivery' ? 'Delivered & Savored' : 'Completed', timestamp: '', completed: false }
+      ];
+    } else {
+      timeline = [
+        { status: 'pending', title: 'Order Received & Queued', timestamp: currentTimeStr, completed: true, note: 'Order placed by diner' },
+        { status: 'confirmed', title: 'Order Confirmed by Pitmaster', timestamp: '', completed: false },
+        { status: 'preparing', title: 'Grilling on Live Charcoal Flame', timestamp: '', completed: false },
+        { status: 'ready', title: orderType === 'delivery' ? 'Packed in Insulated Thermal Box' : 'Ready for Pickup / Dine-in', timestamp: '', completed: false },
+        { status: 'out_for_delivery', title: orderType === 'delivery' ? 'Out for Delivery (Rider Dispatched)' : 'Serving at Table', timestamp: '', completed: false },
+        { status: 'delivered', title: orderType === 'delivery' ? 'Delivered & Savored' : 'Completed', timestamp: '', completed: false }
+      ];
+    }
 
     const newOrder = await Order.create({
       orderNumber,
@@ -188,20 +241,26 @@ export const createOrder = async (req, res, next) => {
       couponCode: validCouponCode,
       tax: 0,
       total,
-      paymentMethod: paymentMethod || (orderType === 'delivery' ? 'cash_on_delivery' : 'cash_on_pickup'),
-      paymentStatus: 'unpaid',
-      status: 'pending',
+      paymentMethod: isOnlinePayment ? 'online' : (paymentMethod || (orderType === 'delivery' ? 'cash_on_delivery' : 'cash_on_pickup')),
+      paymentProvider: isOnlinePayment ? paymentProvider.toLowerCase() : (paymentMethod === 'cash_on_delivery' ? 'cod' : 'counter'),
+      paymentScreenshot: isOnlinePayment ? paymentScreenshot : undefined,
+      transactionId: isOnlinePayment && transactionId ? transactionId.trim() : undefined,
+      paymentStatus: isOnlinePayment ? 'submitted' : 'unpaid',
+      status: isOnlinePayment ? 'payment_verification' : 'pending',
       estimatedTime,
-      timeline
+      timeline,
+      specialInstructions: specialInstructions || ''
     });
 
     // 7. Emit real-time socket event to Admin kitchen queue
     emitNewOrder(newOrder);
 
-    // 8. Send async confirmation email (non-blocking)
-    sendOrderConfirmationEmail(newOrder).catch(() => {});
+    // 8. Send async confirmation email ONLY for non-online orders (online orders confirmed upon admin verification)
+    if (!isOnlinePayment) {
+      sendOrderConfirmationEmail(newOrder).catch(() => {});
+    }
 
-    return sendSuccess(res, 201, 'Order created successfully', newOrder);
+    return sendSuccess(res, 201, isOnlinePayment ? 'Payment proof submitted. Order is awaiting verification.' : 'Order created successfully', newOrder);
   } catch (error) {
     next(error);
   }
@@ -272,7 +331,7 @@ export const trackOrderByNumber = async (req, res, next) => {
         { orderNumber: rawNumber },
         { orderNumber: prefixedNumber }
       ]
-    }).select('-user -__v');
+    }).select('-user -paymentScreenshot -__v');
 
     if (!order) {
       return sendError(res, 404, `No order found with tracking number #${rawNumber}. Please verify your Order ID.`);

@@ -21,6 +21,7 @@ import {
   Box,
   Compass,
   ArrowRight,
+  ShieldCheck,
 } from 'lucide-react';
 
 import {
@@ -160,41 +161,119 @@ export const OrderTrackingPage: React.FC = () => {
     }, 100);
   };
 
-  // 5-Stage Stepper mapping matching Ahmed Khan Restaurant live order progression
-  const steps: { key: OrderStatus; label: string; icon: React.ReactNode; desc: string }[] = [
-    {
-      key: 'pending',
-      label: 'Order Placed',
-      icon: <Clock size={18} />,
-      desc: 'Received & queued by kitchen dispatcher',
-    },
-    {
-      key: 'preparing',
-      label: 'On Flame Grill',
-      icon: <ChefHat size={18} />,
-      desc: 'Marinated and grilling over red charcoal',
-    },
-    {
-      key: 'ready',
-      label: 'Packed & Sealed',
-      icon: <Box size={18} />,
-      desc: 'Sealed in insulated foil thermal box',
-    },
-    {
-      key: 'out_for_delivery',
-      label: order?.orderType === 'pickup' ? 'Ready for Pickup' : 'Out for Delivery',
-      icon: <Bike size={18} />,
-      desc: order?.orderType === 'pickup' ? 'Waiting at takeaway counter' : 'Rider dispatched on route to you',
-    },
-    {
-      key: 'delivered',
-      label: order?.orderType === 'dine-in' ? 'Served at Table' : 'Delivered & Savored',
-      icon: <PackageCheck size={18} />,
-      desc: 'Enjoy your hot wood-fired Pakistani BBQ!',
-    },
-  ];
+  const isOnlinePayment =
+    order?.paymentMethod === 'online' ||
+    order?.status === 'payment_verification' ||
+    order?.paymentStatus === 'submitted' ||
+    order?.paymentStatus === 'verified' ||
+    order?.paymentStatus === 'rejected';
+
+  const isRejected = order?.paymentStatus === 'rejected';
+
+  // Stepper mapping matching Ahmed Khan Restaurant live order progression
+  const steps: { key: OrderStatus; label: string; icon: React.ReactNode; desc: string }[] = isOnlinePayment
+    ? [
+        {
+          key: 'pending',
+          label: 'Order Placed',
+          icon: <Clock size={18} />,
+          desc: 'Transfer proof submitted by customer',
+        },
+        {
+          key: 'payment_verification',
+          label: isRejected
+            ? 'Payment Rejected'
+            : order?.paymentStatus === 'verified'
+            ? 'Payment Verified'
+            : 'Payment Review',
+          icon: <ShieldCheck size={18} />,
+          desc: isRejected
+            ? (order?.paymentRejectionReason || 'Screenshot rejected')
+            : order?.paymentStatus === 'verified'
+            ? 'Approved & confirmed by management'
+            : 'Manager reviewing transfer screenshot',
+        },
+        {
+          key: 'preparing',
+          label: 'On Flame Grill',
+          icon: <ChefHat size={18} />,
+          desc: 'Marinated and grilling over red charcoal',
+        },
+        {
+          key: 'ready',
+          label: 'Packed & Sealed',
+          icon: <Box size={18} />,
+          desc: 'Sealed in insulated foil thermal box',
+        },
+        {
+          key: 'out_for_delivery',
+          label: order?.orderType === 'pickup' ? 'Ready for Pickup' : 'Out for Delivery',
+          icon: <Bike size={18} />,
+          desc: order?.orderType === 'pickup' ? 'Waiting at takeaway counter' : 'Rider dispatched on route to you',
+        },
+        {
+          key: 'delivered',
+          label: order?.orderType === 'dine-in' ? 'Served at Table' : 'Delivered & Savored',
+          icon: <PackageCheck size={18} />,
+          desc: 'Enjoy your hot wood-fired Pakistani BBQ!',
+        },
+      ]
+    : [
+        {
+          key: 'pending',
+          label: 'Order Placed',
+          icon: <Clock size={18} />,
+          desc: 'Received & queued by kitchen dispatcher',
+        },
+        {
+          key: 'preparing',
+          label: 'On Flame Grill',
+          icon: <ChefHat size={18} />,
+          desc: 'Marinated and grilling over red charcoal',
+        },
+        {
+          key: 'ready',
+          label: 'Packed & Sealed',
+          icon: <Box size={18} />,
+          desc: 'Sealed in insulated foil thermal box',
+        },
+        {
+          key: 'out_for_delivery',
+          label: order?.orderType === 'pickup' ? 'Ready for Pickup' : 'Out for Delivery',
+          icon: <Bike size={18} />,
+          desc: order?.orderType === 'pickup' ? 'Waiting at takeaway counter' : 'Rider dispatched on route to you',
+        },
+        {
+          key: 'delivered',
+          label: order?.orderType === 'dine-in' ? 'Served at Table' : 'Delivered & Savored',
+          icon: <PackageCheck size={18} />,
+          desc: 'Enjoy your hot wood-fired Pakistani BBQ!',
+        },
+      ];
 
   const getStepIndex = (status?: OrderStatus) => {
+    if (isOnlinePayment) {
+      switch (status) {
+        case 'pending_payment':
+          return 0;
+        case 'payment_verification':
+          return 1;
+        case 'pending':
+          return order?.paymentStatus === 'verified' ? 1 : 0;
+        case 'confirmed':
+          return 1;
+        case 'preparing':
+          return 2;
+        case 'ready':
+          return 3;
+        case 'out_for_delivery':
+          return 4;
+        case 'delivered':
+          return 5;
+        default:
+          return 0;
+      }
+    }
     switch (status) {
       case 'pending':
       case 'confirmed':
@@ -318,6 +397,28 @@ export const OrderTrackingPage: React.FC = () => {
                   </span>
                 </div>
               </div>
+
+              {/* Payment Verification Status Notifications */}
+              {isRejected && (
+                <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-900 text-xs sm:text-sm space-y-1">
+                  <div className="font-bold flex items-center gap-2">
+                    <AlertCircle size={16} className="text-red-600" />
+                    Payment Verification Rejected
+                  </div>
+                  <p>{order.paymentRejectionReason || 'The payment screenshot provided could not be verified against our accounts.'}</p>
+                  <p className="text-[11px] text-red-700">Please contact our kitchen desk via phone/WhatsApp to rectify your payment details.</p>
+                </div>
+              )}
+
+              {(order.status === 'payment_verification' || order.paymentStatus === 'submitted') && !isRejected && (
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 text-xs sm:text-sm space-y-1">
+                  <div className="font-bold flex items-center gap-2">
+                    <Clock size={16} className="text-amber-700" />
+                    Awaiting Payment Verification
+                  </div>
+                  <p>Our team is verifying your payment transfer screenshot. Your order will be confirmed and scheduled for grilling once verified.</p>
+                </div>
+              )}
 
               {/* Progress Stepper Visual */}
               <div className="py-4">

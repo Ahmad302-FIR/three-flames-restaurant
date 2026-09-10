@@ -162,17 +162,35 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ['cash_on_delivery', 'cash_on_pickup', 'card_at_counter', 'online_easypaisa_jazzcash', 'stripe'],
+      enum: ['cash_on_delivery', 'cash_on_pickup', 'card_at_counter', 'online', 'online_easypaisa_jazzcash', 'stripe'],
       default: 'cash_on_delivery'
+    },
+    paymentProvider: {
+      type: String,
+      enum: ['easypaisa', 'nayapay', 'cod', 'counter'],
+      default: 'cod'
+    },
+    paymentScreenshot: {
+      type: String,
+      default: ''
+    },
+    transactionId: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    paymentRejectionReason: {
+      type: String,
+      default: ''
     },
     paymentStatus: {
       type: String,
-      enum: ['unpaid', 'paid', 'failed', 'refunded'],
+      enum: ['unpaid', 'paid', 'failed', 'refunded', 'pending', 'submitted', 'verified', 'rejected'],
       default: 'unpaid'
     },
     status: {
       type: String,
-      enum: ['pending', 'confirmed', 'preparing', 'ready', 'out_for_delivery', 'delivered', 'cancelled'],
+      enum: ['pending_payment', 'payment_verification', 'pending', 'confirmed', 'preparing', 'ready', 'out_for_delivery', 'delivered', 'cancelled'],
       default: 'pending',
       index: true
     },

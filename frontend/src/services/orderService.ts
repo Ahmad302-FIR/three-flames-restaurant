@@ -76,6 +76,22 @@ export const orderService = {
     return res.data.data;
   },
 
+  uploadPaymentProof: async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('proof', file);
+    const res = await api.post('/orders/upload-payment-proof', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return res.data.data.url;
+  },
+
+  verifyPayment: async (id: string, action: 'approve' | 'reject', reason?: string): Promise<Order> => {
+    const res = await api.patch(`/admin/orders/${id}/verify-payment`, { action, reason });
+    return res.data.data;
+  },
+
   getCustomerOrders: async (emailOrPhone?: string): Promise<Order[]> => {
     try {
       const res = await api.get('/orders/my-orders');

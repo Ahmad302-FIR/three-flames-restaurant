@@ -5,7 +5,7 @@ import { clearCart, setOrderType } from '../store/slices/cartSlice';
 import { addToast } from '../store/slices/uiSlice';
 import { orderService } from '../services/orderService';
 import { adminService } from '../services/adminService';
-import { DeliveryZone, OrderType, PaymentMethod } from '../types';
+import { DeliveryZone, OrderType, PaymentMethod, PaymentProvider } from '../types';
 import { Button } from '../components/common/Button';
 import { FlameIcon } from '../components/common/FlameIcon';
 import confetti from 'canvas-confetti';
@@ -22,6 +22,11 @@ import {
   ShieldCheck,
   ArrowRight,
   AlertCircle,
+  UploadCloud,
+  Check,
+  Copy,
+  X,
+  Smartphone,
 } from 'lucide-react';
 
 export const CheckoutPage: React.FC = () => {
@@ -74,6 +79,70 @@ export const CheckoutPage: React.FC = () => {
 
   // Payment
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash_on_delivery');
+  const [paymentProvider, setPaymentProvider] = useState<PaymentProvider>('easypaisa');
+  const [paymentProofFile, setPaymentProofFile] = useState<File | null>(null);
+  const [paymentProofPreview, setPaymentProofPreview] = useState<string | null>(null);
+  const [transactionId, setTransactionId] = useState('');
+  const [copiedNumber, setCopiedNumber] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleCopyNumber = (num: string) => {
+    try {
+      navigator.clipboard.writeText(num);
+      setCopiedNumber(num);
+      setTimeout(() => setCopiedNumber(null), 2500);
+    } catch {
+      // clipboard fallback
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Invalid File Format',
+          message: 'Please upload a JPG, PNG, or WEBP image screenshot.',
+        })
+      );
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'File Too Large',
+          message: 'Payment screenshot must be under 5MB.',
+        })
+      );
+      return;
+    }
+
+    setPaymentProofFile(file);
+    const previewUrl = URL.createObjectURL(file);
+    setPaymentProofPreview(previewUrl);
+    setErrors((prev) => {
+      const u = { ...prev };
+      delete u.paymentScreenshot;
+      return u;
+    });
+  };
+
+  const handleRemoveScreenshot = () => {
+    setPaymentProofFile(null);
+    if (paymentProofPreview) {
+      URL.revokeObjectURL(paymentProofPreview);
+    }
+    setPaymentProofPreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
     const loadZones = async () => {
@@ -154,9 +223,31 @@ export const CheckoutPage: React.FC = () => {
       return;
     }
 
+    const isOnline = paymentMethod === 'online' || (paymentMethod as any) === 'online_easypaisa_jazzcash';
+
+    if (isOnline && !paymentProofFile) {
+      setErrors((prev) => ({
+        ...prev,
+        paymentScreenshot: 'Please upload your payment transfer screenshot to proceed.',
+      }));
+      dispatch(
+        addToast({
+          type: 'error',
+          title: 'Payment Screenshot Required',
+          message: 'Please attach your payment screenshot proof before placing your order.',
+        })
+      );
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      let uploadedScreenshotUrl = '';
+      if (isOnline && paymentProofFile) {
+        uploadedScreenshotUrl = await orderService.uploadPaymentProof(paymentProofFile);
+      }
+
       const order = await orderService.createOrder({
         customer: {
           name: fullName.trim(),
@@ -203,8 +294,11 @@ export const CheckoutPage: React.FC = () => {
         couponCode: appliedCoupon?.code,
         tax: 0,
         total: grandTotal,
-        paymentMethod,
-        paymentStatus: 'unpaid',
+        paymentMethod: isOnline ? 'online' : paymentMethod,
+        paymentProvider: isOnline ? paymentProvider : (paymentMethod === 'cash_on_delivery' ? 'cod' : 'counter'),
+        paymentScreenshot: isOnline ? uploadedScreenshotUrl : undefined,
+        transactionId: isOnline && transactionId.trim() ? transactionId.trim() : undefined,
+        paymentStatus: isOnline ? 'submitted' : 'unpaid',
         estimatedTime:
           orderType === 'delivery'
             ? selectedZone?.estimatedMinutes || '35-45 mins'
@@ -214,27 +308,40 @@ export const CheckoutPage: React.FC = () => {
       // Clear cart
       dispatch(clearCart());
 
-      // Trigger Confetti
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#B85C38', '#B85C38', '#B85C38', '#25201D'],
-        });
-      } catch (err) {
-        // Safe fallback if confetti canvas fails
+      const finalOrderId = order.orderNumber || order.id;
+
+      if (isOnline) {
+        // DO NOT fire confetti for unverified online orders
+        dispatch(
+          addToast({
+            type: 'info',
+            title: 'Payment Verification Pending ⏳',
+            message: `Order #${finalOrderId} queued. Our team will verify your payment shortly to confirm your order.`,
+          })
+        );
+      } else {
+        // Trigger Confetti for COD
+        try {
+          confetti({
+            particleCount: 80,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#B85C38', '#B85C38', '#B85C38', '#25201D'],
+          });
+        } catch (err) {
+          // Safe fallback if confetti canvas fails
+        }
+
+        dispatch(
+          addToast({
+            type: 'success',
+            title: 'Order Placed Successfully! 🔥',
+            message: `Order #${finalOrderId} is confirmed. Estimated time: ${order.estimatedTime}`,
+          })
+        );
       }
 
-      dispatch(
-        addToast({
-          type: 'success',
-          title: 'Order Placed Successfully! 🔥',
-          message: `Order #${order.id} is confirmed. Estimated time: ${order.estimatedTime}`,
-        })
-      );
-
-      navigate(`/order-success/${order.id}`);
+      navigate(`/order-success/${finalOrderId}`);
     } catch (err: any) {
       console.error('Failed to place order', err);
       dispatch(
@@ -696,33 +803,228 @@ export const CheckoutPage: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={() => setPaymentMethod('online_easypaisa_jazzcash')}
+                  onClick={() => setPaymentMethod('online')}
                   className={`p-4 rounded-xl border text-left flex items-center justify-between transition-all ${
-                    paymentMethod === 'online_easypaisa_jazzcash'
-                      ? 'bg-[#F7F3EE] border-[#E8DED6] shadow-lg shadow-[#B85C38]/15'
+                    paymentMethod === 'online'
+                      ? 'bg-[#F7F3EE] border-[#B85C38] shadow-lg shadow-[#B85C38]/15'
                       : 'bg-[#F7F3EE]/50 border-[#E8DED6]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <CreditCard className="text-[#B85C38]" size={24} />
+                    <Smartphone className="text-[#B85C38]" size={24} />
                     <div>
                       <span className="text-xs font-bold text-[#25201D] block">
-                        JazzCash / EasyPaisa / Bank
+                        Online Payment (Easypaisa / NayaPay)
                       </span>
-                      <span className="text-[11px] text-[#6F6761]">Pay via mobile account</span>
+                      <span className="text-[11px] text-[#6F6761]">Direct transfer & upload screenshot</span>
                     </div>
                   </div>
                   <span
                     className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      paymentMethod === 'online_easypaisa_jazzcash'
-                        ? 'bg-[#B85C38] border-[#E8DED6]'
+                      paymentMethod === 'online'
+                        ? 'bg-[#B85C38] border-[#B85C38]'
                         : 'border-[#E8DED6]'
                     }`}
                   >
-                    {paymentMethod === 'online_easypaisa_jazzcash' && <span className="w-1.5 h-1.5 rounded-full bg-black" />}
+                    {paymentMethod === 'online' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
                   </span>
                 </button>
               </div>
+
+              {/* Online Payment Detailed Verification Section */}
+              {paymentMethod === 'online' && (
+                <div className="mt-4 p-5 rounded-2xl bg-[#F7F3EE] border border-[#B85C38]/40 space-y-4">
+                  <div className="flex items-start gap-2.5 pb-3 border-b border-[#E8DED6]">
+                    <ShieldCheck size={20} className="text-[#B85C38] shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#25201D]">
+                        Manual Online Payment Verification
+                      </h4>
+                      <p className="text-[11px] text-[#6F6761] mt-0.5">
+                        Please send the exact order total of <strong className="text-[#B85C38]">Rs. {grandTotal.toLocaleString()}</strong> to either account below, then upload your transaction screenshot.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Account Options */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Easypaisa */}
+                    <div
+                      onClick={() => setPaymentProvider('easypaisa')}
+                      className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                        paymentProvider === 'easypaisa'
+                          ? 'bg-[#FFFFFF] border-[#B85C38] shadow-md ring-1 ring-[#B85C38]'
+                          : 'bg-[#FFFFFF]/70 border-[#E8DED6] hover:border-[#B85C38]/40'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                          <span className="text-xs font-bold text-[#25201D]">Easypaisa</span>
+                        </div>
+                        <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          Active
+                        </span>
+                      </div>
+                      <div className="text-base font-black font-heading text-[#25201D] tracking-wide mb-1">
+                        03295664981
+                      </div>
+                      <div className="text-[11px] text-[#6F6761] mb-2.5">
+                        Title: <strong className="text-[#25201D]">Muhammad Ahmed</strong>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopyNumber('03295664981');
+                        }}
+                        className="w-full py-1.5 px-2.5 rounded-lg bg-[#F7F3EE] hover:bg-[#B85C38]/15 border border-[#E8DED6] text-[11px] font-semibold text-[#25201D] flex items-center justify-center gap-1.5 transition-colors"
+                      >
+                        {copiedNumber === '03295664981' ? (
+                          <>
+                            <Check size={13} className="text-emerald-600" />
+                            <span className="text-emerald-700 font-bold">Number Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={13} className="text-[#B85C38]" />
+                            <span>Copy Easypaisa Number</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* NayaPay */}
+                    <div
+                      onClick={() => setPaymentProvider('nayapay')}
+                      className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                        paymentProvider === 'nayapay'
+                          ? 'bg-[#FFFFFF] border-[#B85C38] shadow-md ring-1 ring-[#B85C38]'
+                          : 'bg-[#FFFFFF]/70 border-[#E8DED6] hover:border-[#B85C38]/40'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                          <span className="text-xs font-bold text-[#25201D]">NayaPay</span>
+                        </div>
+                        <span className="text-[10px] uppercase font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                          Active
+                        </span>
+                      </div>
+                      <div className="text-base font-black font-heading text-[#25201D] tracking-wide mb-1">
+                        03190561694
+                      </div>
+                      <div className="text-[11px] text-[#6F6761] mb-2.5">
+                        Title: <strong className="text-[#25201D]">Muhammad Ahmed</strong>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopyNumber('03190561694');
+                        }}
+                        className="w-full py-1.5 px-2.5 rounded-lg bg-[#F7F3EE] hover:bg-[#B85C38]/15 border border-[#E8DED6] text-[11px] font-semibold text-[#25201D] flex items-center justify-center gap-1.5 transition-colors"
+                      >
+                        {copiedNumber === '03190561694' ? (
+                          <>
+                            <Check size={13} className="text-emerald-600" />
+                            <span className="text-emerald-700 font-bold">Number Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={13} className="text-[#B85C38]" />
+                            <span>Copy NayaPay Number</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Payment Screenshot Upload Box */}
+                  <div className="pt-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#25201D] mb-1.5">
+                      Upload Payment Screenshot <span className="text-[#B85C38]">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept="image/jpeg,image/png,image/webp,image/jpg"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+
+                    {!paymentProofPreview ? (
+                      <div
+                        onClick={() => fileInputRef.current?.click()}
+                        className={`p-6 rounded-2xl border-2 border-dashed text-center cursor-pointer transition-all bg-[#FFFFFF] hover:bg-[#F7F3EE] ${
+                          errors.paymentScreenshot
+                            ? 'border-red-400 bg-red-50/20'
+                            : 'border-[#E8DED6] hover:border-[#B85C38]'
+                        }`}
+                      >
+                        <UploadCloud size={28} className="text-[#B85C38] mx-auto mb-2" />
+                        <span className="text-xs font-bold text-[#25201D] block">
+                          Click to select payment transfer screenshot
+                        </span>
+                        <span className="text-[11px] text-[#6F6761] mt-0.5 block">
+                          PNG, JPG, or WEBP up to 5MB
+                        </span>
+                        {errors.paymentScreenshot && (
+                          <span className="text-xs font-semibold text-red-600 mt-2 block">
+                            ⚠️ {errors.paymentScreenshot}
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#E8DED6] flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={paymentProofPreview}
+                            alt="Payment Proof"
+                            className="w-14 h-14 rounded-xl object-cover border border-[#E8DED6]"
+                          />
+                          <div>
+                            <span className="text-xs font-bold text-[#25201D] flex items-center gap-1">
+                              <Check size={14} className="text-emerald-600" /> Screenshot Attached
+                            </span>
+                            <span className="text-[11px] text-[#6F6761] block truncate max-w-[200px]">
+                              {paymentProofFile?.name || 'receipt.jpg'} ({(paymentProofFile?.size ? (paymentProofFile.size / 1024).toFixed(0) : '0')} KB)
+                            </span>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleRemoveScreenshot}
+                          className="p-2 rounded-lg bg-[#F7F3EE] hover:bg-red-50 text-[#6F6761] hover:text-red-600 transition-colors"
+                          title="Remove screenshot"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Transaction ID / Ref Optional Field */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#25201D] mb-1">
+                      Transaction ID / Reference Number (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      value={transactionId}
+                      onChange={(e) => setTransactionId(e.target.value)}
+                      placeholder="e.g., TRX-9823412 or 12-digit transaction ID"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFFFFF] border border-[#E8DED6] text-xs text-[#25201D] placeholder-[#6F6761]/60 focus:outline-none focus:border-[#B85C38]"
+                    />
+                  </div>
+
+                  {/* Process note */}
+                  <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-relaxed">
+                    <strong>Note:</strong> Online payment orders are manually verified by our front desk. Your order will be officially confirmed and sent to the pitmaster grill once your payment proof is verified.
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -794,9 +1096,9 @@ export const CheckoutPage: React.FC = () => {
                 size="lg"
                 fullWidth
                 isLoading={isSubmitting}
-                leftIcon={<FlameIcon size={18} glow={false} />}
+                leftIcon={paymentMethod === 'online' ? <ShieldCheck size={18} /> : <FlameIcon size={18} glow={false} />}
               >
-                🔥 PLACE ORDER NOW
+                {paymentMethod === 'online' ? 'SUBMIT PAYMENT PROOF & ORDER' : '🔥 PLACE ORDER NOW'}
               </Button>
 
               <p className="text-[11px] text-[#6F6761] text-center pt-2">
