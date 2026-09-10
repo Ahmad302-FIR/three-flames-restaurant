@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../store/store';
 import { FlameIcon } from '../common/FlameIcon';
 import { restaurantInfo } from '../../data/restaurantData';
 import {
@@ -11,12 +10,10 @@ import {
   Instagram,
   Facebook,
   ChevronRight,
-  ShieldCheck,
   Award,
 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
-  const user = useAppSelector((state) => state.auth.user);
   return (
     <footer className="relative bg-[#25201D] border-t border-[#E8DED6] pt-16 pb-24 md:pb-16 text-[#B8ADA4] overflow-hidden">
       {/* Background subtle ambient warmth */}
@@ -163,17 +160,6 @@ export const Footer: React.FC = () => {
                 <span className="text-[#FFFDFC] font-medium">{restaurantInfo.openingHours.saturday_sunday}</span>
               </div>
             </div>
-            {user && (user.role === 'admin' || user.role === 'superadmin') && (
-              <div className="pt-1">
-                <Link
-                  to="/admin"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#B85C38] hover:underline transition-colors font-semibold"
-                >
-                  <ShieldCheck size={14} />
-                  <span>Restaurant Management Portal</span>
-                </Link>
-              </div>
-            )}
           </div>
         </div>
 
@@ -185,9 +171,6 @@ export const Footer: React.FC = () => {
             <Link to="/menu" className="hover:text-[#FFFDFC] transition-colors">Order Online</Link>
             <Link to="/track-order" className="hover:text-[#B85C38] transition-colors">Track Order</Link>
             <Link to="/contact" className="hover:text-[#FFFDFC] transition-colors">Get Directions</Link>
-            <Link to="/login" className="hover:text-[#B85C38] transition-colors text-[#B8ADA4]">
-              Staff / Admin Login
-            </Link>
           </div>
         </div>
       </div>
