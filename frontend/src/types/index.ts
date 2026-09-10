@@ -211,3 +211,17 @@ export interface ToastMessage {
   message: string;
   duration?: number;
 }
+
+export interface ContactMessage {
+  id: string;
+  _id?: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+  updatedAt?: string;
+}
+

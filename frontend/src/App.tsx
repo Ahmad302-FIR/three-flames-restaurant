@@ -33,6 +33,7 @@ import { AdminDashboardPage } from './pages/admin/AdminDashboard';
 import { AdminOrdersPage } from './pages/admin/AdminOrders';
 import { AdminMenuPage } from './pages/admin/AdminMenu';
 import { AdminReservationsPage } from './pages/admin/AdminReservations';
+import { AdminMessagesPage } from './pages/admin/AdminMessages';
 import { AdminDeliveryZonesPage } from './pages/admin/AdminDeliveryZones';
 import { AdminOffersPage } from './pages/admin/AdminOffers';
 import { AdminAnalyticsPage } from './pages/admin/AdminAnalytics';
@@ -159,6 +160,7 @@ const AppContent: React.FC = () => {
             <Route path="menu" element={<AdminMenuPage />} />
             <Route path="categories" element={<AdminCategoriesPage />} />
             <Route path="reservations" element={<AdminReservationsPage />} />
+            <Route path="messages" element={<AdminMessagesPage />} />
             <Route path="reviews" element={<AdminReviewsPage />} />
             <Route path="gallery" element={<AdminGalleryPage />} />
             <Route path="offers" element={<AdminOffersPage />} />

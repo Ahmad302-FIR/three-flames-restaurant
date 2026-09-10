@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { logoutUser } from '../../store/slices/authSlice';
+import { contactService } from '../../services/contactService';
 import { FlameIcon } from '../common/FlameIcon';
 import {
   LayoutDashboard,
   ShoppingBag,
   UtensilsCrossed,
   Calendar,
+  Mail,
   MapPin,
   Tag,
   BarChart3,
@@ -33,6 +35,7 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
   const adminUser = useAppSelector((state) => state.auth.adminUser);
   const isAdminAuthenticated = useAppSelector((state) => state.auth.isAdminAuthenticated);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [unreadInquiries, setUnreadInquiries] = useState(0);
 
   // Check if admin is authenticated with real backend token and authorized role
   const token = typeof window !== 'undefined' ? localStorage.getItem('tf_token_v1') : null;
@@ -49,6 +52,18 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
   const isRoleAuthorized = Boolean(cachedRole && ['admin', 'superadmin', 'staff'].includes(cachedRole));
   const isAuthorized = Boolean(token && isRoleAuthorized);
 
+  useEffect(() => {
+    if (isAuthorized) {
+      contactService
+        .getAdminContactMessages()
+        .then((msgs) => {
+          const unread = msgs.filter((m) => !m.isRead).length;
+          setUnreadInquiries(unread);
+        })
+        .catch(() => {});
+    }
+  }, [isAuthorized, location.pathname]);
+
   if (!token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
@@ -61,6 +76,12 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
     { label: 'Dashboard', path: '/admin', icon: <LayoutDashboard size={18} /> },
     { label: 'Orders', path: '/admin/orders', icon: <ShoppingBag size={18} /> },
     { label: 'Reservations', path: '/admin/reservations', icon: <Calendar size={18} /> },
+    {
+      label: 'Customer Inquiries',
+      path: '/admin/messages',
+      icon: <Mail size={18} />,
+      badge: unreadInquiries > 0 ? unreadInquiries : undefined,
+    },
     { label: 'Menu Catalog', path: '/admin/menu', icon: <UtensilsCrossed size={18} /> },
     { label: 'Categories', path: '/admin/categories', icon: <FolderTree size={18} /> },
     { label: 'Reviews', path: '/admin/reviews', icon: <MessageSquare size={18} /> },
@@ -104,14 +125,21 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition-all ${
                     isActive
                       ? 'bg-[#F3E4DC] text-[#B85C38] border border-[#B85C38]/30 shadow-sm'
                       : 'text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]'
                   }`}
                 >
-                  {item.icon}
-                  <span>{item.label}</span>
+                  <div className="flex items-center gap-3">
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                  {item.badge !== undefined && (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-[#B85C38] text-white shadow-sm">
+                      {item.badge}
+                    </span>
+                  )}
                 </Link>
               );
             })}
@@ -217,10 +245,17 @@ export const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({ children
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMobileNavOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]"
+                    className="flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold text-[#6F6761] hover:text-[#25201D] hover:bg-[#F7F3EE]"
                   >
-                    {item.icon}
-                    <span>{item.label}</span>
+                    <div className="flex items-center gap-3">
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </div>
+                    {item.badge !== undefined && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-[#B85C38] text-white shadow-sm">
+                        {item.badge}
+                      </span>
+                    )}
                   </Link>
                 ))}
               </nav>
