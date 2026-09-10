@@ -6,13 +6,11 @@ import { toggleMobileMenu, setCartDrawerOpen } from '../../store/slices/uiSlice'
 import {
   ShoppingCart,
   Phone,
-  User,
   Utensils,
   Menu as MenuIcon,
   X,
   ChevronRight,
   CalendarCheck,
-  ShieldCheck,
 } from 'lucide-react';
 import { restaurantInfo } from '../../data/restaurantData';
 
@@ -37,7 +35,6 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const cartItems = useAppSelector((state) => state.cart.items);
   const isMobileMenuOpen = useAppSelector((state) => state.ui.isMobileMenuOpen);
-  const user = useAppSelector((state) => state.auth.user);
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -150,17 +147,7 @@ export const Navbar: React.FC = () => {
               )}
             </button>
 
-            {/* 4. Rounded Pill Admin Portal Action */}
-            <Link
-              to={user && (user.role === 'admin' || user.role === 'superadmin') ? '/admin' : '/login'}
-              className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFDFC] border border-[#B85C38]/50 hover:border-[#B85C38] text-xs font-semibold text-[#25201D] hover:text-[#B85C38] hover:bg-[#F3E4DC]/40 transition-all shrink-0 shadow-sm"
-              title="Admin Portal"
-            >
-              <User size={13} className="text-[#25201D]" />
-              <span>Admin Portal</span>
-            </Link>
-
-            {/* 5. Terracotta Order Now CTA Pill */}
+            {/* 4. Terracotta Order Now CTA Pill */}
             <button
               type="button"
               onClick={() => navigate('/menu')}
@@ -281,26 +268,6 @@ export const Navbar: React.FC = () => {
               <p className="text-[11px] leading-relaxed text-[#6F6761]/90">
                 {restaurantInfo.address}
               </p>
-              <div className="pt-2 flex items-center justify-between text-[11px]">
-                {user && (user.role === 'admin' || user.role === 'superadmin') ? (
-                  <Link
-                    to="/admin"
-                    onClick={() => dispatch(toggleMobileMenu())}
-                    className="text-[#B85C38] font-semibold hover:underline flex items-center gap-1.5"
-                  >
-                    <ShieldCheck size={14} />
-                    <span>Admin Portal</span>
-                  </Link>
-                ) : (
-                  <Link
-                    to="/login"
-                    onClick={() => dispatch(toggleMobileMenu())}
-                    className="text-[#6F6761] hover:text-[#B85C38]"
-                  >
-                    Staff Login
-                  </Link>
-                )}
-              </div>
             </div>
           </div>
         </div>
